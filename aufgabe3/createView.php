@@ -16,7 +16,7 @@
 				<label for="title">Titel</label>
 				<textarea class="row-fluid title" type="text" rows="1" name="title"></textarea>
 				<label>Beschreibung</label>
-				<textarea class="row-fluid" rows="3" name="description"></textarea><br>		
+				<textarea class="row-fluid" rows="3" name="text"></textarea><br>		
 				<button type="submit" class="btn btn-primary">Speichern</button>
 			</form>
 		</div>

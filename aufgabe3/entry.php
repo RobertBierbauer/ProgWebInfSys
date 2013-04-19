@@ -4,13 +4,13 @@ class Entry{
 	
 	private $id;
 	private $title;
-	private $description;
+	private $text;
 	
 
 	public function __construct($id, $t, $d){
 		$this->id = $id;
 		$this->title = $t;
-		$this->description = $d;
+		$this->text = $d;
 	}
 	
 	public function getId(){
@@ -21,18 +21,18 @@ class Entry{
 		return $this->title;
 	}
 	
-	public function getDescriptionFormat(){
-		return $this->parseText($this->description);
+	public function getTextFormat(){
+		return $this->parseText($this->text);
 	}
 	
-	public function getDescription(){
-		return $this->description;
+	public function getText(){
+		return $this->text;
 	}
 	
 	public function __toString(){
 		return "<html>".
 					"<h3>Titel: ".$this->title."</h3>".
-					"<p>Beschreibung: ".$this->parseText($this->description)."</p>".
+					"<p>Beschreibung: ".$this->parseText($this->text)."</p>".
 					"<a href='wiki.php?title=".$this->title."' class='btn btn-small btn-danger'>Anzeigen</a>".
 				"</html>";
 	}
@@ -46,9 +46,8 @@ class Entry{
 		$text2 = preg_replace("/---(.*?)---/","<h4>\\1</h4>",$text);
 		
 		//search links
-		//$text3 = preg_replace_callback("/\[\[(.*?)\]\]/","getIdByTitle",$text2);
-		//$text3 =  preg_replace("/\[\[(.*?)\]\]/", "<a href=\"show.php?id=' . getIdByTitle('\\1') . '\">\\1</a>" , $text2);
-		$text3 = preg_replace("/\[\[(.*?)\]\]/e", '"<a href=show.php?id=".getIdByTitle("$1").">$1</a>"', $text);
+		$db = new DatabaseConnect();
+		$text3 = preg_replace("/\[\[(.*?)\]\]/e", '"<a href=show.php?id=".$db->getIdByTitle("$1").">$1</a>"', $text);
 		return $text3;
 	}
 

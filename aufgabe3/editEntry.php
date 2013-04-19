@@ -1,6 +1,4 @@
 <?php
-
-require_once('wiki.php');
 require_once('entry.php');
 
 include 'databaseConnect.php';
@@ -17,9 +15,9 @@ if(isset($_GET['error'])){
 		$error = '<div class="alert">'.
 				'<strong>Fehler!</strong><br>Titel eingeben.'.
 				'</div>';
-	}elseif($_GET['error'] === 'description'){
+	}elseif($_GET['error'] === 'text'){
 		$error = '<div class="alert">'.
-				'<strong>Fehler!</strong><br>Beschreibung eingeben.'.
+				'<strong>Fehler!</strong><br>Text eingeben.'.
 				'</div>';
 	}elseif($_GET['error'] === 'unique'){
 		$error = '<div class="alert">'.
@@ -30,10 +28,8 @@ if(isset($_GET['error'])){
 
 if(isset($_GET['id'])) {
 	$id = $_GET['id'];
-	$res = $mysqli->query("SELECT * FROM entries WHERE id=$id");
-	$row = $res->fetch_assoc();
-	$title = $row['title'];
-	$description = $row['description'];
+	$db = new DatabaseConnect();
+	$entryEdit = $db->getEntry($id);
 }
 
 include 'editEntryView.php';

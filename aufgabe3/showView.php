@@ -10,15 +10,15 @@
 		<?php include "../navbar.html";?>
 		<?php include 'entries.php';?>		
 		<div class="span8">
-			<legend><?php echo $title;?></legend>
-			<p><?php echo $description;?></p>
+			<legend><?php echo $entryShow->getTitle();?></legend>
+			<p><?php echo $entryShow->getTextFormat();?></p>
 			<div class="row-fluid">
 			<div class="span1">
-				<a class='btn btn-primary' href='editEntry.php?id=<?php echo $id ?>'>Bearbeiten</a>
+				<a class='btn btn-primary' href='editEntry.php?id=<?php echo $entryShow->getId() ?>'>Bearbeiten</a>
 			</div>
 			<div class="span1">
 				<form action="wikiDelete.php" method="POST">
-					<input type="hidden" name="id" value=<?php echo $id ?>>
+					<input type="hidden" name="id" value=<?php echo $entryShow->getId() ?>>
 					<button type="submit" class="btn btn-danger">L&ouml;schen</button>
 				</form>
 			</div>

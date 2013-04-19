@@ -13,11 +13,11 @@
 			<?php echo $error;?>
 			<legend>Eintrag erstellen und bearbeiten</legend>			
 			<form action="wikiUpdate.php" method="POST">
-				<input type="hidden" name="id" value=<?php echo $id ?>>
+				<input type="hidden" name="id" value=<?php echo $entryEdit->getId();?>>
 				<label for="title">Titel</label>
-				<textarea class="row-fluid title" type="text" rows="1" name="title"><?php echo $title?></textarea>
+				<textarea class="row-fluid title" type="text" rows="1" name="title"><?php echo $entryEdit->getTitle();?></textarea>
 				<label>Beschreibung</label>
-				<textarea class="row-fluid" rows="3" name="description"><?php echo $description?></textarea><br>		
+				<textarea class="row-fluid" rows="3" name="text"><?php echo $entryEdit->getText();?></textarea><br>		
 				<button type="submit" class="btn btn-primary">Speichern</button>
 			</form>
 		</div>

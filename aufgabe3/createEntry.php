@@ -11,9 +11,9 @@ if(isset($_GET['error'])){
 		$error = '<div class="alert">'.
 				 	'<strong>Fehler!</strong><br>Titel eingeben.'.
 				 '</div>';
-	}elseif($_GET['error'] === 'description'){
+	}elseif($_GET['error'] === 'text'){
 		$error = '<div class="alert">'.
-				 	'<strong>Fehler!</strong><br>Beschreibung eingeben.'.
+				 	'<strong>Fehler!</strong><br>Text eingeben.'.
 				 '</div>';
 	}elseif($_GET['error'] === 'unique'){
 		$error = '<div class="alert">'.
