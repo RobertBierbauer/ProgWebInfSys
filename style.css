@@ -1,0 +1,79 @@
+@CHARSET "ISO-8859-1";
+
+* {
+	margin:0;
+    padding:0;
+}
+
+
+html, body {
+	background-color: #f0f0f0;
+	margin: 0;
+	padding: 0;
+	height: 100%; /* WICHTIG!!! STRECKT ANZEIGENBEREICH AUF 100% */
+}
+
+#wrapper {
+	padding-top: 0;
+	background-color: #FFFFFF;
+	width: 80%;
+	margin: auto; /* Div soll zentriert werden */
+	min-height: 100%; /* Mindesthöhe für moderne Browser */
+	height:auto !important; /* Important Regel für moderne Browser */
+	height:100%; /* Mindesthöhe für den IE */
+	overflow: hidden !important; /* FF Scroll-leiste */
+}
+
+#head {
+	top: 0;
+	height: 80px;
+	text-align: center;
+	background:-moz-linear-gradient(bottom,#b3b3b3,#f1f1f1); /* Firefox */
+    background:-webkit-gradient(linear,left top,left bottom,from(#b3b3b3),to(#f1f1f1)); /* Chrome, Safari */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3b3b3',endColorstr='#f1f1f1'); /* Internet Explorer */
+}
+
+#nav {
+	margin-top: 20px;
+  	text-align: left; /* rechtsbündig */
+  	color: black;
+  	padding: 5px 10px 4px 10px;
+  	border-bottom: 1px solid #8c8c8c;
+}
+
+#nav li {
+  	display: inline; /* li nebeneinander anzeigen */
+  	list-style-type: none; /* ohne Aufzählungspunkte */
+}
+
+#nav a {	
+  	color: black;
+  	padding: 4px 8px 4px 8px;
+  	background-color: #e6e6e6;
+}
+
+#home #nav01 a,
+#tasks #nav02 a,
+#info #nav03 a{
+  	color: black;
+  	background-color: white;
+  	border-bottom-color: white;
+}
+
+#text{
+	margin: 10px 10px 4px 10px;
+}
+
+div#footer {
+  	position: fixed;
+ 	bottom: 0;
+  	width: 80%;
+  	padding-top: 10px; /* unterhalb Rahmenlinie */
+ 	border-top: 1px solid #8c8c8c; /* Linie oben */
+  	margin-top: 20px; /* oberhalb Linie */
+  	text-align: center;
+  	background:-moz-linear-gradient(bottom,#b3b3b3,#f1f1f1); /* Firefox */
+  	background:-webkit-gradient(linear,left top,left bottom,from(#b3b3b3),to(#f1f1f1)); /* Chrome, Safari */
+  	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3b3b3',endColorstr='#f1f1f1'); /* Internet Explorer */
+  
+}
