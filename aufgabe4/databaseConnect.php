@@ -8,7 +8,7 @@ class DatabaseConnect{
 	
 	public function __construct(){
 		if(!isset($this->mysqli)){
-			$this->mysqli = new mysqli("localhost", "root", "new-password", "wiki2");
+			$this->mysqli = new mysqli("localhost", "root", "pass", "wiki2");
 			if ($this->mysqli->connect_errno) {
 				echo "Failed to connect to MySQL: " . $this->mysqli->connect_error;
 			}
@@ -27,6 +27,19 @@ class DatabaseConnect{
 			header( 'Location: createEntry.php?error=unique') ;
 		}
 	}
+	
+	public function insertEntryWithoutLink($title, $text){
+		if(mysqli_query($this->mysqli,"INSERT INTO entries(id, title, text) VALUES (NULL, '$title','$text')") === true){
+			$res = mysqli_query($this->mysqli, "SELECT id FROM entries WHERE title='$title'");
+			$row = $res->fetch_assoc();
+			$id = $row['id'];
+			return "success";
+		}
+		else{
+			return "error";
+		}
+	}
+	
 	
 	public function getNumberEntries(){
 		$res = mysqli_query($this->mysqli, "SELECT COUNT(*) as number FROM entries");
@@ -94,6 +107,17 @@ class DatabaseConnect{
 		$row = $res->fetch_assoc();
 		$number = $row['number'];
 		return $number;
+	}
+	
+	public function getRandomFromDatabase($limit){
+		$found = array();
+		$res = mysqli_query($this->mysqli, "SELECT * , id * RAND( ) FROM entries ORDER BY id * RAND( )  LIMIT $limit");
+		while($row = $res->fetch_assoc()){
+			$random_title = $row['title'];
+			//create the new entry
+			array_push($found, $random_title);
+		}
+		return $found;
 	}
 	
 	public function searchEntry($search, $start, $end){

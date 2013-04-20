@@ -13,6 +13,7 @@
 			    </form>
 		    </div>
 		    <li><a href="entries.php">Alle Eintr&auml;ge anzeigen</a></li>
+		    <li><a href="generator.php">Zuf&auml;llige Eintr&auml;ge generieren</a></li>
 		</ul>
 	</div>
 </div>
