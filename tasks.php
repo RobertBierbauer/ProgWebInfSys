@@ -16,23 +16,32 @@
 		</ul>
 		<h3>Aufgabe2</h3>
 		<ul>
-			
+			<li>Wiki erstellen mittels Session</li>
 		</ul>	
 		<a href="aufgabe2/createEditEntry.php">Wiki</a>
 		<h3>Aufgabe3</h3>
 		<ul>
 			<li>MySQL-Server & phpMyAdmin installieren</li>
-			<li>Datenbankschema für Wiki entwerfen</li>
+			<li>Datenbankschema f&uuml;r Wiki entwerfen</li>
 			<li>Umsetzen des Schemas in MySQL</li>
 			<li>Adaption des Wikis</li>
 			<ul>
 				<li>MySQL als Storage-Backend verwenden</li>
-				<li>Überprüfung von allen Benutzereingaben und Anzeige von Fehlermeldungen</li>
+				<li>&Uuml;berprüfung von allen Benutzereingaben und Anzeige von Fehlermeldungen</li>
 				<li>Sauberes Handling von Sonderzeichen</li>
 				<li>Refactoring auf objektorientierte Architektur</li>
 			</ul>
 		</ul>
 		<a href="aufgabe3/createEntry.php">Wiki</a>
+		<h3>Aufgabe4</h3>
+		<ul>
+			<li>Paginator</li>
+			<li>Suche nach Titel</li>
+			<li>Linkliste - wer link auf mich</li>
+			<li>Generator f&uuml;r 10.000 Eintr&auml;ge</li>
+			<li>Datenbank Optimierungen</li>
+		</ul>
+		<a href="aufgabe4/createEntry.php">Wiki</a>
 	</div>
 </body>
 </html>
