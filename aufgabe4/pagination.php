@@ -1,4 +1,6 @@
 <?php
+
+$numberAll = $number;
 $mod = $number % 10;
 $number -= $mod;
 $number /= 10;
@@ -19,15 +21,15 @@ if(isset($_GET['start'])){
 		$previous = 0;
 	}
 	$next = $start + 10;
-	if($next > ($number*10)){
+	if($next >= ($number*10) && $mod > 0){
 		$next = $start;
 	}
 }else{
 	$start = 0;
 	$end = 10;
 	$previous = 0;
-	if(($number*10) >= 10){
-		$next = 10;
+	if(($number*10) >= 10 && $mod > 0){
+		$next = 10;	
 	}
 	else{
 		$next = 0;
