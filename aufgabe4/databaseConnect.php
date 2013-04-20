@@ -109,6 +109,21 @@ class DatabaseConnect{
 		}
 		return $found;		
 	}
+	
+	public function getLinkEntries($id){
+		$res = mysqli_query($this->mysqli, "SELECT title FROM entries WHERE id=$id");
+		$row = $res->fetch_assoc();
+		$title = $row['title'];
+		$res = mysqli_query($this->mysqli, "SELECT id, title FROM entries WHERE text LIKE '%[[$title]]%'");
+		$links = array();
+		while ($row = $res->fetch_assoc()) {
+			$id = $row['id'];
+			array_push($links, $id);
+			$title = $row['title'];
+			array_push($links, $title);			
+		}
+		return $links;
+	}
 }
 
 

@@ -12,6 +12,15 @@
 		<div class="span8">
 			<legend><?php echo $entryShow->getTitle();?></legend>
 			<p><?php echo $entryShow->getTextFormat();?></p>
+			<p>Eintr&auml;ge mit Link auf diesen Artikel:</p>
+			<ul>
+			<?php 
+			for($i = 0; $i < count($links); $i+=2){
+				echo "<li><a href=?id=".$links[$i].">".$links[($i+1)]."</a></li>";
+			}
+			
+			?>
+			</ul>
 			<div class="row-fluid">
 			<div class="span1">
 				<a class='btn btn-primary' href='editEntry.php?id=<?php echo $entryShow->getId() ?>'>Bearbeiten</a>

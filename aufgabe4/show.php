@@ -6,6 +6,8 @@
 		$id = $_GET['id'];
 		$db = new DatabaseConnect();
 		$entryShow = $db->getEntry($id);
+		
+		$links = $db->getLinkEntries($id);
 	}
 	
 	include 'showView.php';
