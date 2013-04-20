@@ -22,13 +22,18 @@
 			</table>
 			<div class="pagination pagination-centered">
 				<ul>
-					<li><a href="?start=<?php echo $previous?>&search=<?php echo $search?>"><<</a></li>
-					<?php 
-					for($i = 0; $i < $numberPages; $i++){
-						echo "<li><a href='?start=".($i*10)."&search=".$search."'>".($i+1)."</a></li>";
-					}			
+					<?php
+					if($numberAll > 0) {
+						echo "<li><a href=?start=$previous&search=$search><<</a></li>";
+						for($i = 0; $i < $numberPages; $i++){
+							echo "<li><a href='?start=".($i*10)."&search=".$search."'>".($i+1)."</a></li>";
+						}	
+						echo "<li><a href=?start=$next&search=$search>>></a></li>";
+					}else{
+						echo "<li>Keine Eintr&auml;ge vorhanden</li>";
+					}		
 					?>
-					<li><a href="?start=<?php echo $next?>&search=<?php echo $search?>">>></a></li>
+					
 				</ul>
 			</div>
 		</div>

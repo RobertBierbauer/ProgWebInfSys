@@ -8,7 +8,7 @@ class DatabaseConnect{
 	
 	public function __construct(){
 		if(!isset($this->mysqli)){
-			$this->mysqli = new mysqli("localhost", "root", "pass", "wiki2");
+			$this->mysqli = new mysqli("localhost", "root", "", "wiki2");
 			if ($this->mysqli->connect_errno) {
 				echo "Failed to connect to MySQL: " . $this->mysqli->connect_error;
 			}
@@ -132,6 +132,21 @@ class DatabaseConnect{
 			array_push($found, $entry);
 		}
 		return $found;		
+	}
+	
+	public function getLinkEntries($id){
+		$res = mysqli_query($this->mysqli, "SELECT title FROM entries WHERE id=$id");
+		$row = $res->fetch_assoc();
+		$title = $row['title'];
+		$res = mysqli_query($this->mysqli, "SELECT id, title FROM entries WHERE text LIKE '%[[$title]]%'");
+		$links = array();
+		while ($row = $res->fetch_assoc()) {
+			$id = $row['id'];
+			array_push($links, $id);
+			$title = $row['title'];
+			array_push($links, $title);			
+		}
+		return $links;
 	}
 }
 
