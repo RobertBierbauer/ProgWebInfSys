@@ -13,6 +13,7 @@
 			<ul>
 		    	<li><a href="mailto:robert.bierbauer@student.uibk.ac.at">Robert Bierbauer</a></li>
 		    	<li><a href="mailto:georg.schmidhammer@student.uibk.ac.at">Georg Schmidhammer</a></li>
+		    	<li><a href="https://github.com/RobertBierbauer/ProgWebInfSys">Unser Freund GitHub</a></li>
 		    </ul>
 		</address>
 	</div>
