@@ -8,7 +8,7 @@ $number = $db->getNumberEntries();
 
 require_once 'pagination.php';
 
-$entries = $db->getAllLimit($start, $end);
+$entries = $db->getAllLimit($start);
 
 	
 

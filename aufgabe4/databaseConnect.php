@@ -48,9 +48,10 @@ class DatabaseConnect{
 		return $number;
 	}
 	
-	public function getAllLimit($start, $end){
+	public function getAllLimit($start){
 		$entries = array();
-		$res = mysqli_query($this->mysqli, "SELECT * FROM entries LIMIT $start, $end");
+		
+		$res = mysqli_query($this->mysqli, "SELECT * FROM entries LIMIT $start, 10");
 		while ($row = $res->fetch_assoc()) {
 			$list_id = $row['id'];
 			$list_title = $row['title'];

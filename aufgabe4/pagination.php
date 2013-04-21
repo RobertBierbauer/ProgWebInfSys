@@ -15,25 +15,19 @@ if($mod > 0){
 
 if(isset($_GET['start'])){
 	$start = $_GET['start'];
-	$end = $start+10;
 	$previous = $_GET['start']-10;
 	if($previous < 0){
 		$previous = 0;
 	}
-	$next = $start + 10;
-	if($next >= ($number*10) && $mod > 0){
+	if($numberPages > ($start/10)+1){
+		$next = $start + 10;
+	}else{
 		$next = $start;
 	}
 }else{
 	$start = 0;
-	$end = 10;
 	$previous = 0;
-	if(($number*10) >= 10 && $mod > 0){
-		$next = 10;	
-	}
-	else{
-		$next = 0;
-	}
+	$next = 10;	
 }
 
 ?>

@@ -38,7 +38,7 @@
 		//set amount of links in entry text
 		
 		if($amountOfLinks > $numberAllEntries){
-			$amountEntries = $numberAllEntries;
+			$amountOfLinks = $numberAllEntries;
 		}
 		
 		
