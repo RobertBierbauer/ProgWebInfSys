@@ -11,7 +11,7 @@ if(isset($_GET['search'])){
 	
 	require_once 'pagination.php';
 	
-	$entries = $db->searchEntry($search, $start, $end);
+	$entries = $db->searchEntry($search, $start);
 	
 	include 'searchView.php';
 }
