@@ -25,15 +25,29 @@
 				<ul>
 					
 					<?php
-					if($numberAll > 0) { 
-						echo "<li><a href=?start=$previous><<</a></li>";
-						for($i = 0; $i < $numberPages; $i++){
-							echo "<li><a href=?start=".($i*10).">".($i+1)."</a></li>";
+						if($numberAll > 0) {
+							echo "<li><a href=?start=$previous><<</a></li>";
+							if($currentPage > 5){
+								echo "<li><a href=?start=0>1</a></li>";
+								echo "<li><a>...</a></li>";
+									
+							}
+							for($i = $firstPage; $i < $range; $i++){
+								if($i != ($start/10)){
+									echo "<li><a href=?start=".($i*10).">".($i+1)."</a></li>";
+								}
+								else{
+									echo "<li class='active'><a>".($i+1)."</a></li>";
+								}
+							}
+							if($range < $numberPages){
+								echo "<li><a>...</a></li>";
+								echo "<li><a href=?start=".(($numberPages-1)*10).">".($numberPages)."</a></li>";
+							}
+							echo "<li><a href=?start=$next>>></a></li>";
+						}else{
+							echo "<li><p>Keine Eintr&auml;ge vorhanden</p></li>";
 						}
-						echo "<li><a href=?start=$next>>></a></li>";
-					}else{
-						echo "<li><p>Keine Eintr&auml;ge vorhanden</p></li>";
-					}								
 					?>
 				</ul>
 			</div>

@@ -30,4 +30,25 @@ if(isset($_GET['start'])){
 	$next = 10;	
 }
 
+$currentPage = ($start/10) +1;
+
+if($currentPage > 5){
+	$firstPage = ($start/10) - 4;
+	if(($currentPage + 5) > $numberPages){
+		$range = $numberPages;
+	}
+	else{
+		$range = $currentPage + 5;
+	}
+}
+else{
+	$firstPage = 0;
+	if($numberPages < 10){
+		$range = $numberPages;
+	}
+	else{
+		$range = ($currentPage) + 10;
+	}
+}
+
 ?>

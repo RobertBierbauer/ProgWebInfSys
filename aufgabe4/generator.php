@@ -1,6 +1,7 @@
 <?php
 	require_once('databaseConnect.php');
 	$db = new DatabaseConnect();
+	
 	$baseText = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
 				sed diam nonumy eirmod tempor invidunt ut labore et dolore 
 				magna aliquyam erat, sed diam voluptua. At vero eos et accusam 
@@ -10,7 +11,7 @@
 	//to generate a random title
 	$randomTitleArray = array("aa", "bb", "cc", "dd", "ee");
 	
-	for($i = 0; $i <10; $i++){
+	for($i = 0; $i <10000; $i++){
 		
 		$generatorTitle = $randomTitleArray[rand(0, 4)];
 		$generatorTitle .= $randomTitleArray[rand(0, 4)];
@@ -65,8 +66,8 @@
 		}
 		
 		$db->insertEntryWithoutLink($generatorTitle, $generatorEntryText);
-		header( 'Location: entries.php');
 	}
+	header( 'Location: entries.php');
 
 
 ?>
