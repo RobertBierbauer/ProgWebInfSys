@@ -7,6 +7,7 @@
 </head>
 <body id="home">
 	<?php include "../navbar.html";?>
+	<?php $startTime = microtime();?>
 	<div class="row-fluid">
 		<?php include 'sidebar.php';?>
 		<div class="span8">
@@ -22,5 +23,6 @@
 			</form>
 		</div>
 	</div>
+	<?php $endTime = microtime(); echo "Seitenaufbauzeit: ".($endTime - $startTime)?>
 </body>
 </html>
