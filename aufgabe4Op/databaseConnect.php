@@ -49,11 +49,19 @@ class DatabaseConnect{
 	 * @return string success if entry was created and error if creating the entry failed
 	 */
 	public function insertEntryWithoutLink($title, $text){
-		if(mysqli_query($this->mysqli,"INSERT INTO entries(id, title, text) VALUES (NULL, '$title','$text')") === true){
+		$entry = new Entry("", $title, $text);
+		$textparse = $entry->getTextParse();
+		if(mysqli_query($this->mysqli,"INSERT INTO entries(id, title, text, textparse) VALUES (NULL, '$title','$text', '$textparse')") === true){
 			$res = mysqli_query($this->mysqli, "SELECT id FROM entries WHERE title='$title'");
 			$row = $res->fetch_assoc();
 			$id = $row['id'];
-			return "success";
+			$success = $this->insertLinkEntries($id, $entry->getLinkEntries());
+			if($success){
+				return "success";
+			}else{
+				return "error";
+			}
+			
 		}
 		else{
 			return "error";
