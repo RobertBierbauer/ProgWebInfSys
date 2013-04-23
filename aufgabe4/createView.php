@@ -22,6 +22,9 @@
 			</form>
 		</div>
 	</div>
-	<?php $endTime = microtime(); echo "Seitenaufbauzeit: ".($endTime - $startTime)?>
+	<?php $endTime = microtime(); ?>
+	<div class="row-fluid">
+		<?php echo "Seitenaufbauzeit: ".($endTime - $startTime);?>
+	</div>
 </body>
 </html>
