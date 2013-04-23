@@ -223,7 +223,6 @@ class DatabaseConnect{
 		$success = true;
 		$idFrom = $id;
 		foreach($linkEntries as $title){
-			echo "Titel:".$title;
 			$res = mysqli_query($this->mysqli, "SELECT id FROM entries WHERE title = '$title'");
 			$row = $res->fetch_assoc();
 			$idTo = $row['id'];
