@@ -42,6 +42,7 @@
 			<li>Datenbank Optimierungen</li>
 		</ul>
 		<a href="aufgabe4/createEntry.php">Wiki</a>
+		<a href="aufgabe4Op/createEntry.php">Wiki Optimiert</a>
 	</div>
 </body>
 </html>
