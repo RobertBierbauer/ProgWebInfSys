@@ -8,7 +8,7 @@ class DatabaseConnect{
 	
 	public function __construct(){
 		if(!isset($this->mysqli)){
-			$this->mysqli = new mysqli("localhost", "root", "pass", "wiki2Op");
+			$this->mysqli = new mysqli("localhost", "root", "new-password", "wiki2Op");
 			if ($this->mysqli->connect_errno) {
 				echo "Failed to connect to MySQL: " . $this->mysqli->connect_error;
 			}
@@ -115,14 +115,20 @@ class DatabaseConnect{
 	 * save the new title and text a modified entry
 	 * @param int $id the ID of the modified entry
 	 * @param string $title the new title
-	 * @param string $description the new text
+	 * @param string $text the new text
 	 */
-	public function editEntry( $id, $title, $description){
-		if(mysqli_query($this->mysqli, "UPDATE entries SET title='$title', text='$description' WHERE id=$id") === true){
-			echo "Entry updated";			
-			//redirect to the created entry
-			header( 'Location: show.php?id='.$id);
-			
+	public function editEntry( $id, $title, $text){
+		$entry = new Entry("", $title, $text);
+		$textparse = $entry->getTextParse();
+		if(mysqli_query($this->mysqli, "UPDATE entries SET title='$title', text='$text', textparse='$textparse' WHERE id=$id") === true){
+			if(mysqli_query($this->mysqli, "DELETE FROM linklist WHERE fromID=$id") === true){
+				$success = $this->insertLinkEntries($id, $entry->getLinkEntries());
+				if($success){
+					echo "Entry updated";
+					//redirect to the created entry
+					header( 'Location: show.php?id='.$id);
+				}
+			}			
 		}else{
 			echo "Entry not updated";
 			
