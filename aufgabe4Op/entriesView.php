@@ -52,7 +52,7 @@
 			</div>
 		</div>
 		<?php $endTime = microtime(); ?>
-		<div class="row-fluid">
+		<div class="row-fluid span12">
 			<?php echo "Seitenaufbauzeit: ".($endTime - $startTime);?>
 		</div>
 	</div>
