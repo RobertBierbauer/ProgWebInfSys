@@ -22,8 +22,18 @@ class DatabaseConnect{
 	 */
 	public function insertEntry($title, $text){
 		$entry = new Entry("", $title, $text);
+		if(!isset($_SESSION)){
+			session_start();
+		}
+		if(!isset($_SESSION['user'])){
+			header( 'Location: loginView.php');
+		}
+		$userId = $_SESSION['user'];
 		$textparse = $entry->getTextParse();
-		if(mysqli_query($this->mysqli,"INSERT INTO entries(id, title, text, textparse) VALUES (NULL, '$title','$text', '$textparse')") === true){
+		$timestamp = date("Y-m-d H:i:s");
+		echo $userId;
+		echo $timestamp;
+		if(mysqli_query($this->mysqli,"INSERT INTO entries(id, title, text, textparse, creatorId, createDate, lastModifier, lastModifyDate) VALUES (NULL, '$title','$text', '$textparse', '$userId', '$timestamp', '$userId', '$timestamp')") === true){
 			
 			$res = mysqli_query($this->mysqli, "SELECT id FROM entries WHERE title='$title'");				
 			$row = $res->fetch_assoc();				
@@ -50,8 +60,19 @@ class DatabaseConnect{
 	 */
 	public function insertEntryWithoutLink($title, $text){
 		$entry = new Entry("", $title, $text);
+		
+		if(!isset($_SESSION)){
+			session_start();
+		}
+		if(!isset($_SESSION['user'])){
+			header( 'Location: loginView.php');
+		}
+		
+		$userId = $_SESSION['user'];
 		$textparse = $entry->getTextParse();
-		if(mysqli_query($this->mysqli,"INSERT INTO entries(id, title, text, textparse) VALUES (NULL, '$title','$text', '$textparse')") === true){
+		$timestamp = date("Y-m-d H:i:s");
+		$textparse = $entry->getTextParse();
+		if(mysqli_query($this->mysqli,"INSERT INTO entries(id, title, text, textparse, creatorId, createDate, lastModifier, lastModifyDate) VALUES (NULL, '$title','$text', '$textparse', '$userId', '$timestamp', '$userId', '$timestamp')") === true){
 			$res = mysqli_query($this->mysqli, "SELECT id FROM entries WHERE title='$title'");
 			$row = $res->fetch_assoc();
 			$id = $row['id'];
@@ -128,17 +149,27 @@ class DatabaseConnect{
 	public function editEntry( $id, $title, $text){
 		$entry = new Entry("", $title, $text);
 		$textparse = $entry->getTextParse();
-		if(mysqli_query($this->mysqli, "UPDATE entries SET title='$title', text='$text', textparse='$textparse' WHERE id=$id") === true){
+		
+		if(!isset($_SESSION)){
+			session_start();
+		}
+		if(!isset($_SESSION['user'])){
+			header( 'Location: loginView.php');
+		}
+		
+		$userId = $_SESSION['user'];
+		
+		$timestamp = date("Y-m-d H:i:s");
+		
+		if(mysqli_query($this->mysqli, "UPDATE entries SET title='$title', text='$text', textparse='$textparse', lastModifier='$userId', lastModifyDate='$timestamp' WHERE id=$id") === true){
 			if(mysqli_query($this->mysqli, "DELETE FROM linklist WHERE fromID=$id") === true){
 				$success = $this->insertLinkEntries($id, $entry->getLinkEntries());
 				if($success){
-					echo "Entry updated";
 					//redirect to the created entry
 					header( 'Location: show.php?id='.$id);
 				}
 			}			
 		}else{
-			echo "Entry not updated";
 			
 			header( 'Location: editEntry.php?error=unique&id='.$id);
 		}

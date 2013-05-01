@@ -15,7 +15,7 @@
 			<form action="login.php" method="POST">
 				<label for="username">Username</label>
 				<input id="username" type="text" name="username" placeholder="username"/>
-				<label for="password">Username</label>
+				<label for="password">Password</label>
 				<input id="password" type="password" name="password" placeholder="password"/>	
 				<button type="submit" class="btn btn-primary">Login</button>
 			</form>

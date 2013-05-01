@@ -5,6 +5,14 @@
 	<title>Gruppe 1</title>
 </head>
 <body id="home">
+	<?php 
+		if(!isset($_SESSION)){
+			session_start();
+		}
+		if(!isset($_SESSION['user'])){
+			header('Location: loginView.php');
+		}
+	?>
 	<?php include "../navbar.php";?>
 	<div class="row-fluid">
 		<?php include 'sidebar.php';?>
