@@ -2,11 +2,11 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<link href="bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="/ProgWebInfSys/css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
 	<title>Gruppe 1</title>
 </head>
 <body id="home">
-	<?php include 'navbar.html';?>
+	<?php include 'navbar.php';?>
 	<div class=" span12 offset1">
 		<h3>Aufgabe1</h3>
 		<ul>
@@ -27,12 +27,13 @@
 			<li>Adaption des Wikis</li>
 			<ul>
 				<li>MySQL als Storage-Backend verwenden</li>
-				<li>&Uuml;berprüfung von allen Benutzereingaben und Anzeige von Fehlermeldungen</li>
+				<li>&Uuml;berpr&uuml;fung von allen Benutzereingaben und Anzeige von Fehlermeldungen</li>
 				<li>Sauberes Handling von Sonderzeichen</li>
 				<li>Refactoring auf objektorientierte Architektur</li>
 			</ul>
 		</ul>
 		<a href="aufgabe3/createEntry.php">Wiki</a>
+		
 		<h3>Aufgabe4</h3>
 		<ul>
 			<li>Paginator</li>
@@ -43,6 +44,14 @@
 		</ul>
 		<a href="aufgabe4/createEntry.php">Wiki</a>
 		<a href="aufgabe4Op/createEntry.php">Wiki Optimiert</a>
+		
+		<h3>Aufgabe5</h3>
+		<ul>
+			<li>user-friendly URLs</li>
+			<li>Bilder-Upload</li>
+			<li>Usermanagement</li>
+		</ul>
+		<a href="aufgabe5/createEntry.php">Wiki</a>
 	</div>
 </body>
 </html>

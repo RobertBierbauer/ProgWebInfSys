@@ -2,11 +2,11 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<link href="bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="/ProgWebInfSys/css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
 	<title>Gruppe 1</title>
 </head>
 <body id="home">
-	<?php include 'navbar.html';?>
+	<?php include 'navbar.php';?>
 	<div class=" span12 offset1">
 		<p>Gruppenmitglieder:</p>
 		<address>
