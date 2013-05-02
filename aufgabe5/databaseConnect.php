@@ -1,6 +1,7 @@
 <?php
 
 require_once 'entry.php';
+require_once 'user.php';
 
 class DatabaseConnect{
 	
@@ -135,8 +136,25 @@ class DatabaseConnect{
 			$list_title = $row['title'];
 			$list_description = $row['text'];
 			$list_renderText = $row['textparse'];
-			$entry = new Entry($list_id, $list_title, $list_description, $list_renderText);
+			$list_creatorId = $row['creatorId'];
+			$list_createDate = $row['createDate'];
+			$list_lastModifierId = $row['lastModifier'];
+			$list_lastModifyDate = $row['lastModifyDate'];
+			$entry = new Entry($list_id, $list_title, $list_description, $list_renderText, $list_creatorId, $list_createDate, $list_lastModifierId, $list_lastModifyDate);
 			return $entry;
+		}
+	}
+	
+	public function getUser($id){
+		$res = mysqli_query($this->mysqli, "SELECT id, username FROM user WHERE id=$id");
+		if(!$res){
+			header( 'Location: createEntry.php?error=notExisting') ;
+		}else{
+			$row = $res->fetch_assoc();
+			$list_id = $row['id'];
+			$list_username = $row['username'];
+			$user = new User($list_id, $list_username);
+			return $user;
 		}
 	}
 	

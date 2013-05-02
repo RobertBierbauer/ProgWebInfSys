@@ -18,7 +18,7 @@
 		<?php include 'sidebar.php';?>
 		<div class="span8">
 			<?php echo $error;?>
-			<legend>Eintrag erstellen und bearbeiten</legend>			
+			<legend>Eintrag erstellen</legend>			
 			<form action="wikiEntry.php" method="POST">
 				<label for="title">Titel</label>
 				<textarea class="row-fluid title" type="text" rows="1" name="title"></textarea>

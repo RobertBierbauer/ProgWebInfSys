@@ -20,6 +20,9 @@
 			
 			?>
 			</ul>
+			
+			<p>Erzeugt von <?php echo $creatorUser->getUsername()?> am <?php echo $entryShow->getCreateDate()?></p>
+			<p>Zuletzt bearbeitet von <?php echo $lastModifier->getUsername()?> am <?php echo $entryShow->getLastModifyDate()?></p>
 			<div class="row-fluid">
 			<div class="span2">
 				<a class='btn btn-primary' href='editEntry.php?id=<?php echo $entryShow->getId() ?>'>Bearbeiten</a>

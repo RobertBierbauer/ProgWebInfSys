@@ -12,7 +12,7 @@ class Entry{
 	private $lastModifyDate;
 	
 
-	public function __construct($id, $t, $d, $rt=""){
+	public function __construct($id, $t, $d, $rt="", $c="", $cd="", $lm="", $lmd=""){
 		$this->id = $id;
 		$this->title = $t;
 		$this->text = $d;
@@ -22,6 +22,10 @@ class Entry{
 		else{
 			$this->textparse = $rt;
 		}
+		$this->creator = $c;
+		$this->createDate = $cd;
+		$this->lastModifier = $lm;
+		$this->lastModifyDate = $lmd;
 	}
 	
 	public function getId(){
@@ -39,6 +43,22 @@ class Entry{
 	public function getTextParse(){
 		return $this->textparse;
 	}
+	
+	public function getCreatorId(){
+		return $this->creator;
+	}
+	
+	public function getCreateDate(){
+		return $this->createDate;
+	}
+	
+	public function getLastModifier(){
+		return $this->lastModifier;
+	}
+	
+	public function getLastModifyDate(){
+		return $this->lastModifyDate;
+	}	
 	
 	public function __toString(){
 		return "<html>".
