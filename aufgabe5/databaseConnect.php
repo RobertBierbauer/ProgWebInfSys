@@ -8,7 +8,7 @@ class DatabaseConnect{
 	
 	public function __construct(){
 		if(!isset($this->mysqli)){
-			$this->mysqli = new mysqli("localhost", "root", "pass", "wikiwithuser");
+			$this->mysqli = new mysqli("localhost", "root", "new-password", "wikiwithuser");
 			if ($this->mysqli->connect_errno) {
 				echo "Failed to connect to MySQL: " . $this->mysqli->connect_error;
 			}

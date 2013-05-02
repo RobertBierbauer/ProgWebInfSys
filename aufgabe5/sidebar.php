@@ -14,6 +14,17 @@
 		    </div>
 		    <li><a href="entries.php">Alle Eintr&auml;ge anzeigen</a></li>
 		    <li><a href="generator.php">Zuf&auml;llige Eintr&auml;ge generieren</a></li>
+		    <?php 
+				if(!isset($_SESSION)){
+					session_start();
+				}
+				if(!isset($_SESSION['user'])){
+					echo '<a href="/aufgabe5/loginView.php">Login</a>';
+				}
+				else{
+					echo '<a href="/aufgabe5/logout.php">Logout</a>';
+				}
+			?>
 		</ul>
 	</div>
 </div>
