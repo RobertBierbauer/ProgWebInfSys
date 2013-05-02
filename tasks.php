@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<link href="/ProgWebInfSys/css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
 	<title>Gruppe 1</title>
 </head>
 <body id="home">
