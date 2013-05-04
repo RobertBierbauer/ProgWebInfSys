@@ -19,11 +19,16 @@
 		<div class="span8">
 			<?php echo $error;?>
 			<legend>Eintrag erstellen</legend>			
-			<form action="wikiEntry.php" method="POST">
+			<form enctype="multipart/form-data" action="wikiEntry.php" method="POST">
 				<label for="title">Titel</label>
 				<textarea class="row-fluid title" type="text" rows="1" name="title"></textarea>
 				<label>Beschreibung</label>
-				<textarea class="row-fluid" rows="3" name="text"></textarea><br>		
+				<textarea class="row-fluid" rows="3" name="text"></textarea>
+				<input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+				<label>Bild:</label>
+				<input name="image" type="file"/><br><br>				
+				<label>Bildposition (0 für rechts, 1 für links)</label>
+				<input name="position" type="text"><br>
 				<button type="submit" class="btn btn-primary">Speichern</button>
 			</form>
 		</div>

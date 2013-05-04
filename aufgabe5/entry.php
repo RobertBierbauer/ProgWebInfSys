@@ -10,9 +10,10 @@ class Entry{
 	private $createDate;
 	private $lastModifier;
 	private $lastModifyDate;
+	private $image;
 	
 
-	public function __construct($id, $t, $d, $rt="", $c="", $cd="", $lm="", $lmd=""){
+	public function __construct($id, $t, $d, $rt="", $c="", $cd="", $lm="", $lmd="", $image=""){
 		$this->id = $id;
 		$this->title = $t;
 		$this->text = $d;
@@ -26,6 +27,8 @@ class Entry{
 		$this->createDate = $cd;
 		$this->lastModifier = $lm;
 		$this->lastModifyDate = $lmd;
+		$this->image = $image;
+		
 	}
 	
 	public function getId(){
@@ -59,6 +62,10 @@ class Entry{
 	public function getLastModifyDate(){
 		return $this->lastModifyDate;
 	}	
+	
+	public function getImage(){
+		return $this->image;
+	}
 	
 	public function __toString(){
 		return "<html>".

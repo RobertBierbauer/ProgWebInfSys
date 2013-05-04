@@ -30,6 +30,7 @@ if(isset($_GET['id'])) {
 	$id = $_GET['id'];
 	$db = new DatabaseConnect();
 	$entryEdit = $db->getEntry($id);
+	$image = $db->getImage($entryEdit->getImage());
 }
 
 include 'editEntryView.php';

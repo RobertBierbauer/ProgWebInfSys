@@ -9,7 +9,7 @@ class DatabaseConnect{
 	
 	public function __construct(){
 		if(!isset($this->mysqli)){
-			$this->mysqli = new mysqli("localhost", "root", "new-password", "wikiwithuser");
+			$this->mysqli = new mysqli("localhost", "root", "root", "wikiwithuser");
 			if ($this->mysqli->connect_errno) {
 				echo "Failed to connect to MySQL: " . $this->mysqli->connect_error;
 			}
@@ -21,8 +21,11 @@ class DatabaseConnect{
 	 * @param unknown_type $title the title of the entry
 	 * @param unknown_type $text the text of the entry
 	 */
-	public function insertEntry($title, $text){
+	public function insertEntry($title, $text, $imageId){
 		$entry = new Entry("", $title, $text);
+		if($imageId == ''){
+			$imageId = 'NULL';
+		}
 		if(!isset($_SESSION)){
 			session_start();
 		}
@@ -34,7 +37,7 @@ class DatabaseConnect{
 		$timestamp = date("Y-m-d H:i:s");
 		echo $userId;
 		echo $timestamp;
-		if(mysqli_query($this->mysqli,"INSERT INTO entries(id, title, text, textparse, creatorId, createDate, lastModifier, lastModifyDate) VALUES (NULL, '$title','$text', '$textparse', '$userId', '$timestamp', '$userId', '$timestamp')") === true){
+		if(mysqli_query($this->mysqli,"INSERT INTO entries(id, title, text, textparse, creatorId, createDate, lastModifier, lastModifyDate, imageId) VALUES (NULL, '$title','$text', '$textparse', '$userId', '$timestamp', '$userId', '$timestamp', $imageId)") === true){
 			
 			$res = mysqli_query($this->mysqli, "SELECT id FROM entries WHERE title='$title'");				
 			$row = $res->fetch_assoc();				
@@ -140,7 +143,8 @@ class DatabaseConnect{
 			$list_createDate = $row['createDate'];
 			$list_lastModifierId = $row['lastModifier'];
 			$list_lastModifyDate = $row['lastModifyDate'];
-			$entry = new Entry($list_id, $list_title, $list_description, $list_renderText, $list_creatorId, $list_createDate, $list_lastModifierId, $list_lastModifyDate);
+			$list_imageId = $row['imageId'];
+			$entry = new Entry($list_id, $list_title, $list_description, $list_renderText, $list_creatorId, $list_createDate, $list_lastModifierId, $list_lastModifyDate, $list_imageId);
 			return $entry;
 		}
 	}
@@ -164,9 +168,13 @@ class DatabaseConnect{
 	 * @param string $title the new title
 	 * @param string $text the new text
 	 */
-	public function editEntry( $id, $title, $text){
+	public function editEntry( $id, $title, $text, $imageId){
 		$entry = new Entry("", $title, $text);
 		$textparse = $entry->getTextParse();
+		
+		if($imageId == ''){
+			$imageId = 'NULL';
+		}
 		
 		if(!isset($_SESSION)){
 			session_start();
@@ -179,7 +187,7 @@ class DatabaseConnect{
 		
 		$timestamp = date("Y-m-d H:i:s");
 		
-		if(mysqli_query($this->mysqli, "UPDATE entries SET title='$title', text='$text', textparse='$textparse', lastModifier='$userId', lastModifyDate='$timestamp' WHERE id=$id") === true){
+		if(mysqli_query($this->mysqli, "UPDATE entries SET title='$title', text='$text', textparse='$textparse', lastModifier='$userId', lastModifyDate='$timestamp', imageId=$imageId WHERE id=$id") === true){
 			if(mysqli_query($this->mysqli, "DELETE FROM linklist WHERE fromID=$id") === true){
 				$success = $this->insertLinkEntries($id, $entry->getLinkEntries());
 				if($success){
@@ -316,7 +324,7 @@ class DatabaseConnect{
 	
 	public function login($username, $password){
 		$res = mysqli_query($this->mysqli, "SELECT * FROM user WHERE username='$username'");
-		if($res !== false){
+		if($res->num_rows > 0){	
 			$row = $res->fetch_assoc();
 			$userId = $row['id'];
 			$hashedPassword = hash('sha256', $username . $password);
@@ -330,6 +338,46 @@ class DatabaseConnect{
 		}
 		else{
 			return $this->createUser($username, $password);
+		}
+	}
+	
+	public function getLastId(){
+		$res = mysqli_query($this->mysqli, "SELECT id FROM image ORDER BY id DESC LIMIT 1");
+		if($res->num_rows > 0){
+			$row = $res->fetch_assoc();
+			$highestId = $row['id'];
+			return $highestId;
+		}else{
+			return 0;
+		}
+	}
+	
+	public function insertImage($name, $rename, $position){
+		if(mysqli_query($this->mysqli,"INSERT INTO image(id, title, renamedTitle, position) VALUES (NULL, '$name','$rename', $position)") !== true){
+			return 0;
+		}else{
+			return 1;
+		}
+	}
+	
+	public function getImage($id){
+		$image = array();
+		$res = mysqli_query($this->mysqli, "SELECT * FROM image WHERE id=$id");
+		if($res != false){
+			$row = $res->fetch_assoc();
+			$renamedTitle = $row['renamedTitle'];
+			array_push($image, $renamedTitle);
+			$position = $row['position'];
+			array_push($image, $position);
+			return $image;
+		}else{
+			return 0;
+		}
+	}
+	
+	public function updateImage($id, $position){
+		if(mysqli_query($this->mysqli, "UPDATE image SET position='$position' WHERE id=$id") === true){	
+					
 		}
 	}
 }

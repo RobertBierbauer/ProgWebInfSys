@@ -24,6 +24,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 
 		$db = new DatabaseConnect();
 		$userId = $db->login($username, $password);
+		
 		if($userId === -1){
 			echo "wrongPassword";
 			header( 'Location: loginView.php?error=wrongPassword') ;
@@ -36,6 +37,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 			echo "login";
 			header( 'Location: entries.php') ;
 		}
+		
 	}
 
 }

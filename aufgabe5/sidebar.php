@@ -19,10 +19,10 @@
 					session_start();
 				}
 				if(!isset($_SESSION['user'])){
-					echo '<a href="/aufgabe5/loginView.php">Login</a>';
+					echo '<a href="loginView.php">Login</a>';
 				}
 				else{
-					echo '<a href="/aufgabe5/logout.php">Logout</a>';
+					echo '<a href="logout.php">Logout</a>';
 				}
 			?>
 		</ul>
