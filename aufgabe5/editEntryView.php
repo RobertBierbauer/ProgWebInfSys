@@ -19,7 +19,7 @@
 		<div class="span8">
 			<?php echo $error;?>
 			<legend>Eintrag erstellen und bearbeiten</legend>			
-			<form enctype="multipart/form-data" action="wikiUpdate.php" method="POST">
+			<form enctype="multipart/form-data" action="<?php echo  str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));?>/wikiUpdate.php" method="POST">
 				<input type="hidden" name="id" value=<?php echo $entryEdit->getId();?>>
 				<input type="hidden" name="imageId" value=<?php echo $entryEdit->getImage()?>>
 				<label for="title">Titel</label>
@@ -35,7 +35,7 @@
 				?>
 				<label>Bild:</label>
 				<input name="image" type="file"/><br><br>				
-				<label>Bildposition (0 für rechts, 1 für links)</label>
+				<label>Bildposition (0 f&uuml;r rechts, 1 f&uuml;r links)</label>
 				<input name="position" type="text" value=<?php echo $image[1];?>><br>	
 				<button type="submit" class="btn btn-primary">Speichern</button>
 			</form>
