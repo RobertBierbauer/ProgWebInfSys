@@ -8,9 +8,9 @@
 <div class="row-fluid">
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">
-			<a class="brand" href="<?php echo  str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));?>/index.php">Gruppe 1</a>
+			<a class="brand" href="/index.php">Gruppe 1</a>
 			<ul class="nav">
-				<li><a href="<?php echo  str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));?>/tasks.php">Aufgaben</a></li>
+				<li><a href="/tasks.php">Aufgaben</a></li>
 			</ul>
 		</div>
 	</div>
