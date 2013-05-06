@@ -7,7 +7,7 @@
 <body id="home">
 	<div class="row-fluid">
 		<?php $startTime = microtime();?>
-		<?php include "../navbar.html";?>
+		<?php include "../navbar.php";?>
 		<?php include 'sidebar.php';?>		
 		<div class="span8">
 			<legend><?php echo $entryShow->getTitle();?></legend>

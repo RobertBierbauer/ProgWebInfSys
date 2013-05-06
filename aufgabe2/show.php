@@ -6,7 +6,7 @@
 	<title>Gruppe 1</title>
 </head>
 <body id="home">
-	<?php include "../navbar.html";?>
+	<?php include "../navbar.php";?>
 	<?php 
 		require_once('wiki.php');
 		require_once('entry.php');
