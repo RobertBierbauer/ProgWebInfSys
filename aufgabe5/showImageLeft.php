@@ -9,7 +9,7 @@
 		<?php include 'sidebar.php';?>		
 		<div class="span8">
 		<legend><?php echo $entryShow->getTitle();?></legend>
-			<?php echo "<div class='span3'><img src='".str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));".upload/image".$image[0]."'></div>"; ?>
+			<?php echo "<div class='span3'><img src='".str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']))."/upload/image".$image[0]."'></div>"; ?>
 			<div class="span8">
 				<?php include 'showNoImage.php'?>
 			</div>
