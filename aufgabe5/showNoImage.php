@@ -15,10 +15,10 @@
 <p>Zuletzt bearbeitet von <?php echo $lastModifier->getUsername()?> am <?php echo $entryShow->getLastModifyDate()?></p>
 <div class="row-fluid">
 	<div class="span2">
-		<a class='btn btn-primary' href='<?php echo  str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));?>/wiki/<?php echo $entryShow->getId()?>/<?php echo $entryShow->getTitle()?>/edit'>Bearbeiten</a>
+		<a class='btn btn-primary' href='<?php echo  str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));?>/wiki/<?php echo $entryShow->getId()?>/<?php echo str_replace(' ', '_', $entryShow->getTitle()); ?>/edit'>Bearbeiten</a>
 	</div>
 	<div class="span2">
-		<form action="wikiDelete.php" method="POST">
+		<form action="<?php echo  str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));?>/wikiDelete.php" method="POST">
 			<input type="hidden" name="id" value=<?php echo $entryShow->getId() ?>>
 			<button type="submit" class="btn btn-danger">L&ouml;schen</button>
 		</form>

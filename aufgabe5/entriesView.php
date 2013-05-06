@@ -14,7 +14,7 @@
 				<tbody>			
 					<?php
 					foreach($entries as $entry){
-						echo "<tr><td><a href='wiki/".$entry->getId()."/".$entry->getTitle()."'>".$entry->getTitle()."</a></td></tr>";
+						echo "<tr><td><a href='wiki/".$entry->getId()."/".str_replace(' ', '_',$entry->getTitle())."'>".$entry->getTitle()."</a></td></tr>";
 					}			
 					?>
 				</tbody>

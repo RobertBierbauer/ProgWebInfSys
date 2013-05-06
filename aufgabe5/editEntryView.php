@@ -30,7 +30,7 @@
 				<?php 
 					if($image != 0){
 						echo "<label>Aktuelles Bild</label>";
-						echo "<img style='width: 260px; height: 180px;' src='upload/image".$image[0]."'><br><br>"; 
+						echo "<img style='width: 260px; height: 180px;' src='".str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']))."/upload/image".$image[0]."'><br><br>"; 
 					}
 				?>
 				<label>Bild:</label>

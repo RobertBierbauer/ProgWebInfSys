@@ -49,7 +49,7 @@ class DatabaseConnect{
 			}
 			else{
 				//redirect to the created entry
-				header( 'Location: show.php?id='.$id);
+				header( 'Location: wiki/'.$id.'/'.str_replace(' ', '_', $title));
 			}
 		}else{
 			header( 'Location: createEntry.php?error=unique');
@@ -192,7 +192,7 @@ class DatabaseConnect{
 				$success = $this->insertLinkEntries($id, $entry->getLinkEntries());
 				if($success){
 					//redirect to the created entry
-					header( 'Location: show.php?id='.$id);
+					header( 'Location: wiki/'.$id.'/'.str_replace(' ', '_', $title));
 				}
 			}			
 		}else{
