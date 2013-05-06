@@ -6,7 +6,7 @@
 	<title>Gruppe 1</title>
 </head>
 <body id="home">
-	<?php include 'navbar.html';?>
+	<?php include 'navbar.php';?>
 	<div class=" span12 offset1">
 		<p>Gruppenmitglieder:</p>
 		<address>

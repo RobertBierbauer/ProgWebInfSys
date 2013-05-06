@@ -3,7 +3,7 @@
 	<div class="well sidebar-nav">
 		<ul class="nav nav-list">
 			<li class="nav-header">Erstellen</li>
-			<li><a href="createEntry.php">Wikieintrag erstellen</a></li>
+			<li><a href="<?php echo  str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));?>/createEntry.php">Wikieintrag erstellen</a></li>
 			<li class="nav-header">Wiki Eintr&auml;ge</li>
 			<br>
 			<div class="input-append">
@@ -12,8 +12,8 @@
 			    	<button type="submit" class="btn" type="button">Suchen</button>
 			    </form>
 		    </div>
-		    <li><a href="entries.php">Alle Eintr&auml;ge anzeigen</a></li>
-		    <li><a href="generator.php">Zuf&auml;llige Eintr&auml;ge generieren</a></li>
+		    <li><a href="<?php echo  str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));?>/entries.php">Alle Eintr&auml;ge anzeigen</a></li>
+		    <li><a href="<?php echo  str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));?>/generator.php">Zuf&auml;llige Eintr&auml;ge generieren</a></li>
 		    <?php 
 				if(!isset($_SESSION)){
 					session_start();

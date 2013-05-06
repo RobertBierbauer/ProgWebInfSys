@@ -5,7 +5,7 @@
 	<title>Gruppe 1</title>
 </head>
 <body id="home">
-	<?php include "../navbar.html";?>
+	<?php include "../navbar.php";?>
 	<div class="row-fluid">
 		<?php include 'sidebar.php';?>
 		<div class="span8">

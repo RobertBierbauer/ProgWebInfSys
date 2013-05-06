@@ -15,7 +15,7 @@
 <p>Zuletzt bearbeitet von <?php echo $lastModifier->getUsername()?> am <?php echo $entryShow->getLastModifyDate()?></p>
 <div class="row-fluid">
 	<div class="span2">
-		<a class='btn btn-primary' href='editEntry.php?id=<?php echo $entryShow->getId() ?>'>Bearbeiten</a>
+		<a class='btn btn-primary' href='<?php echo  str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));?>/wiki/<?php echo $entryShow->getId()?>/<?php echo $entryShow->getTitle()?>/edit'>Bearbeiten</a>
 	</div>
 	<div class="span2">
 		<form action="wikiDelete.php" method="POST">

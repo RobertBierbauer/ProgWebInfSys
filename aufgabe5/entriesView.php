@@ -5,7 +5,7 @@
 	<title>Gruppe 1</title>
 </head>
 <body id="home">
-	<?php include "../navbar.html";?>
+	<?php include "../navbar.php";?>
 	<div class="row-fluid">
 		<?php include 'sidebar.php';?>
 		<div class="span8">
@@ -14,7 +14,7 @@
 				<tbody>			
 					<?php
 					foreach($entries as $entry){
-						echo "<tr><td><a href='show.php?id=".$entry->getId()."'>".$entry->getTitle()."</a></td></tr>";
+						echo "<tr><td><a href='wiki/".$entry->getId()."/".$entry->getTitle()."'>".$entry->getTitle()."</a></td></tr>";
 					}			
 					?>
 				</tbody>
