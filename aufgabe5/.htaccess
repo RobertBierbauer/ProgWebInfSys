@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^show.php?id=(.*)$ /wiki/$1/show.htm [L,R=301]
