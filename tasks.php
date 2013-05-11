@@ -52,6 +52,18 @@
 			<li>Usermanagement</li>
 		</ul>
 		<a href="aufgabe5/createEntry.php">Wiki</a>
+		
+		<h3>Aufgabe 6</h3>
+		<ul>
+			<li>Rock-paper-scissors-lizard-Spock</li>
+			<li>Realisieren mit:</li>
+			<ul>			
+				<li>Zend Framework 2</li>
+				<li>MVC Pattern</li>
+				<li>Datenbankabstraktion von ZF2</li>
+			</ul>
+		</ul>
+		<a href="aufgabe6/public/index.php">Rock Paper Scissors Lizard Spock</a>
 	</div>
 </body>
 </html>
