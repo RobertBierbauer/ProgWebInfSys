@@ -42,7 +42,7 @@
 			<li>Generator f&uuml;r 10.000 Eintr&auml;ge</li>
 			<li>Datenbank Optimierungen</li>
 		</ul>
-		<a href="aufgabe4/createEntry.php">Wiki</a>
+		<a href="aufgabe4/createEntry.php">Wiki</a></br>
 		<a href="aufgabe4Op/createEntry.php">Wiki Optimiert</a>
 		
 		<h3>Aufgabe5</h3>
@@ -63,7 +63,7 @@
 				<li>Datenbankabstraktion von ZF2</li>
 			</ul>
 		</ul>
-		<a href="aufgabe6/public/index.php">Rock Paper Scissors Lizard Spock</a>
+		<a href="aufgabe6/public">Rock Paper Scissors Lizard Spock</a>
 	</div>
 </body>
 </html>
