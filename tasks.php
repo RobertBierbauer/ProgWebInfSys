@@ -18,6 +18,7 @@
 		<ul>
 			<li>Wiki erstellen mittels Session</li>
 		</ul>	
+		<p>Fehlende Features: Keine! </p>
 		<a href="aufgabe2/createEditEntry.php">Wiki</a>
 		<h3>Aufgabe3</h3>
 		<ul>
@@ -32,6 +33,7 @@
 				<li>Refactoring auf objektorientierte Architektur</li>
 			</ul>
 		</ul>
+		<p>Fehlende Features: Keine! </p>
 		<a href="aufgabe3/createEntry.php">Wiki</a>
 		
 		<h3>Aufgabe4</h3>
@@ -42,6 +44,7 @@
 			<li>Generator f&uuml;r 10.000 Eintr&auml;ge</li>
 			<li>Datenbank Optimierungen</li>
 		</ul>
+		<p>Fehlende Features: Keine! </p>
 		<a href="aufgabe4/createEntry.php">Wiki</a></br>
 		<a href="aufgabe4Op/createEntry.php">Wiki Optimiert</a>
 		
@@ -51,6 +54,8 @@
 			<li>Bilder-Upload</li>
 			<li>Usermanagement</li>
 		</ul>
+		
+		<p>Fehlende Features: Keine! </p>
 		<a href="aufgabe5/createEntry.php">Wiki</a>
 		
 		<h3>Aufgabe 6</h3>
@@ -63,7 +68,10 @@
 				<li>Datenbankabstraktion von ZF2</li>
 			</ul>
 		</ul>
-		<a href="aufgabe6/public">Rock Paper Scissors Lizard Spock</a>
+		<p>Fehlende Features: Keine! </p>
+		<a href="aufgabe6/public/game">Rock Paper Scissors Lizard Spock</a>
+		
+		<br><br><br>
 	</div>
 </body>
 </html>
