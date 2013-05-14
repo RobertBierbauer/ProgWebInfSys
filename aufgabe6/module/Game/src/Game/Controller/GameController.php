@@ -60,11 +60,9 @@ class GameController extends AbstractActionController
     	
     		if ($form->isValid()) {
     			$game->exchangeArray($form->getData());
-    			if($game->player2Choice == "0"){
-	    			$this->getGameTable()->completeGame($game);
-	    	
-	    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$game->id));
-    			}
+	    		$this->getGameTable()->completeGame($game);
+	    			
+	    		return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$game->id));
     		}
     	}
     	return array('form' => $form);
@@ -93,9 +91,6 @@ class GameController extends AbstractActionController
     	$game = $this->getGameTable()->getGame($this->params('id'));
     	//determine error
     	$error = "";
-    	if($this->layout->error != ""){
-    		$error = $this->layout->error;
-    	}
     	$winner="";
     	$choices = array("1" => "Rock", "2" => "Scissors", "3" => "Paper", "4" => "Lizard", "5" => "Spock");
 

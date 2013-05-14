@@ -33,18 +33,16 @@ class GameTable
     			'player2Choice' => $player2Choice,
     	);
     	
-    	if ($this->getGame($id)) {
-    		$this->tableGateway->update($data, array('id' => $id));
-    	} else {
-    		throw new \Exception('Form id does not exist');
+    	if ($gameToComplete = $this->getGame($id)) {
+    		if($gameToComplete->player2Choice == 0){
+    			$this->tableGateway->update($data, array('id' => $id));
+    		}
     	}
     }
 
     public function saveGame(Game $game)
     {
-		$date = new \DateTime(null);
-		$date = $date->format('Y-m-d H:i:s');
-        $id = hash('sha1', $game->player1Name.$game->player2Name.$date);
+        $id = hash('sha1', $game->player1Name.$game->player2Name.time());
         $data = array(
         	'id' => $id,
             'player1Name' => $game->player1Name,
