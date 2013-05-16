@@ -71,6 +71,25 @@
 		<p>Fehlende Features: Keine! </p>
 		<a href="aufgabe6/public/game">Rock Paper Scissors Lizard Spock</a>
 		
+		<h3>Aufgabe 7</h3>
+		<ul>
+			<li>Rock-paper-scissors-lizard-Spock Extended</li>
+			<li>ZF DB-Abstraktion</li>
+			<li>/game -> public Ordner (kein public in URL sichtbar)</li>
+			<li>Email Versand, ZF, SMTP: smtp.uibk.ac.at</li>
+			<ul>			
+				<li>Einladung</li>
+				<li>Resultat</li>
+			</ul>
+			<li>Revanche starten nach Spiel</li>
+			<li>HFormular&uuml;berpr&uuml;fung mit JavaScript ohne JS-lib!</li>
+			<li>Usability: Erkl&auml;rungen, Waffen-Auswahl &uuml;ber Bilder, CSS/Design</li>
+			<li>Wiedererkennung per Cookie -> Vorausf&uuml;llen der eigenen Daten</li>
+			<li>Testspiele: 10 Personen -> Feedback sammeln und dokumentieren</li>
+		</ul>
+		<p>Fehlende Features: Keine! </p>
+		<a href="aufgabe7/public/game">Rock Paper Scissors Lizard Spock Extended</a>
+
 		<br><br><br>
 	</div>
 </body>

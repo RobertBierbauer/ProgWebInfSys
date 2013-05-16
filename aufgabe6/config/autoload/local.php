@@ -3,6 +3,6 @@
 return array(
     'db' => array(
         'username' => 'root',
-        'password' => 'new-password',
+        'password' => 'pass',
     ),
 );

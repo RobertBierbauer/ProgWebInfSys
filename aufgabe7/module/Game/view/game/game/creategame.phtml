@@ -1,0 +1,40 @@
+<?php
+
+$title = 'Create game';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<script src="/aufgabe7/module/Game/src/js/pictureEventHandler.js" type="text/javascript"></script>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('game', array('action' => 'creategame')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('player1Name'));
+echo $this->formRow($form->get('player1Email'));
+echo $this->formRow($form->get('player2Name'));
+echo $this->formRow($form->get('player2Email'));
+echo $this->formRow($form->get('player1Choice'));
+?>
+<a href="#" onclick="setNewWeapon('player1Choice', '1')" >
+	<img id="rockImg" src="/aufgabe7/module/Game/img/Rock.jpg" height="150" width="150"/>
+</a>
+<a href="#" onclick="setNewWeapon('player1Choice', '2')" >
+	<img id="scissorsImg" src="/aufgabe7/module/Game/img/Scissors.jpg" height="150" width="150"/>
+</a>
+<a href="#" onclick="setNewWeapon('player1Choice', '3')" >
+	<img id="paperImg" src="/aufgabe7/module/Game/img/Paper.jpg" height="150" width="150"/>
+</a>
+<a href="#" onclick="setNewWeapon('player1Choice', '4')" >
+	<img id="lizardImg" src="/aufgabe7/module/Game/img/Lizard.jpg" height="150" width="150"/>
+</a>
+
+<a href="#" onclick="setNewWeapon('player1Choice', '5')" >
+	<img id="spockImg" src="/aufgabe7/module/Game/img/Spock.jpg" height="150" width="150"/>
+</a>
+<br><br>
+<?php 
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>

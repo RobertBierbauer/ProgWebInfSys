@@ -1,0 +1,30 @@
+<?php
+
+$title = 'View result';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php 
+if($error != ""){
+	echo $error;
+	echo "<a href=".$this->url('game').">Go home, you're drunk!</a>";
+}
+else{
+
+	echo "<p>The id of the created game is: ".$game->id."</p>";
+	echo "<p>The game was created by: ".$game->player1Name." with email: ".$game->player1Email."!</p>";
+	echo "<p>The challenger was: ".$game->player2Name." with email: ".$game->player2Email."!</p>";
+	echo "<p>Player 1 chose: ".$choices[$game->player1Choice]."</p>";
+	echo "<p>Player 2 chose: ".$choices[$game->player2Choice]."</p>";
+	
+	if($winner == 0){
+		echo "No Winner!";
+	}
+	else if($winner == 1){
+		echo "Player 1 won!";
+	}
+	else if($winner == 2){
+		echo "Player 2 won!";
+	}
+}
+?>
