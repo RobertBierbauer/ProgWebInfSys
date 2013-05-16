@@ -1,40 +1,90 @@
+
 <?php
 
 $title = 'Create game';
 $this->headTitle($title);
 ?>
+
+
 <h1><?php echo $this->escapeHtml($title); ?></h1>
-<script src="/aufgabe7/module/Game/src/js/pictureEventHandler.js" type="text/javascript"></script>
-<?php
-$form = $this->form;
-$form->setAttribute('action', $this->url('game', array('action' => 'creategame')));
-$form->prepare();
 
-echo $this->form()->openTag($form);
-echo $this->formRow($form->get('player1Name'));
-echo $this->formRow($form->get('player1Email'));
-echo $this->formRow($form->get('player2Name'));
-echo $this->formRow($form->get('player2Email'));
-echo $this->formRow($form->get('player1Choice'));
-?>
-<a href="#" onclick="setNewWeapon('player1Choice', '1')" >
-	<img id="rockImg" src="/aufgabe7/module/Game/img/Rock.jpg" height="150" width="150"/>
-</a>
-<a href="#" onclick="setNewWeapon('player1Choice', '2')" >
-	<img id="scissorsImg" src="/aufgabe7/module/Game/img/Scissors.jpg" height="150" width="150"/>
-</a>
-<a href="#" onclick="setNewWeapon('player1Choice', '3')" >
-	<img id="paperImg" src="/aufgabe7/module/Game/img/Paper.jpg" height="150" width="150"/>
-</a>
-<a href="#" onclick="setNewWeapon('player1Choice', '4')" >
-	<img id="lizardImg" src="/aufgabe7/module/Game/img/Lizard.jpg" height="150" width="150"/>
-</a>
+<script type="text/javascript">
+var readyStateCheckInterval = setInterval(function() {
+    if (document.readyState === "complete") {
+        setUpCreateGame();
+        clearInterval(readyStateCheckInterval);
+    }
+}, 10);
+</script>
 
-<a href="#" onclick="setNewWeapon('player1Choice', '5')" >
-	<img id="spockImg" src="/aufgabe7/module/Game/img/Spock.jpg" height="150" width="150"/>
-</a>
-<br><br>
-<?php 
-echo $this->formSubmit($form->get('submit'));
-echo $this->form()->closeTag();
-?>
+<form name="createGame"  method="post" action="<?php $this->url('game', array('action' => 'creategame'))?>" onSubmit="return checkCreateForm();">
+	<div class="widget-content">
+    	<div class="widget-box">
+        	<div class = 'form-horizontal well'>
+
+				<div class="control-group ">
+                	<label class="control-label" for="player1Name">Enter your name: </label>
+                    <div class="controls">
+						<input type="text" name="player1Name" id="player1Name" value="" />
+						<div id="player1NameError"></div>
+					</div>
+				</div>
+				
+				<div class="control-group">
+                	<label class="control-label" for="player1Email">Enter your email: </label>
+                    <div class="controls">
+						<input type="text" name="player1Email" id="player1Email" value="" />
+						<div id="player1EmailError"></div>
+					</div>
+				</div>
+				
+				<div class="control-group">
+                	<label class="control-label" for="player2Name">Enter the name of the second player: </label>
+                    <div class="controls">
+						<input type="text" name="player2Name" id="player2Name" value="" />
+						<div id="player2NameError"></div>
+					</div>
+				</div>
+				
+				<div class="control-group">
+                	<label class="control-label" for="player2Email">Enter the email of the second player: </label>
+                    <div class="controls">
+						<input type="text" name="player2Email" id="player2Email" value="" />
+						<div id="player2EmailError"></div>
+					</div>
+				</div>
+				
+				<div class="control-group">
+                	<label class="control-label">Choose a weapon: </label>
+                    <div class="controls">
+						<input type="hidden" name="player1Choice" id="player1Choice" value="0" />
+						<div id="player1ChoiceError"></div>
+				
+						<a href="#" onclick="setNewWeapon('player1Choice', '1')" >
+							<img id="rockImg" src="/aufgabe7/module/Game/img/Rock.jpg" alt="Rock" title="Rock" height="150" width="150"/>
+						</a>
+						<a href="#" onclick="setNewWeapon('player1Choice', '2')" >
+							<img id="scissorsImg" src="/aufgabe7/module/Game/img/Scissors.jpg" alt="Scissors" title="Scissors" height="150" width="150"/>
+						</a>
+						<a href="#" onclick="setNewWeapon('player1Choice', '3')" >
+							<img id="paperImg" src="/aufgabe7/module/Game/img/Paper.jpg" alt="Paper" title="Paper" height="150" width="150"/>
+						</a>
+						<a href="#" onclick="setNewWeapon('player1Choice', '4')" >
+							<img id="lizardImg" src="/aufgabe7/module/Game/img/Lizard.jpg" alt="Lizard" title="Lizard" height="150" width="150"/>
+						</a>	
+						<a href="#" onclick="setNewWeapon('player1Choice', '5')" >
+							<img id="spockImg" src="/aufgabe7/module/Game/img/Spock.jpg" alt="Spock" title="Spock" height="150" width="150"/>
+						</a>
+					</div>
+				</div>
+				
+				<div class="control-group">
+                    <div class="controls">
+						<input type="submit" value="Create game!"/>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</form>

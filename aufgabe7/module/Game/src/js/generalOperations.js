@@ -32,3 +32,17 @@ function setNewWeapon(hiddenFieldName, value){
 		newImg.style.border = "3px solid red";
 	}
 };
+
+function checkEmailFormat(email){
+	
+	if(email.indexOf("@") === -1){
+		return false;
+	}
+	else{
+		email = email.substring(email.indexOf("@") + 1);
+		if(email.indexOf(".") === -1){
+			return false;
+		}
+		return true;
+	}
+};

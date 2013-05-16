@@ -25,24 +25,30 @@ class GameController extends AbstractActionController
     }
 
     public function creategameAction()
-    {
-    	$form = new CreateGameForm();
-    	$form->get('submit')->setValue('Create');
-    	
+    {    	
     	$request = $this->getRequest();
     	if ($request->isPost()) {
     		$game = new Game();
-    		$form->setInputFilter($game->getCreateInputFilter());
-    		$form->setData($request->getPost());
-    	
-    		if ($form->isValid()) {
-    			$game->exchangeArray($form->getData());
-    			$id = $this->getGameTable()->saveGame($game);
 
-    			return $this->redirect()->toRoute('game', array('action'=>'showcreatedgame', 'id'=>$id));
-    		}
+    		$game->exchangeArray($request->getPost());
+    		$id = $this->getGameTable()->saveGame($game);
+    		    			
+    		$mail = new Message();
+    		$mail->setBody('Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link below:\n\n<a href='localhost/aufgabe7/public/joinGame/".$id."'>Join the game</a>");
+    		$mail->setFrom('robert.bierbauer@student.uibk.ac.at', ''.$game->player1Name);
+    		$mail->addTo(''.$game->player2Email, ''.$game->player2Name);
+    		$mail->setSubject(''.$game->player1Name.' challenged you!');
+    		
+    		$transport = new SmtpTransport();
+			$options   = new SmtpOptions(array(
+			    'name'              => 'smtp.uibk.ac.at',
+			    'host'              => '138.232.66.87',
+			));
+   			//$transport->send($mail);
+
+    		//return $this->redirect()->toRoute('game', array('action'=>'showcreatedgame', 'id'=>$id));
+
     	}
-    	return array('form' => $form);
     }
     
     public function showcreatedgameAction(){
