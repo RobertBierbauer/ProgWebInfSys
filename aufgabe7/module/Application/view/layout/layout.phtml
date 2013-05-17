@@ -20,6 +20,8 @@
                                       
 		<script src="/aufgabe7/module/Game/src/js/generalOperations.js" type="text/javascript"></script>
 		<script src="/aufgabe7/module/Game/src/js/createGame.js" type="text/javascript"></script>
+		<script src="/aufgabe7/module/Game/src/js/joinGame.js" type="text/javascript"></script>
+		<script src="/aufgabe7/module/Game/src/js/selectJoinGame.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -34,7 +36,7 @@
                         <ul class="nav">
                             <li><a href="<?php echo $this->url('game') ?>">Home</a></li>
                             <li><a href="<?php echo $this->url('game', array('action' => 'creategame')) ?>">Create Game</a></li>
-                            <li><a href="<?php echo $this->url('game', array('action' => 'joingame')) ?>">Join Game</a></li>
+                            <li><a href="<?php echo $this->url('game', array('action' => 'selectjoingame')) ?>">Join Game</a></li>
                             <li><a href="<?php echo $this->url('game', array('action' => 'viewresult')) ?>">View Result</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->

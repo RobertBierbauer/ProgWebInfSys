@@ -25,6 +25,15 @@ class GameTable
         return $row;
     }
     
+    public function gameCompleted(Game $game){
+    	if($game->player2Choice == 0){
+    		return false;
+    	}
+    	else{
+    		return true;
+    	}
+    }
+    
     public function completeGame(Game $game){
     	$id = $game->id;
     	$player2Choice = $game->player2Choice;
@@ -33,11 +42,7 @@ class GameTable
     			'player2Choice' => $player2Choice,
     	);
     	
-    	if ($gameToComplete = $this->getGame($id)) {
-    		if($gameToComplete->player2Choice == 0){
-    			$this->tableGateway->update($data, array('id' => $id));
-    		}
-    	}
+    	$this->tableGateway->update($data, array('id' => $id));
     }
 
     public function saveGame(Game $game)

@@ -1,0 +1,38 @@
+<?php
+$title = 'Select a game to join!';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<script type="text/javascript">
+var readyStateCheckInterval = setInterval(function() {
+    if (document.readyState === "complete") {
+        setUpSelectJoinGame();
+        clearInterval(readyStateCheckInterval);
+    }
+}, 100);
+</script>
+
+<form name="joinGame"  method="post" action="<?php $this->url('game', array('action' => 'selectjoingame'))?>" onSubmit="return checkSelectJoinForm();">
+	<div class="widget-content">
+    	<div class="widget-box">
+        	<div class = 'form-horizontal well'>
+
+				<div class="control-group ">
+                	<label class="control-label" for="id">Enter the ID of the game you want to join: </label>
+                    <div class="controls">
+						<input type="text" name="id" id="id" value="" />
+						<div id="idError"></div>
+					</div>
+				</div>
+				
+				<div class="control-group">
+                    <div class="controls">
+						<input type="submit" value="Join game!"/>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</form>

@@ -9,12 +9,12 @@ $this->headTitle($title);
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 
 <script type="text/javascript">
-var readyStateCheckInterval = setInterval(function() {
-    if (document.readyState === "complete") {
-        setUpCreateGame();
-        clearInterval(readyStateCheckInterval);
-    }
-}, 10);
+	var readyStateCheckInterval = setInterval(function() {
+	    if (document.readyState === "complete") {
+	        setUpCreateGame();
+	        clearInterval(readyStateCheckInterval);
+	    }
+	}, 100);
 </script>
 
 <form name="createGame"  method="post" action="<?php $this->url('game', array('action' => 'creategame'))?>" onSubmit="return checkCreateForm();">
@@ -25,7 +25,7 @@ var readyStateCheckInterval = setInterval(function() {
 				<div class="control-group ">
                 	<label class="control-label" for="player1Name">Enter your name: </label>
                     <div class="controls">
-						<input type="text" name="player1Name" id="player1Name" value="" />
+						<input type="text" name="player1Name" id="player1Name" value="<?php if($replaygame != null){echo $replaygame->player2Name;}?>" />
 						<div id="player1NameError"></div>
 					</div>
 				</div>
@@ -33,7 +33,7 @@ var readyStateCheckInterval = setInterval(function() {
 				<div class="control-group">
                 	<label class="control-label" for="player1Email">Enter your email: </label>
                     <div class="controls">
-						<input type="text" name="player1Email" id="player1Email" value="" />
+						<input type="text" name="player1Email" id="player1Email" value="<?php if($replaygame){echo $replaygame->player2Email;}?>" />
 						<div id="player1EmailError"></div>
 					</div>
 				</div>
@@ -41,7 +41,7 @@ var readyStateCheckInterval = setInterval(function() {
 				<div class="control-group">
                 	<label class="control-label" for="player2Name">Enter the name of the second player: </label>
                     <div class="controls">
-						<input type="text" name="player2Name" id="player2Name" value="" />
+						<input type="text" name="player2Name" id="player2Name" value="<?php if($replaygame){echo $replaygame->player1Name;}?>" />
 						<div id="player2NameError"></div>
 					</div>
 				</div>
@@ -49,7 +49,7 @@ var readyStateCheckInterval = setInterval(function() {
 				<div class="control-group">
                 	<label class="control-label" for="player2Email">Enter the email of the second player: </label>
                     <div class="controls">
-						<input type="text" name="player2Email" id="player2Email" value="" />
+						<input type="text" name="player2Email" id="player2Email" value="<?php if($replaygame){echo $replaygame->player1Email;}?>" />
 						<div id="player2EmailError"></div>
 					</div>
 				</div>

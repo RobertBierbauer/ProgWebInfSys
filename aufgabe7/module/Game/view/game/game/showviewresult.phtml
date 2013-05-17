@@ -26,5 +26,7 @@ else{
 	else if($winner == 2){
 		echo "Player 2 won!";
 	}
+	echo "<br><a href=".$this->url('game', array('action'=>'creategame', 'id' => $game->id)).">Press here to make a Revanche!</a>";
 }
+
 ?>

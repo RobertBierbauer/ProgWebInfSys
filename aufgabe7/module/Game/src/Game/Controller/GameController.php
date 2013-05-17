@@ -9,8 +9,6 @@ use Game\Form\JoinGameForm;
 use Game\Form\ViewResultForm;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
-use Zend\Mime\Message as MimeMessage;
-use Zend\Mime\Part as MimePart;
 use Zend\Mail\Transport\SmtpOptions;
 
 class GameController extends AbstractActionController
@@ -27,6 +25,10 @@ class GameController extends AbstractActionController
     public function creategameAction()
     {    	
     	$request = $this->getRequest();
+    	$replaygame = null;
+    	if($this->params('id')){
+    		$replaygame = $this->getGameTable()->getGame($this->params('id'));    		
+    	}
     	if ($request->isPost()) {
     		$game = new Game();
 
@@ -42,41 +44,62 @@ class GameController extends AbstractActionController
     		$transport = new SmtpTransport();
 			$options   = new SmtpOptions(array(
 			    'name'              => 'smtp.uibk.ac.at',
-			    'host'              => '138.232.66.87',
+			    'host'              => '127.0.0.1',
 			));
+			$transport->setOptions($options);
    			//$transport->send($mail);
 
-    		//return $this->redirect()->toRoute('game', array('action'=>'showcreatedgame', 'id'=>$id));
+    		return $this->redirect()->toRoute('game', array('action'=>'showcreatedgame', 'id'=>$id));
 
     	}
+    	return new ViewModel(array(
+    			'replaygame' => $replaygame,
+    	));
     }
     
     public function showcreatedgameAction(){
-    	
+    	$id = $this->params('id');
+    	$game = $this->getGameTable()->getGame($id);
     	return new ViewModel(array(
-    			'id'=> $this->params('id')));
+    			'id' => $id,
+    			'game' => $game,
+    		));
     }
     
+    public function selectjoingameAction(){
+    	$request = $this->getRequest();
+    	if ($request->isPost()) {
+    		$request = $request->getPost();
+    		$id = $request['id'];
+    		$game = $this->getGameTable()->getGame($id);
+    		if(!$game){
+    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
+    		}
+    		elseif($this->getGameTable()->gameCompleted($game)){
+    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
+    		}
+    		else{    			
+    			return $this->redirect()->toRoute('game', array('action'=>'joingame', 'id'=>$id));
+    		}
+    	}
+    }
 
     public function joingameAction()
     {
-    	$form = new JoinGameForm();
-    	$form->get('submit')->setValue('Join');
-    	
-    	$request = $this->getRequest();
-    	if ($request->isPost()) {
-    		$game = new Game();
-    		$form->setInputFilter($game->getJoinInputFilter());
-    		$form->setData($request->getPost());
-    	
-    		if ($form->isValid()) {
-    			$game->exchangeArray($form->getData());
-	    		$this->getGameTable()->completeGame($game);
-	    			
-	    		return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$game->id));
-    		}
+    	$id = $this->params('id');
+    	$game = $this->getGameTable()->getGame($id);
+    	if($game){
+	    	$request = $this->getRequest();
+	    	if ($request->isPost()) {
+		    	$game->exchangeArray($request->getPost());
+			    $game->setID($id);
+			    $this->getGameTable()->completeGame($game);
+			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$this->params('id')));
+	    	}
     	}
-    	return array('form' => $form);
+    	else{
+    		return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$this->params('id')));
+    	}
     }
     
     public function viewresultAction()
@@ -100,11 +123,11 @@ class GameController extends AbstractActionController
     
     public function showviewresultAction(){
     	$game = $this->getGameTable()->getGame($this->params('id'));
-    	//determine error
     	$error = "";
-    	$winner="";
+    	$winner = "";
     	$choices = array("1" => "Rock", "2" => "Scissors", "3" => "Paper", "4" => "Lizard", "5" => "Spock");
 
+    	//determine error
     	if(!$game){
     		$error = "<p>The game does not exist! Please don't try to hack other games</p>";
     	}
