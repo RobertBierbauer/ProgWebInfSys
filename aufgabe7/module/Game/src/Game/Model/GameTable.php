@@ -64,15 +64,44 @@ class GameTable
         
     }
     
+    private function groupAndCount($player1Winner, $player2Winner){
+    	$winners = array();
+    	foreach($player1Winner as $winner){
+    		if(array_key_exists($winner->player1Name, $winners)){
+    			$winners[$winner->player1Name]++;
+    		}
+    		else{
+    			$winners[$winner->player1Name] = 1;
+    		}
+    	}
+    	foreach($player2Winner as $winner){
+    		if(array_key_exists($winner->player2Name, $winners)){
+    			$winners[$winner->player2Name]++;
+    		}
+    		else{
+    			$winners[$winner->player2Name] = 1;
+    		}
+    	}
+    	arsort($winners);
+    	return $winners;
+    }
+    
     public function getHighscore(){
-    	$result = $this->tableGateway->select(array('winner'=>1));
+    	//$result = $this->tableGateway->select(array('winner'=>1));
     	/*
     	$result->from($this->tableGateway, array('count(player1Name) as wins'));
     	$result->where('winner=1');
     	$result->order('player1Name');
     	$result->group('wins desc','player1Name');
     	*/
+    	$result1 = $this->tableGateway->getSql()->select();
+    	$result1->where('winner = 1');
+    	$result1 = $this->tableGateway->selectWith($result1);
+    	$result2 = $this->tableGateway->getSql()->select();
+    	$result2->where('winner = 2');
+    	$result2 = $this->tableGateway->selectWith($result2);
+    	$highscore = $this->groupAndCount($result1, $result2);
     	
-    	return $result;
+    	return $highscore;
     }
 }

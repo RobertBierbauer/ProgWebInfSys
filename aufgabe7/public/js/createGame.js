@@ -1,5 +1,3 @@
-
-
 function checkCreateForm(){
 	var player1Name = document.getElementById("player1Name");
 	var player1Email = document.getElementById("player1Email");

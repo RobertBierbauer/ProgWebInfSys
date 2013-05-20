@@ -7,5 +7,11 @@ $this->headTitle($title);
 <p>
     <a href="<?php echo $this->url('game', array('action'=>'creategame'));?>">Create new game</a>
     
-    <?php var_dump($highscore)?>
+    <?php 
+    
+	    for($pos = 0; $pos<count($highscore); $pos++) {
+	    	$temp = array_slice($highscore, $pos, 1, true);
+			echo "<p>".key($temp)." | ".$highscore[key($temp)]."</p>";
+	    }
+    ?>
 </p>
