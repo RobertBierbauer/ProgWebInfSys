@@ -26,89 +26,14 @@ class Game
 		$this->player2Email = (isset($data['player2Email'])) ? $data['player2Email'] : null;
 		$this->player1Choice = (isset($data['player1Choice'])) ? $data['player1Choice'] : null;
 		$this->player2Choice = (isset($data['player2Choice'])) ? $data['player2Choice'] : null;
+		$this->winner = (isset($data['winner'])) ? $data['winner'] : null;
 	}
 	
 	public function setID($id){
 		$this->id = $id;
 	}
 	
-	public function getJoinInputFilter()
-	{
-		if (!$this->inputFilter) {
-			$inputFilter = new InputFilter();
-			$factory     = new InputFactory();
-	
-			$inputFilter->add($factory->createInput(array(
-					'name'     => 'id',
-					'required' => true,
-					'filters'  => array(
-							array('name' => 'StripTags'),
-							array('name' => 'StringTrim'),
-					),
-					'validators' => array(
-							array(
-									'name'    => 'StringLength',
-									'options' => array(
-											'encoding' => 'UTF-8',
-											'min'      => 40,
-											'max'      => 40,
-									),
-							),
-					),
-			)));
-	
-			$inputFilter->add($factory->createInput(array(
-					'name'     => 'player2Choice',
-					'required' => true,
-					'filters'  => array(
-							array('name' => 'Int'),
-					),
-					'validators' => array(
-							array(
-									'name'    => 'Between',
-									'options' => array(
-											'min'      => 1,
-											'max'      => 5,
-									),
-							),
-					),
-			)));
-	
-	
-			$this->inputFilter = $inputFilter;
-		}
-	
-		return $this->inputFilter;
-	}
-	
-	public function getViewResultFilter()
-	{
-		if (!$this->inputFilter) {
-			$inputFilter = new InputFilter();
-			$factory     = new InputFactory();
-	
-			$inputFilter->add($factory->createInput(array(
-					'name'     => 'id',
-					'required' => true,
-					'filters'  => array(
-							array('name' => 'StripTags'),
-							array('name' => 'StringTrim'),
-					),
-					'validators' => array(
-							array(
-									'name'    => 'StringLength',
-									'options' => array(
-											'encoding' => 'UTF-8',
-											'min'      => 40,
-											'max'      => 40,
-									),
-							),
-					),
-			)));
-	
-			$this->inputFilter = $inputFilter;
-		}
-	
-		return $this->inputFilter;
+	public function setWinner($winner){
+		$this->winner = $winner;
 	}
 }

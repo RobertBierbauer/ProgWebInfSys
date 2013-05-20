@@ -37,9 +37,11 @@ class GameTable
     public function completeGame(Game $game){
     	$id = $game->id;
     	$player2Choice = $game->player2Choice;
+    	$winner = $game->winner;
     	
     	$data = array(
     			'player2Choice' => $player2Choice,
+    			'winner'		=> $winner,
     	);
     	
     	$this->tableGateway->update($data, array('id' => $id));
@@ -60,5 +62,17 @@ class GameTable
        	$this->tableGateway->insert($data);
        	return $id;
         
+    }
+    
+    public function getHighscore(){
+    	$result = $this->tableGateway->select(array('winner'=>1));
+    	/*
+    	$result->from($this->tableGateway, array('count(player1Name) as wins'));
+    	$result->where('winner=1');
+    	$result->order('player1Name');
+    	$result->group('wins desc','player1Name');
+    	*/
+    	
+    	return $result;
     }
 }

@@ -17,13 +17,13 @@ else{
 	echo "<p>Player 1 chose: ".$choices[$game->player1Choice]."</p>";
 	echo "<p>Player 2 chose: ".$choices[$game->player2Choice]."</p>";
 	
-	if($winner == 0){
+	if($game->winner == 0){
 		echo "No Winner!";
 	}
-	else if($winner == 1){
+	else if($game->winner == 1){
 		echo "Player 1 won!";
 	}
-	else if($winner == 2){
+	else if($game->winner == 2){
 		echo "Player 2 won!";
 	}
 	echo "<br><a href=".$this->url('game', array('action'=>'creategame', 'id' => $game->id)).">Press here to make a Revanche!</a>";

@@ -17,8 +17,10 @@ class GameController extends AbstractActionController
 	
     public function indexAction()
     {
+    	
+    	
     	return new ViewModel(array(
-    			'games' => $this->getGameTable()->fetchAll(),
+    			'highscore' => $this->getGameTable()->getHighscore(),    			
     	));
     }
 
@@ -91,9 +93,30 @@ class GameController extends AbstractActionController
     	if($game){
 	    	$request = $this->getRequest();
 	    	if ($request->isPost()) {
-		    	$game->exchangeArray($request->getPost());
-			    $game->setID($id);
-			    $this->getGameTable()->completeGame($game);
+	    		$joinGame = new Game();
+		    	$joinGame->exchangeArray($request->getPost());
+			    $joinGame->setID($id);
+			    
+			    
+			    //determine winner
+			    $player1Choice = $game->player1Choice;
+			    $player2Choice = $joinGame->player2Choice;			    
+			    
+			    if($player1Choice == $player2Choice){
+			    	$joinGame->setWinner(0);
+			    }
+			    else if( ($player1Choice == "1" && ($player2Choice == "3" || $player2Choice == "5")) ||
+			    		($player1Choice == "2" && ($player2Choice == "1" || $player2Choice == "5")) ||
+			    		($player1Choice == "3" && ($player2Choice == "2" || $player2Choice == "4")) ||
+			    		($player1Choice == "4" && ($player2Choice == "1" || $player2Choice == "3")) ||
+			    		($player1Choice == "5" && ($player2Choice == "4" || $player2Choice == "2"))){
+			    	$joinGame->setWinner(2);
+			    }
+			    else{
+			    	$joinGame->setWinner(1);
+			    }
+			    
+			    $this->getGameTable()->completeGame($joinGame);
 			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$this->params('id')));
 	    	}
     	}
@@ -124,7 +147,6 @@ class GameController extends AbstractActionController
     public function showviewresultAction(){
     	$game = $this->getGameTable()->getGame($this->params('id'));
     	$error = "";
-    	$winner = "";
     	$choices = array("1" => "Rock", "2" => "Scissors", "3" => "Paper", "4" => "Lizard", "5" => "Spock");
 
     	//determine error
@@ -134,29 +156,9 @@ class GameController extends AbstractActionController
     	else if($game->player2Choice == "0"){
     		$error = "<p>Sorry Bro! Your friend did not yet make his choice!</p>";
     	}
-    	else{
-	    	$player1Choice = $game->player1Choice;
-	    	$player2Choice = $game->player2Choice;
-	    	//determine winner
-	    	
-	    	if($player1Choice == $player2Choice){
-	    		$winner = 0;
-	    	}    	
-	    	else if( ($player1Choice == "1" && ($player2Choice == "3" || $player2Choice == "5")) || 
-	    			 ($player1Choice == "2" && ($player2Choice == "1" || $player2Choice == "5")) || 
-	    			 ($player1Choice == "3" && ($player2Choice == "2" || $player2Choice == "4")) || 
-	    			 ($player1Choice == "4" && ($player2Choice == "1" || $player2Choice == "3")) ||
-	    			 ($player1Choice == "5" && ($player2Choice == "4" || $player2Choice == "2"))){
-	    		$winner = 2;
-	    	}
-	    	else{
-	    		$winner = 1;
-	    	}
-    	}
     	return new ViewModel(array(
     			'game'=> $game,
     			'error' => $error,
-    			'winner' => $winner,
     			'choices' => $choices));
     }
     
