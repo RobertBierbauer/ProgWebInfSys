@@ -36,12 +36,19 @@ class GameController extends AbstractActionController
 
     		$game->exchangeArray($request->getPost());
     		$id = $this->getGameTable()->saveGame($game);
-    		    			
+    		
+    		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link below:\n\n <a href='http://138.232.66.87/aufgabe7/game/joingame/".$id."'>Join the game</a>";
+    		$bodyPart = new \Zend\Mime\Message();
+    		$bodyMessage = new \Zend\Mime\Part($html); 	
+    		$bodyMessage->type = 'text/html';
+    		$bodyPart->setParts(array($bodyMessage));		
+    		
     		$mail = new Message();
-    		$mail->setBody('Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link below:\n\n <a href='http://138.232.66.87/aufgabe7/game/joingame/".$id."'>Join the game</a>");
+    		$mail->setBody($bodyPart);
     		$mail->setFrom('robert.bierbauer@student.uibk.ac.at', ''.$game->player1Name);
     		$mail->addTo(''.$game->player2Email, ''.$game->player2Name);
     		$mail->setSubject(''.$game->player1Name.' challenged you!');
+    		$mail-setEncoding('UTF-8');
     		
     		$transport = new SmtpTransport();
 			$options   = new SmtpOptions(array(
