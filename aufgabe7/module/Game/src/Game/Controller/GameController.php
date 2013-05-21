@@ -37,26 +37,7 @@ class GameController extends AbstractActionController
     		$game->exchangeArray($request->getPost());
     		$id = $this->getGameTable()->saveGame($game);
     		
-    		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe7/game/joingame/".$id."'>Join the game</a>";
-    		$bodyPart = new \Zend\Mime\Message();
-    		$bodyMessage = new \Zend\Mime\Part($html); 	
-    		$bodyMessage->type = 'text/html';
-    		$bodyPart->setParts(array($bodyMessage));		
-    		
-    		$mail = new Message();
-    		$mail->setBody($bodyPart);
-    		$mail->setFrom('robert.bierbauer@student.uibk.ac.at', ''.$game->player1Name);
-    		$mail->addTo(''.$game->player2Email, ''.$game->player2Name);
-    		$mail->setSubject(''.$game->player1Name.' challenged you!');
-    		$mail->setEncoding('UTF-8');
-    		
-    		$transport = new SmtpTransport();
-			$options   = new SmtpOptions(array(
-			    'name'              => 'smtp.uibk.ac.at',
-			    'host'              => 'smtp.uibk.ac.at',
-			));
-			$transport->setOptions($options);
-   			$transport->send($mail);
+    		$this->sendEmail($id, $game, 0);
 
     		return $this->redirect()->toRoute('game', array('action'=>'showcreatedgame', 'id'=>$id));
 
@@ -124,6 +105,9 @@ class GameController extends AbstractActionController
 			    }
 			    
 			    $this->getGameTable()->completeGame($joinGame);
+			    
+			    $this->sendEmail($id, $game, 0);
+			    
 			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$this->params('id')));
 	    	}
     	}
@@ -176,5 +160,45 @@ class GameController extends AbstractActionController
     		$this->gameTable = $sm->get('Game\Model\GameTable');
     	}
     	return $this->gameTable;
+    }
+    
+    /**
+     * This function sends an email 
+     * @param unknown_type $id the id of the game
+     * @param unknown_type $game - the mae with all information
+     * @param unknown_type $option 0 if a player is invited, 1 if the game was completed
+     */
+    public function sendEmail($id, $game, $option){
+    	
+    	if($option === 0){
+    		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe7/game/joingame/".$id."'>Join the game</a>";
+    	}else{
+    		$html = 'Hello '.$game->player1Name."!\n".$game->player2Name." has finished the game. You can check the result by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe7/game/viewresult/".$id."'>Check the result</a>";
+    	}
+    	
+    	$bodyPart = new \Zend\Mime\Message();
+    	$bodyMessage = new \Zend\Mime\Part($html);
+    	$bodyMessage->type = 'text/html';
+    	$bodyPart->setParts(array($bodyMessage));
+    	
+    	$mail = new Message();
+    	$mail->setBody($bodyPart);
+    	$mail->setFrom('robert.bierbauer@student.uibk.ac.at', ''.$game->player1Name);
+    	if($option === 0){
+    		$mail->addTo(''.$game->player2Email, ''.$game->player2Name);
+    	}else{
+    		$mail->addTo(''.$game->player1Email, ''.$game->player1Name);
+    	}
+    	
+    	$mail->setSubject(''.$game->player1Name.' challenged you!');
+    	$mail->setEncoding('UTF-8');
+    	
+    	$transport = new SmtpTransport();
+    	$options   = new SmtpOptions(array(
+    			'name'              => 'smtp.uibk.ac.at',
+    			'host'              => 'smtp.uibk.ac.at',
+    	));
+    	$transport->setOptions($options);
+    	$transport->send($mail);
     }
 }
