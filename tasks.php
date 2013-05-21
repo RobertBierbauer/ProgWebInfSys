@@ -88,7 +88,7 @@
 			<li>Testspiele: 10 Personen -> Feedback sammeln und dokumentieren</li>
 		</ul>
 		<p>Fehlende Features: Keine! </p>
-		<a href="aufgabe7/public/game">Rock Paper Scissors Lizard Spock Extended</a>
+		<a href="aufgabe7/game">Rock Paper Scissors Lizard Spock Extended</a>
 
 		<br><br><br>
 	</div>

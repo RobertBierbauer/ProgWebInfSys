@@ -52,6 +52,8 @@ function checkCreateForm(){
 		return false;
 	}
 	
+	setCookie("player1Name", player1Name.value, 5);
+	setCookie("player1Email", player1Email.value, 5);
 	return true;
 };
 
@@ -62,6 +64,10 @@ function setUpCreateGame(){
 	var player2Name = document.getElementById("player2Name");
 	var player2Email = document.getElementById("player2Email");
 	var player1Choice = document.getElementById("player1Choice");
+	
+	console.log(getCookie("player1Name"));
+	player1Name.value = getCookie("player1Name");
+	player1Email.value = getCookie("player1Email");
 	
 	player1Name.onchange = function(){
 		if(player1Name.value === ""){

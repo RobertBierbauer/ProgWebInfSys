@@ -38,7 +38,7 @@ class GameController extends AbstractActionController
     		$id = $this->getGameTable()->saveGame($game);
     		    			
     		$mail = new Message();
-    		$mail->setBody('Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link below:\n\n<a href='localhost/aufgabe7/public/joinGame/".$id."'>Join the game</a>");
+    		$mail->setBody('Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link below:\n\n<a href='138.232.66.87/aufgabe7/game/joinGame/".$id."'>Join the game</a>");
     		$mail->setFrom('robert.bierbauer@student.uibk.ac.at', ''.$game->player1Name);
     		$mail->addTo(''.$game->player2Email, ''.$game->player2Name);
     		$mail->setSubject(''.$game->player1Name.' challenged you!');
@@ -46,7 +46,7 @@ class GameController extends AbstractActionController
     		$transport = new SmtpTransport();
 			$options   = new SmtpOptions(array(
 			    'name'              => 'smtp.uibk.ac.at',
-			    'host'              => '127.0.0.1',
+			    'host'              => 'smtp.uibk.ac.at',
 			));
 			$transport->setOptions($options);
    			//$transport->send($mail);
