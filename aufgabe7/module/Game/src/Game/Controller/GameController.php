@@ -106,7 +106,7 @@ class GameController extends AbstractActionController
 			    
 			    $this->getGameTable()->completeGame($joinGame);
 			    
-			    $this->sendEmail($id, $game, 0);
+			    $this->sendEmail($id, $game, 1);
 			    
 			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$this->params('id')));
 	    	}
