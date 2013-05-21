@@ -26,7 +26,12 @@ else{
 	else if($game->winner == 2){
 		echo "Player 2 won!";
 	}
-	echo "<br><a href=".$this->url('game', array('action'=>'creategame', 'id' => $game->id)).">Press here to make a Revanche!</a>";
+	$player = $_COOKIE["player1Name"];
+	$player2 = $game->player1Name;
+	$player = trim($player);
+	if($player !== $player2){
+		echo "<br><a href=".$this->url('game', array('action'=>'creategame', 'id' => $game->id)).">Press here to make a Revanche!</a>";
+	}
 }
 
 ?>
