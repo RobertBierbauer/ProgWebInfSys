@@ -49,7 +49,7 @@ class GameController extends AbstractActionController
 			    'host'              => 'smtp.uibk.ac.at',
 			));
 			$transport->setOptions($options);
-   			//$transport->send($mail);
+   			$transport->send($mail);
 
     		return $this->redirect()->toRoute('game', array('action'=>'showcreatedgame', 'id'=>$id));
 
