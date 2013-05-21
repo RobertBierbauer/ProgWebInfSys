@@ -173,7 +173,7 @@ class GameController extends AbstractActionController
     	if($option === 0){
     		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe7/game/joingame/".$id."'>Join the game</a>";
     	}else{
-    		$html = 'Hello '.$game->player1Name."!\n".$game->player2Name." has finished the game. You can check the result by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe7/game/viewresult/".$id."'>Check the result</a>";
+    		$html = 'Hello '.$game->player1Name."!\n".$game->player2Name." has finished the game. You can check the result by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe7/game/showviewresult/".$id."'>Check the result</a>";
     	}
     	
     	$bodyPart = new \Zend\Mime\Message();
@@ -186,11 +186,13 @@ class GameController extends AbstractActionController
     	$mail->setFrom('robert.bierbauer@student.uibk.ac.at', ''.$game->player1Name);
     	if($option === 0){
     		$mail->addTo(''.$game->player2Email, ''.$game->player2Name);
+    		$mail->setSubject(''.$game->player1Name.' challenged you!');
     	}else{
     		$mail->addTo(''.$game->player1Email, ''.$game->player1Name);
+    		$mail->setSubject(''.$game->player2Name.' has completed the game!');
     	}
     	
-    	$mail->setSubject(''.$game->player1Name.' challenged you!');
+    	
     	$mail->setEncoding('UTF-8');
     	
     	$transport = new SmtpTransport();
