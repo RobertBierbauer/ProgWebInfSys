@@ -90,6 +90,18 @@
 		<p>Fehlende Features: Keine! </p>
 		<a href="aufgabe7/game">Rock Paper Scissors Lizard Spock Extended</a>
 
+		<h3>Aufgabe 8</h3>
+		<ul>
+			<li>Single Page Application (kein Reload der Seite) mit jQuery</li>
+			<li>HTML wird nicht mehr vom Server dynamisch generiert</li>
+			<li>Anzeige der Highscores mit automatischen Reload (alle 30 Sekunden) in der Single Page Application</li>
+			<li>Gesamte Kommunikation mit dem Server &uuml;ber AJAX (jQuery)</li>
+			<li>Installation MongoDB am Server</li>
+			<li>Adaptierung Speicherung der Spiele von MySQL nach MongoDB</li>
+			<li>Eingabe von Textnachrichten: beide Spieler k&ouml;nnen bei jedem Zug eine Textnachricht f&uuml;r den anderen Spieler setzen. Die zwei Nachrichten sollen jeweils zusammen mit dem Spiel in der DB gespeichert werden. </li>
+		</ul>
+		<p>Fehlende Features: Keine! </p>
+		<a href="aufgabe8/game">Rock Paper Scissors Lizard Spock Single Page App + MongoDB</a>
 		<br><br><br>
 	</div>
 </body>

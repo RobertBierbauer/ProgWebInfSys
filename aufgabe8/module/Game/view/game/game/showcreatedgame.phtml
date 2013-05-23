@@ -1,0 +1,9 @@
+<?php
+
+$title = 'The game was created!';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<p>An email was sent to <?php echo $game->player2Email?>.</p>
+<p>Come back later and check the result of the game</p>

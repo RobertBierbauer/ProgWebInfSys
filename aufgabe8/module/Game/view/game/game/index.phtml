@@ -1,0 +1,59 @@
+<?php
+
+$title = 'The Game';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<div class="row-fluid">
+
+<div class="span7">
+	<img src="<?php echo $this->basePath("img/gameRules.jpg"); ?>"/>
+	<br><br>
+	<p>
+	The rules of Rock-paper-scissors-lizard-Spock are:<br>
+		Scissors cut paper<br>
+		Paper covers rock<br>
+		Rock crushes lizard<br>
+		Lizard poisons Spock<br>
+		Spock smashes (or melts) scissors<br>
+		Scissors decapitate lizard<br>
+		Lizard eats paper<br>
+		Paper disproves Spock<br>
+		Spock vaporizes rock<br>
+		Rock breaks scissors<br><br>
+	
+	There are ten possible pairings of the five gestures; each gesture beats two of the other gestures and is beaten by the remaining two.<br>
+	One way to remember the rules is to remember the standard "rock-paper-scissors" ordering, where each gesture defeats the one before it, and is defeated by the one after. But then add the two novel gestures near the word they approximately rhyme with:<br>
+		Rock<br>
+		Spock<br>
+		Paper<br>
+		Lizard<br>
+		Scissors<br>
+	</p>
+</div>
+
+<div class="span5">
+	<h3>Highscore</h3>
+	
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Wins</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php 
+				for($pos = 0; $pos<count($highscore); $pos++) {
+					$temp = array_slice($highscore, $pos, 1, true);
+					echo "<tr><td>".key($temp)."</td><td>".$highscore[key($temp)]."<td></tr>";
+				}
+			?>
+		</tbody>
+	</table>
+</div>
+
+</div>
+
+

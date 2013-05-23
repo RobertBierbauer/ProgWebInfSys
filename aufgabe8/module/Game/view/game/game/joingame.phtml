@@ -1,0 +1,44 @@
+<?php
+$title = 'Join the game';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<form name="joinGame"  method="post" action="<?php $this->url('game', array('action' => 'joingame'))?>" onSubmit="return checkJoinForm();">
+	<div class="widget-content">
+    	<div class="widget-box">
+        	<div class = 'form-horizontal well'>
+				<div class="control-group">
+                	<label class="control-label">Choose a weapon: </label>
+                    <div class="controls">
+						<input type="hidden" name="player2Choice" id="player2Choice" value="0" />
+						<div id="player2ChoiceError"></div>
+				
+						<a href="#" onclick="setNewWeapon('player2Choice', '1')" >
+							<img id="rockImg" src="<?php echo $this->basePath("img/Rock.jpg"); ?>" alt="Rock" title="Rock" height="150" width="150"/>
+						</a>
+						<a href="#" onclick="setNewWeapon('player2Choice', '2')" >
+							<img id="scissorsImg" src="<?php echo $this->basePath("img/Scissors.jpg"); ?>" alt="Scissors" title="Scissors" height="150" width="150"/>
+						</a>
+						<a href="#" onclick="setNewWeapon('player2Choice', '3')" >
+							<img id="paperImg" src="<?php echo $this->basePath("img/Paper.jpg"); ?>" alt="Paper" title="Paper" height="150" width="150"/>
+						</a>
+						<a href="#" onclick="setNewWeapon('player2Choice', '4')" >
+							<img id="lizardImg" src="<?php echo $this->basePath("img/Lizard.jpg"); ?>" alt="Lizard" title="Lizard" height="150" width="150"/>
+						</a>	
+						<a href="#" onclick="setNewWeapon('player2Choice', '5')" >
+							<img id="spockImg" src="<?php echo $this->basePath("img/Spock.jpg"); ?>" alt="Spock" title="Spock" height="150" width="150"/>
+						</a>
+					</div>
+				</div>
+				
+				<div class="control-group">
+                    <div class="controls">
+						<input type="submit" value="Join game!"/>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</form>
