@@ -56,6 +56,7 @@ function setCookie(c_name,value,exdays){
 }
 
 function getCookie(c_name){
+	console.log(c_name);
 	var c_value = document.cookie;
 	var c_start = c_value.indexOf(" " + c_name + "=");
 	if (c_start == -1)
@@ -76,6 +77,6 @@ function getCookie(c_name){
 	}
 	c_value = unescape(c_value.substring(c_start,c_end));
 	}
-	return c_value;
+	return c_value.trim();
 }
 
