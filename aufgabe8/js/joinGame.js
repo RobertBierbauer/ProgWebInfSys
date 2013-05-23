@@ -1,6 +1,6 @@
 
 
-function checkJoinForm(){
+function checkJoinForm(url){
 	
 	var player2Choice = document.getElementById("player2Choice");
 	
@@ -16,8 +16,14 @@ function checkJoinForm(){
 	
 	if(incomplete){
 		return false;
+	}else{
+		
+		$.post(url, {id: 'cf4ade46cc4c0d28d7d2d38578475b65f428dcbd', player2Choice: player2Choice.value}
+		, function(data) {
+			console.log(data);
+		});
 	}
 	
-	return true;
+	
 };
 

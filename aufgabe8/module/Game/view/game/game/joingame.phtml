@@ -4,7 +4,7 @@ $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 
-<form name="joinGame"  method="post" action="<?php $this->url('game', array('action' => 'joingame'))?>" onSubmit="return checkJoinForm();">
+<form name="joinGame"  method="post">
 	<div class="widget-content">
     	<div class="widget-box">
         	<div class = 'form-horizontal well'>
@@ -34,7 +34,7 @@ $this->headTitle($title);
 				
 				<div class="control-group">
                     <div class="controls">
-						<input type="submit" value="Join game!"/>
+						<button onClick="return checkJoinForm('<?php echo $this->url('game', array('action' => 'joingame'))?>');" class="btn-primary">Join Game</button>
 					</div>
 				</div>
 				

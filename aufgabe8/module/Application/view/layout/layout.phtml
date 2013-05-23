@@ -1,6 +1,6 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="en">
+<html id="page" lang="en">
     <head>
         <meta charset="utf-8">
         <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
@@ -35,9 +35,7 @@
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li><a href="<?php echo $this->url('game') ?>">Home</a></li>
-                            <li><a href="<?php echo $this->url('game', array('action' => 'creategame')) ?>">Create Game</a></li>
-                            <li><a href="<?php echo $this->url('game', array('action' => 'selectjoingame')) ?>">Join Game</a></li>
-                            <li><a href="<?php echo $this->url('game', array('action' => 'viewresult')) ?>">View Result</a></li>
+                            <li><a style="cursor:pointer" onclick="loadCreateGame('<?php echo $this->url('game', array('action' => 'creategame')) ?>')">Create Game</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
