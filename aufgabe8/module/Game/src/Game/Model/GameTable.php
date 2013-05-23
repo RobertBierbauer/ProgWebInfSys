@@ -11,18 +11,23 @@ class GameTable
     {
         $this->tableGateway = $tableGateway;
     }
+    
+    private function getDB(){
+    	$mongo = new Mongo();
+    	return $mongo->selectDB(“test”);
+    }
 
     public function fetchAll()
     {
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
+    
 
     public function getGame($id)
     {
-        $rowset = $this->tableGateway->select(array('id' => $id));
-        $row = $rowset->current();
-        return $row;
+		$db = getDB();
+		$query = array();
     }
     
     public function gameCompleted(Game $game){
