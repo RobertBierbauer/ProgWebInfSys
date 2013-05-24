@@ -6,11 +6,11 @@ $this->headTitle($title);
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <?php 
 if($error != ""){
+	echo "Spiel:".$game->id;
 	echo $error;
 	echo "<a href=".$this->url('game').">Go home, you're drunk!</a>";
 }
 else{
-
 	echo "<p>The id of the created game is: ".$game->id."</p>";
 	echo "<p>The game was created by: ".$game->player1Name." with email: ".$game->player1Email."!</p>";
 	echo "<p>The challenger was: ".$game->player2Name." with email: ".$game->player2Email."!</p>";
