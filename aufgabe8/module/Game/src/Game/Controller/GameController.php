@@ -99,8 +99,7 @@ class GameController extends AbstractActionController
     	if($game){
 	    	if ($request->isPost()) {
 		    	$game->exchangeArray($request->getPost());
-			    
-			    
+		    
 			    //determine winner
 			    $player1Choice = $game->player1Choice;
 			    $player2Choice = $game->player2Choice;			    
@@ -122,7 +121,11 @@ class GameController extends AbstractActionController
     			$this->getGameTable()->save($game->gameToMongoArray());   
 			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
 	    	}else{
-	    		return array('id' => $id);
+	    		if($game->player2Choice === '0'){
+	    			return array('id' => $id);
+	    		}else{
+	    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
+	    		}	    		
 	    	}
     	}
     	else{
