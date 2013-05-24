@@ -4,9 +4,6 @@ namespace Game\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Game\Model\Game;
-use Game\Form\CreateGameForm;
-use Game\Form\JoinGameForm;
-use Game\Form\ViewResultForm;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mail\Transport\SmtpOptions;
@@ -38,7 +35,7 @@ class GameController extends AbstractActionController
     		$this->getGameTable()->save($game->gameToMongoArray());   
     		$id = $game->id;
     		
-    		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe7/game/joingame/".$id."'>Join the game</a>";
+    		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe8/game/joingame/".$id."'>Join the game</a>";
     		$bodyPart = new \Zend\Mime\Message();
     		$bodyMessage = new \Zend\Mime\Part($html); 	
     		$bodyMessage->type = 'text/html';
@@ -75,6 +72,9 @@ class GameController extends AbstractActionController
     public function showcreatedgameAction(){
     	$id = $this->params('id');
     	$game = new Game();
+    	
+    	var_dump($id);
+    	
     	$request = $this->getRequest();
     	$viewModel =  new ViewModel(array(
     			'id' => $id,
@@ -91,18 +91,20 @@ class GameController extends AbstractActionController
     	if($request->isPost()){
     		$data = $request->getPost();
     		$id = $data['id'];
+    		$player2Choice = $data['player2Choice'];
     	}else{
     		$id = $this->params('id');
     	}    	
     	$game = new Game();
-    	$game = $game->exchangeArray($this->getGameTable()->findOne(array('_id' => $id)));
+    	$game->mongoArrayToGame($this->getGameTable()->findOne(array('_id' => $id)));
+    	 
     	if($game){
 	    	if ($request->isPost()) {
-		    	$game->exchangeArray($request->getPost());
+	    		
+		    	$game->setPlayer2Choice($player2Choice);
 		    
 			    //determine winner
-			    $player1Choice = $game->player1Choice;
-			    $player2Choice = $game->player2Choice;			    
+			    $player1Choice = $game->player1Choice;		    
 			    
 			    if($player1Choice == $player2Choice){
 			    	$game->setWinner(0);
@@ -117,13 +119,15 @@ class GameController extends AbstractActionController
 			    else{
 			    	$game->setWinner(1);
 			    }
-			    
+			    var_dump($game);
     			$this->getGameTable()->save($game->gameToMongoArray());   
 			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
 	    	}else{
 	    		if($game->player2Choice === '0'){
 	    			return array('id' => $id);
 	    		}else{
+	    			return array('id' => $id);
+	    			
 	    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
 	    		}	    		
 	    	}
@@ -135,7 +139,7 @@ class GameController extends AbstractActionController
     
     
     public function showviewresultAction(){
-    	$game = $this->getGameTable()->getGame($this->params('id'));
+    	$game = $game->exchangeArray($this->getGameTable()->findOne(array('_id' => $id)));
     	$error = "";
     	$choices = array("1" => "Rock", "2" => "Scissors", "3" => "Paper", "4" => "Lizard", "5" => "Spock");
 
