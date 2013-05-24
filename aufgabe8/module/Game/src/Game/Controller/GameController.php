@@ -29,13 +29,14 @@ class GameController extends AbstractActionController
     	$request = $this->getRequest();
     	$replaygame = null;
     	if($this->params('id')){
-    		echo $this->getGameTable()->findOne(array('_id' => $this->params('id')));    		
+    		$this->getGameTable()->findOne(array('_id' => $this->params('id')));    		
     	}
     	if ($request->isPost()) {
     		$game = new Game();
 
     		$game->exchangeArray($request->getPost());
-    		$id = $this->getGameTable()->insert($game->gameToMongoArray);   
+    		$this->getGameTable()->save($game->gameToMongoArray());   
+    		$id = $game->id;
     		
     		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe7/game/joingame/".$id."'>Join the game</a>";
     		$bodyPart = new \Zend\Mime\Message();
@@ -73,8 +74,7 @@ class GameController extends AbstractActionController
     
     public function showcreatedgameAction(){
     	$id = $this->params('id');
-    	$game = $this->getGameTable()->getGame($id);
-    	
+    	$game = new Game();
     	$request = $this->getRequest();
     	$viewModel =  new ViewModel(array(
     			'id' => $id,
@@ -84,23 +84,6 @@ class GameController extends AbstractActionController
     	return $viewModel;
     }
     
-    public function selectjoingameAction(){
-    	$request = $this->getRequest();
-    	if ($request->isPost()) {
-    		$request = $request->getPost();
-    		$id = $request['id'];
-    		$game = $this->getGameTable()->getGame($id);
-    		if(!$game){
-    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
-    		}
-    		elseif($this->getGameTable()->gameCompleted($game)){
-    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
-    		}
-    		else{    			
-    			return $this->redirect()->toRoute('game', array('action'=>'joingame', 'id'=>$id));
-    		}
-    	}
-    }
 
     public function joingameAction()
     {
@@ -111,32 +94,32 @@ class GameController extends AbstractActionController
     	}else{
     		$id = $this->params('id');
     	}    	
-    	$game = $this->getGameTable()->getGame($id);
+    	$game = new Game();
+    	$game = $game->exchangeArray($this->getGameTable()->findOne(array('_id' => $id)));
     	if($game){
 	    	if ($request->isPost()) {
-	    		$joinGame = new Game();
-		    	$joinGame->exchangeArray($request->getPost());
+		    	$game->exchangeArray($request->getPost());
 			    
 			    
 			    //determine winner
 			    $player1Choice = $game->player1Choice;
-			    $player2Choice = $joinGame->player2Choice;			    
+			    $player2Choice = $game->player2Choice;			    
 			    
 			    if($player1Choice == $player2Choice){
-			    	$joinGame->setWinner(0);
+			    	$game->setWinner(0);
 			    }
 			    else if( ($player1Choice == "1" && ($player2Choice == "3" || $player2Choice == "5")) ||
 			    		($player1Choice == "2" && ($player2Choice == "1" || $player2Choice == "5")) ||
 			    		($player1Choice == "3" && ($player2Choice == "2" || $player2Choice == "4")) ||
 			    		($player1Choice == "4" && ($player2Choice == "1" || $player2Choice == "3")) ||
 			    		($player1Choice == "5" && ($player2Choice == "4" || $player2Choice == "2"))){
-			    	$joinGame->setWinner(2);
+			    	$game->setWinner(2);
 			    }
 			    else{
-			    	$joinGame->setWinner(1);
+			    	$game->setWinner(1);
 			    }
 			    
-			    $this->getGameTable()->completeGame($joinGame);
+    			$this->getGameTable()->save($game->gameToMongoArray());   
 			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
 	    	}else{
 	    		return array('id' => $id);
@@ -147,24 +130,6 @@ class GameController extends AbstractActionController
     	}
     }
     
-    public function viewresultAction()
-    {
-    	$form = new ViewResultForm();
-    	$form->get('submit')->setValue('View Result');
-    	 
-    	$request = $this->getRequest();
-    	if ($request->isPost()) {
-    		$game = new Game();
-    		$form->setInputFilter($game->getViewResultFilter());
-    		$form->setData($request->getPost());
-    		 
-    		if ($form->isValid()) {
-    			$game->exchangeArray($form->getData());    			 
-    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$game->id));
-    		}
-    	}
-    	return array('form' => $form);
-    }
     
     public function showviewresultAction(){
     	$game = $this->getGameTable()->getGame($this->params('id'));
@@ -191,8 +156,7 @@ class GameController extends AbstractActionController
     public function getGameTable()
     {
     	if (!$this->gameTable) {
-    		$this->gameTable = new \Mongo();
-    		$this->gameTable = $this->gameTable->game->createCollection("games",false);
+    		$this->gameTable = new \MongoClient();
     		$this->gameTable = $this->gameTable->game->games;
     	}
     	return $this->gameTable;

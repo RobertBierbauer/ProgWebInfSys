@@ -3,29 +3,29 @@ namespace Game\Model;
 
 class Game
 {
-	public $id;
-	public $player1Name;
-	public $player1Email;
-	public $player2Name;
-	public $player2Email;
-	public $player1Choice;
-	public $player2Choice;
-	protected $inputFilter;
+	public $id = 0;
+	public $player1Name = "";
+	public $player1Email = "";
+	public $player2Name = "";
+	public $player2Email = "";
+	public $player1Choice = 0;
+	public $player2Choice = 0;
+	public winner = 0;
 
 	public function exchangeArray($data)
 	{
-		$this->id     = (isset($data['id'])) ? $data['id'] : null;
-		$this->player1Name = (isset($data['player1Name'])) ? $data['player1Name'] : null;
-		$this->player1Email = (isset($data['player1Email'])) ? $data['player1Email'] : null;
-		$this->player2Name = (isset($data['player2Name'])) ? $data['player2Name'] : null;
-		$this->player2Email = (isset($data['player2Email'])) ? $data['player2Email'] : null;
-		$this->player1Choice = (isset($data['player1Choice'])) ? $data['player1Choice'] : null;
-		$this->player2Choice = (isset($data['player2Choice'])) ? $data['player2Choice'] : null;
-		$this->winner = (isset($data['winner'])) ? $data['winner'] : null;
+		$this->id     = (isset($data['id'])) ? $data['id'] : hash('sha1', $data['player1Name'].$data['player2Name'].time());
+		$this->player1Name = (isset($data['player1Name'])) ? $data['player1Name'] : $this->player1Name;
+		$this->player1Email = (isset($data['player1Email'])) ? $data['player1Email'] : $this->player1Email;
+		$this->player2Name = (isset($data['player2Name'])) ? $data['player2Name'] : $this->player2Name;
+		$this->player2Email = (isset($data['player2Email'])) ? $data['player2Email'] : $this->player2Email;
+		$this->player1Choice = (isset($data['player1Choice'])) ? $data['player1Choice'] : $this->player1Choice;
+		$this->player2Choice = (isset($data['player2Choice'])) ? $data['player2Choice'] : $this->player2Choice;
+		$this->winner = (isset($data['winner'])) ? $data['winner'] : $this->winner;
 	}
 	
 	public function gameToMongoArray(){
-		return array("_id" => $id, "player1Name" => $player1Name, "player1Email" => $player1Email, "player2Name" => $player2Name, "player2Email" => $player2Email, "player1Choice" => $player1Choice, "player2Choice" => $player2Choice, "winner" => $winner);
+		return array("_id" => $this->id, "player1Name" => $this->player1Name, "player1Email" => $this->player1Email, "player2Name" => $this->player2Name, "player2Email" => $this->player2Email, "player1Choice" => $this->player1Choice, "player2Choice" => $this->player2Choice, "winner" => $this->winner);
 	}
 	
 	public function setID($id){
