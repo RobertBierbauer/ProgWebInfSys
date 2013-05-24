@@ -20,7 +20,7 @@ class GameController extends AbstractActionController
     	
     	
     	return new ViewModel(array(
-    			'highscore' => $this->getGameTable()->getHighscore(),    			
+    			//'highscore' => $this->getGameTable()->getHighscore(),    			
     	));
     }
 
@@ -29,13 +29,13 @@ class GameController extends AbstractActionController
     	$request = $this->getRequest();
     	$replaygame = null;
     	if($this->params('id')){
-    		$replaygame = $this->getGameTable()->getGame($this->params('id'));    		
+    		echo $this->getGameTable()->findOne(array('_id' => $this->params('id')));    		
     	}
     	if ($request->isPost()) {
     		$game = new Game();
 
     		$game->exchangeArray($request->getPost());
-    		$id = $this->getGameTable()->saveGame($game);
+    		$id = $this->getGameTable()->insert($game->gameToMongoArray);   
     		
     		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe7/game/joingame/".$id."'>Join the game</a>";
     		$bodyPart = new \Zend\Mime\Message();
@@ -172,8 +172,9 @@ class GameController extends AbstractActionController
     public function getGameTable()
     {
     	if (!$this->gameTable) {
-    		$sm = $this->getServiceLocator();
-    		$this->gameTable = $sm->get('Game\Model\GameTable');
+    		$this->gameTable = new \Mongo();
+    		$this->gameTable = $this->gameTable->game->createCollection("games",false);
+    		$this->gameTable = $this->gameTable->game->games;
     	}
     	return $this->gameTable;
     }

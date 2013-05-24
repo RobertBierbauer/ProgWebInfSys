@@ -24,6 +24,10 @@ class Game
 		$this->winner = (isset($data['winner'])) ? $data['winner'] : null;
 	}
 	
+	public function gameToMongoArray(){
+		return array("_id" => $id, "player1Name" => $player1Name, "player1Email" => $player1Email, "player2Name" => $player2Name, "player2Email" => $player2Email, "player1Choice" => $player1Choice, "player2Choice" => $player2Choice, "winner" => $winner);
+	}
+	
 	public function setID($id){
 		$this->id = $id;
 	}
