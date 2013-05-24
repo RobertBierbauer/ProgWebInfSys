@@ -1,3 +1,8 @@
+$(document).ready(function() {
+	window.history.pushState("object or string", "Title", "/aufgabe8/game");
+});
+
+
 function loadCreateGame(url){
 	console.log("load content from" + url);
 	$.get(url, function(data) {

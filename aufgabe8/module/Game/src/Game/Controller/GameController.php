@@ -117,29 +117,34 @@ class GameController extends AbstractActionController
 	    		$joinGame = new Game();
 		    	$joinGame->exchangeArray($request->getPost());
 			    
-			    
-			    //determine winner
-			    $player1Choice = $game->player1Choice;
-			    $player2Choice = $joinGame->player2Choice;			    
-			    
-			    if($player1Choice == $player2Choice){
-			    	$joinGame->setWinner(0);
-			    }
-			    else if( ($player1Choice == "1" && ($player2Choice == "3" || $player2Choice == "5")) ||
-			    		($player1Choice == "2" && ($player2Choice == "1" || $player2Choice == "5")) ||
-			    		($player1Choice == "3" && ($player2Choice == "2" || $player2Choice == "4")) ||
-			    		($player1Choice == "4" && ($player2Choice == "1" || $player2Choice == "3")) ||
-			    		($player1Choice == "5" && ($player2Choice == "4" || $player2Choice == "2"))){
-			    	$joinGame->setWinner(2);
-			    }
-			    else{
-			    	$joinGame->setWinner(1);
-			    }
-			    
-			    $this->getGameTable()->completeGame($joinGame);
-			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
+		    	var_dump($game->player2Choice);
+				
+		    	//determine winner
+		    	$player1Choice = $game->player1Choice;
+		    	$player2Choice = $joinGame->player2Choice;
+
+		    	if($player1Choice == $player2Choice){
+		    		$joinGame->setWinner(0);
+		    	}
+		    	else if( ($player1Choice == "1" && ($player2Choice == "3" || $player2Choice == "5")) ||
+		    			($player1Choice == "2" && ($player2Choice == "1" || $player2Choice == "5")) ||
+		    			($player1Choice == "3" && ($player2Choice == "2" || $player2Choice == "4")) ||
+		    			($player1Choice == "4" && ($player2Choice == "1" || $player2Choice == "3")) ||
+		    			($player1Choice == "5" && ($player2Choice == "4" || $player2Choice == "2"))){
+		    		$joinGame->setWinner(2);
+		    	}
+		    	else{
+		    		$joinGame->setWinner(1);
+		    	}
+
+		    	$this->getGameTable()->completeGame($joinGame);
+		    	return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
 	    	}else{
-	    		return array('id' => $id);
+	    		if($game->player2Choice === '0'){
+	    			return array('id' => $id);
+	    		}else{
+	    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
+	    		}	    		
 	    	}
     	}
     	else{
