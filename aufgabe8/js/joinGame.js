@@ -14,14 +14,17 @@ function checkJoinForm(url){
 		document.getElementById("player2ChoiceError").innerHTML = "";
 	}
 	
+	var id = $("#id").val();
+	
 	if(incomplete){
 		return false;
-	}else{
-		
-		$.post(url, {id: 'cf4ade46cc4c0d28d7d2d38578475b65f428dcbd', player2Choice: player2Choice.value}
+	}else{		
+		$.post(url, {id: id, player2Choice: player2Choice.value}
 		, function(data) {
 			console.log(data);
+			$("#pageContent").html(data);
 		});
+		return false;
 	}
 	
 	

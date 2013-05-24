@@ -61,18 +61,27 @@ class GameController extends AbstractActionController
     		return $this->redirect()->toRoute('game', array('action'=>'showcreatedgame', 'id'=>$id));
 
     	}
-    	return new ViewModel(array(
+    	
+    	$viewModel = new ViewModel(array(
     			'replaygame' => $replaygame,
     	));
+    	//disable the layout on an ajax request
+    	$viewModel->setTerminal($request->isXmlHttpRequest());
+    	return $viewModel;
+    	
     }
     
     public function showcreatedgameAction(){
     	$id = $this->params('id');
     	$game = $this->getGameTable()->getGame($id);
-    	return new ViewModel(array(
+    	
+    	$request = $this->getRequest();
+    	$viewModel =  new ViewModel(array(
     			'id' => $id,
     			'game' => $game,
     		));
+    	$viewModel->setTerminal($request->isXmlHttpRequest());
+    	return $viewModel;
     }
     
     public function selectjoingameAction(){
@@ -95,14 +104,18 @@ class GameController extends AbstractActionController
 
     public function joingameAction()
     {
-    	$id = $this->params('id');
+    	$request = $this->getRequest();
+    	if($request->isPost()){
+    		$data = $request->getPost();
+    		$id = $data['id'];
+    	}else{
+    		$id = $this->params('id');
+    	}    	
     	$game = $this->getGameTable()->getGame($id);
     	if($game){
-	    	$request = $this->getRequest();
 	    	if ($request->isPost()) {
 	    		$joinGame = new Game();
 		    	$joinGame->exchangeArray($request->getPost());
-			    $joinGame->setID($id);
 			    
 			    
 			    //determine winner
@@ -124,11 +137,13 @@ class GameController extends AbstractActionController
 			    }
 			    
 			    $this->getGameTable()->completeGame($joinGame);
-			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$this->params('id')));
+			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
+	    	}else{
+	    		return array('id' => $id);
 	    	}
     	}
     	else{
-    		return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$this->params('id')));
+    		return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
     	}
     }
     
@@ -163,10 +178,14 @@ class GameController extends AbstractActionController
     	else if($game->player2Choice == "0"){
     		$error = "<p>Sorry Bro! Your friend did not yet make his choice!</p>";
     	}
-    	return new ViewModel(array(
+    	
+    	$request = $this->getRequest();
+    	$viewModel = new ViewModel(array(
     			'game'=> $game,
     			'error' => $error,
     			'choices' => $choices));
+    	$viewModel->setTerminal($request->isXmlHttpRequest());
+    	return $viewModel;
     }
     
     public function getGameTable()

@@ -1,9 +1,7 @@
 function loadCreateGame(url){
 	console.log("load content from" + url);
-	$.get(url, function(data) {		
-		var newDoc = document.open("text/html", "replace");
-		newDoc.write(data);
-		newDoc.close();
+	$.get(url, function(data) {
+		$('#pageContent').html(data);
 	});
 }
 
@@ -63,9 +61,7 @@ function checkCreateForm(url){
 		setCookie("player1Email", player1Email.value, 5);
 		$.post(url, {player1Name: player1Name.value, player1Email: player1Email.value, player2Name: player2Name.value, player2Email: player2Email.value, player1Choice: player1Choice.value}
 		, function(data) {
-			var newDoc = document.open("text/html", "replace");
-			newDoc.write(data);
-			newDoc.close();
+			$('#pageContent').html(data);
 		});
 		return false;
 	}else{
