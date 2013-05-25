@@ -27,6 +27,9 @@ return array(
     ),
 
     'view_manager' => array(
+    	'strategies' => array(
+    		'ViewJsonStrategy',
+    	),
         'template_path_stack' => array(
             'game' => __DIR__ . '/../view',
         ),

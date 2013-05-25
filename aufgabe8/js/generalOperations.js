@@ -1,3 +1,16 @@
+/**
+ * Requests evry 5 seconds the actual highscorelist from the server and prints it
+ * @param url the url of the controller
+ */
+function getHighscoreList(url){
+	setInterval(function(){ 
+		$.get(url, function(data) {
+			console.log(data);
+		});   
+	}, 5000);
+	
+}
+
 function setNewWeapon(hiddenFieldName, value){
 	var field = document.getElementById('' + hiddenFieldName);
 	var oldValue = field.value;
