@@ -14,19 +14,19 @@ class GameController extends AbstractActionController
     public function indexAction()
     {
     	
-    	//$highscore = new Game();
-    	//$highscore = $highscore->getHighscore();
+    	$highscore = new Game();
+    	$highscore = $highscore->getHighscore();
     	
     	if($this->getRequest()->isXmlHttpRequest()){
     		$result = new JsonModel(array(
-    				'highscore' => 'dsaf',
+    				'highscore' => $highscore,
     				'success'=>true,
     		));
     		 
     		return $result;
     	}else{
     		return new ViewModel(array(
-    				'highscore' => 'dsafds',
+    				'highscore' => $highscore,
     		));
     	}
     	
