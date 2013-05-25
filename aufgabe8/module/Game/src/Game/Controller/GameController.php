@@ -17,9 +17,20 @@ class GameController extends AbstractActionController
     	$highscore = new Game();
     	$highscore = $highscore->getHighscore();
     	
-    	return new ViewModel(array(
-    			'highscore' => $highscore,    			
-    	));
+    	if($his->getRequest->isXmlHttpRequest()){
+    		$result = new JsonModel(array(
+    				'highscore' => $hishscore,
+    				'success'=>true,
+    		));
+    		 
+    		return $result;
+    	}else{
+    		return new ViewModel(array(
+    				'highscore' => $highscore,
+    		));
+    	}
+    	
+    	
     }
 
     public function creategameAction()
@@ -143,17 +154,5 @@ class GameController extends AbstractActionController
     			'choices' => $choices));
     	$viewModel->setTerminal($request->isXmlHttpRequest());
     	return $viewModel;
-    }
-    
-
-    
-    public function getHighscoreAction(){
-    	   	
-    	$result = new JsonModel(array(
-    			'player' => 'Hans',
-    			'success'=>true,
-    	));
-    	
-    	//return $result;
     }
 }
