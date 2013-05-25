@@ -91,6 +91,46 @@ class Game
 		$this->getMongoClient()->save($this->gameToMongoArray());
 	}
 	
+	private function groupAndCount($player1Winner, $player2Winner){
+		$winners = array();
+		foreach($player1Winner as $winner){
+			if(array_key_exists($winner->player1Name, $winners)){
+				$winners[$winner->player1Name]++;
+			}
+			else{
+				$winners[$winner->player1Name] = 1;
+			}
+		}
+		foreach($player2Winner as $winner){
+			if(array_key_exists($winner->player2Name, $winners)){
+				$winners[$winner->player2Name]++;
+			}
+			else{
+				$winners[$winner->player2Name] = 1;
+			}
+		}
+		arsort($winners);
+		return $winners;
+	}
+	
+	public function getHighscore(){
+		$cursor = $this->getMongoClient()->find(array('winner' => 1));
+		$winner1 = array();
+		foreach ($cursor as $doc) {
+			$tempGame = new Game();
+			$tempGame->mongoArrayToGame($doc);
+			$winner1[$tempGame->id] = $tempGame;
+		}
+		$cursor = $this->getMongoClient()->find(array('winner' => 2));
+		$winner2 = array();
+		foreach ($cursor as $doc) {
+			$tempGame = new Game();
+			$tempGame->mongoArrayToGame($doc);
+			$winner2[$tempGame->id] = $tempGame;
+		}
+		return $this->groupAndCount($winner1, $winner2);
+	}
+	
 	private function getMongoClient()
 	{
 		if (!$this->mongoClient) {

@@ -14,9 +14,11 @@ class GameController extends AbstractActionController
     public function indexAction()
     {
     	
+    	$highscore = new Game();
+    	$highscore = $highscore->getHighscore();
     	
     	return new ViewModel(array(
-    			//'highscore' => $this->getGameTable()->getHighscore(),    			
+    			'highscore' => $highscore,    			
     	));
     }
 
@@ -146,12 +148,12 @@ class GameController extends AbstractActionController
 
     
     public function getHighscoreAction(){
-    	
+    	   	
     	$result = new JsonModel(array(
     			'player' => 'Hans',
     			'success'=>true,
     	));
     	
-    	return $result;
+    	//return $result;
     }
 }
