@@ -79,6 +79,13 @@ $this->headTitle($title);
 				</div>
 				
 				<div class="control-group">
+                	<label class="control-label" for="player1Message">Enter a message for the second player: </label>
+                    <div class="controls">
+						<textarea name="player1Message" id="player1Message" value=""></textarea>
+					</div>
+				</div>
+				
+				<div class="control-group">
                     <div class="controls">
 						<button class="btn-primary" onClick="return checkCreateForm('<?php echo $this->url('game', array('action' => 'creategame'))?>');">Create Game</button>
 					</div>

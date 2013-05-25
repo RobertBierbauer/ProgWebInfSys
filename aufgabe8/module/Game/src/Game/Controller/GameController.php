@@ -9,9 +9,7 @@ use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mail\Transport\SmtpOptions;
 
 class GameController extends AbstractActionController
-{
-	protected $gameTable;
-	
+{	
     public function indexAction()
     {
     	
@@ -26,13 +24,13 @@ class GameController extends AbstractActionController
     	$request = $this->getRequest();
     	$replaygame = null;
     	if($this->params('id')){
-    		$this->getGameTable()->findOne(array('_id' => $this->params('id')));    		
+    		$replaygame = new Game();
+    		$replaygame->findById($this->params('id'));    		
     	}
     	if ($request->isPost()) {
     		$game = new Game();
-
     		$game->exchangeArray($request->getPost());
-    		$this->getGameTable()->save($game->gameToMongoArray());   
+    		$game->save();
     		$id = $game->id;
     		
     		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe8/game/joingame/".$id."'>Join the game</a>";
@@ -72,9 +70,7 @@ class GameController extends AbstractActionController
     public function showcreatedgameAction(){
     	$id = $this->params('id');
     	$game = new Game();
-    	
-    	var_dump($id);
-    	
+    	$game->findById($id);
     	$request = $this->getRequest();
     	$viewModel =  new ViewModel(array(
     			'id' => $id,
@@ -90,44 +86,28 @@ class GameController extends AbstractActionController
     	$request = $this->getRequest();
     	if($request->isPost()){
     		$data = $request->getPost();
+    		var_dump($data);
     		$id = $data['id'];
     		$player2Choice = $data['player2Choice'];
+    		$player2Message = $data['player2Message'];
     	}else{
     		$id = $this->params('id');
     	}    	
     	$game = new Game();
-    	$game->mongoArrayToGame($this->getGameTable()->findOne(array('_id' => $id)));
+    	$game->findById($id);
     	 
     	if($game){
 	    	if ($request->isPost()) {
 	    		
 		    	$game->setPlayer2Choice($player2Choice);
-		    
-			    //determine winner
-			    $player1Choice = $game->player1Choice;		    
-			    
-			    if($player1Choice == $player2Choice){
-			    	$game->setWinner(0);
-			    }
-			    else if( ($player1Choice == "1" && ($player2Choice == "3" || $player2Choice == "5")) ||
-			    		($player1Choice == "2" && ($player2Choice == "1" || $player2Choice == "5")) ||
-			    		($player1Choice == "3" && ($player2Choice == "2" || $player2Choice == "4")) ||
-			    		($player1Choice == "4" && ($player2Choice == "1" || $player2Choice == "3")) ||
-			    		($player1Choice == "5" && ($player2Choice == "4" || $player2Choice == "2"))){
-			    	$game->setWinner(2);
-			    }
-			    else{
-			    	$game->setWinner(1);
-			    }
-			    var_dump($game);
-    			$this->getGameTable()->save($game->gameToMongoArray());   
+		    	$game->setPlayer2Message($player2Message);
+		    	$game->determineWinner();
+    			$game->save();   
 			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
 	    	}else{
 	    		if($game->player2Choice === '0'){
-	    			return array('id' => $id);
-	    		}else{
-	    			return array('id' => $id);
-	    			
+	    			return array('id' => $id, 'player1Name' => $game->player1Name, 'player1Message' => $game->player1Message);
+	    		}else{	    			
 	    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
 	    		}	    		
 	    	}
@@ -139,7 +119,9 @@ class GameController extends AbstractActionController
     
     
     public function showviewresultAction(){
-    	$game = $game->exchangeArray($this->getGameTable()->findOne(array('_id' => $id)));
+    	$id = $this->params('id');
+    	$game = new Game();
+    	$game->findById($id);
     	$error = "";
     	$choices = array("1" => "Rock", "2" => "Scissors", "3" => "Paper", "4" => "Lizard", "5" => "Spock");
 
@@ -160,12 +142,5 @@ class GameController extends AbstractActionController
     	return $viewModel;
     }
     
-    public function getGameTable()
-    {
-    	if (!$this->gameTable) {
-    		$this->gameTable = new \MongoClient();
-    		$this->gameTable = $this->gameTable->game->games;
-    	}
-    	return $this->gameTable;
-    }
+    
 }

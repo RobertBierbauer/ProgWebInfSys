@@ -16,7 +16,8 @@ else{
 	echo "<p>The challenger was: ".$game->player2Name." with email: ".$game->player2Email."!</p>";
 	echo "<p>Player 1 chose: ".$choices[$game->player1Choice]."</p>";
 	echo "<p>Player 2 chose: ".$choices[$game->player2Choice]."</p>";
-	
+	echo "<p>Player 1 message: ".$game->player1Message."</p>";
+	echo "<p>Player 2 message: ".$game->player2Message."</p>";
 	if($game->winner == 0){
 		echo "No Winner!";
 	}
@@ -31,9 +32,7 @@ else{
 	}else{
 		$player = "";
 	}
-	echo $player;
 	$player2 = $game->player1Name;
-	echo $player2;
 	$player = trim($player);
 	if($player !== $player2){
 		echo "<br><button class='btn-primary' onclick=loadCreateGame('".$this->url('game', array('action'=>'creategame', 'id' => $game->id))."')>Press here to make a Revanche!</button>";

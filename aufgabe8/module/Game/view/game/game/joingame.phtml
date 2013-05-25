@@ -8,6 +8,20 @@ $this->headTitle($title);
 	<div class="widget-content">
     	<div class="widget-box">
         	<div class = 'form-horizontal well'>
+        		<?php 
+        			if($player1Message !== ""){
+        				echo "<fieldset>";
+						echo "<legend>$player1Name left you a message: </legend>";
+						echo "<div class='control-group'>";
+						echo "<label class='control-label'>$player1Message</label>";
+						echo "</div>";
+						echo "</fieldset>";
+					}
+					else{
+						echo "message:".$player1Message."!";
+					}
+        		?>
+        		        	
 				<div class="control-group">
                 	<label class="control-label">Choose a weapon: </label>
                     <div class="controls">
@@ -30,6 +44,13 @@ $this->headTitle($title);
 						<a href="#" onclick="setNewWeapon('player2Choice', '5')" >
 							<img id="spockImg" src="<?php echo $this->basePath("img/Spock.jpg"); ?>" alt="Spock" title="Spock" height="150" width="150"/>
 						</a>
+					</div>
+				</div>
+				
+				<div class="control-group">
+                	<label class="control-label" for="player2Message">Enter a message for your opponent: </label>
+                    <div class="controls">
+						<textarea name="player2Message" id="player2Message" value=""></textarea>
 					</div>
 				</div>
 				

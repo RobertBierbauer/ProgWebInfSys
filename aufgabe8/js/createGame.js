@@ -17,7 +17,8 @@ function checkCreateForm(url){
 	var player2Name = document.getElementById("player2Name");
 	var player2Email = document.getElementById("player2Email");
 	var player1Choice = document.getElementById("player1Choice");
-	
+	var player1Message = document.getElementById("player1Message");
+		
 	var incomplete = false;
 	
 	if(player1Name.value === ""){
@@ -64,7 +65,7 @@ function checkCreateForm(url){
 	if(!incomplete){
 		setCookie("player1Name", player1Name.value, 5);
 		setCookie("player1Email", player1Email.value, 5);
-		$.post(url, {player1Name: player1Name.value, player1Email: player1Email.value, player2Name: player2Name.value, player2Email: player2Email.value, player1Choice: player1Choice.value}
+		$.post(url, {player1Name: player1Name.value, player1Email: player1Email.value, player2Name: player2Name.value, player2Email: player2Email.value, player1Choice: player1Choice.value, player1Message: player1Message.value}
 		, function(data) {
 			$('#pageContent').html(data);
 		});
@@ -82,7 +83,6 @@ function setUpCreateGame(){
 	var player2Email = document.getElementById("player2Email");
 	var player1Choice = document.getElementById("player1Choice");
 	
-	console.log(getCookie("player1Name"));
 	player1Name.value = getCookie("player1Name");
 	player1Email.value = getCookie("player1Email");
 	
