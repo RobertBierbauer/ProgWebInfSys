@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	//window.history.pushState("object or string", "Title", "/aufgabe8/game");
+	window.history.pushState("object or string", "Title", "/aufgabe8/game");
 });
 
 
