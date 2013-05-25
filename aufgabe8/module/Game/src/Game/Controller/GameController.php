@@ -7,6 +7,7 @@ use Game\Model\Game;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mail\Transport\SmtpOptions;
+use Zend\View\Model\JsonModel;
 
 class GameController extends AbstractActionController
 {
@@ -167,5 +168,15 @@ class GameController extends AbstractActionController
     		$this->gameTable = $this->gameTable->game->games;
     	}
     	return $this->gameTable;
+    }
+    
+    public function getHighscoreAction(){
+    	
+    	$result = new JsonModel(array(
+    			'player' => 'Hans',
+    			'success'=>true,
+    	));
+    	
+    	return $result;
     }
 }
