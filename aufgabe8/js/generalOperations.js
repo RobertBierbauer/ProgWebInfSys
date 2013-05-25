@@ -5,7 +5,6 @@
 function getHighscoreList(url){
 	setInterval(function(){ 
 		$.get(url, function(data) {
-			data = jQuery.parseJSON(data);
 			console.log(data);
 			var table = "";
 			var max = 10;
