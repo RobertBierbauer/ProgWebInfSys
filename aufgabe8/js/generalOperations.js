@@ -6,8 +6,12 @@ function getHighscoreList(url){
 	setInterval(function(){ 
 		$.get(url, function(data) {
 			var table = "";
-			for(var i = 0; i<10; i++){
-				table += "<tr><td>"+data.highscore[i][0]+"</td><td>"+data.highscore[i][1]+"</td></tr>";
+			var max = 10;
+			if(data.length < 10){
+				max = data.length;
+			}
+			for(var i = 0; i<max; i++){
+				table += "<tr><td>"+data[i][0]+"</td><td>"+data[i][1]+"</td></tr>";
 			}
 			$("#tableBody").html(table);
 		});   
