@@ -5,14 +5,16 @@
 function getHighscoreList(url){
 	setInterval(function(){ 
 		$.get(url, function(data) {
+			console.log(data.highscore);
+			data = jQuery.parseJSON(data.highscore);
 			console.log(data);
 			var table = "";
 			var max = 10;
-			if(data.highscore.length < 10){
+			if(data.length < 10){
 				max = data.length;
 			}
 			for(var i = 0; i<max; i++){
-				table += "<tr><td>"+data.highscore[i]+"</td><td>"+data.highscore[i]+"</td></tr>";
+				table += "<tr><td>"+data[i]+"</td><td>"+data[i]+"</td></tr>";
 			}
 			$("#tableBody").html(table);
 		});   
