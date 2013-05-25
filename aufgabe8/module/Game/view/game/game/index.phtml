@@ -43,7 +43,7 @@ $this->headTitle($title);
 				<th>Wins</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="tableBody">
 			<?php				
 				for($pos = 0; $pos<count($highscore); $pos++) {
 					$temp = array_slice($highscore, $pos, 1, true);

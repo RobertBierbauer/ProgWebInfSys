@@ -5,7 +5,11 @@
 function getHighscoreList(url){
 	setInterval(function(){ 
 		$.get(url, function(data) {
-			console.log(data);
+			var table = "";
+			for(var i = 0; i<10; i++){
+				table += "<tr><td>"+data.highscore[i][0]+"</td><td>"+data.highscore[i][1]+"</td></tr>";
+			}
+			$("#tableBody").html(table);
 		});   
 	}, 5000);
 	
