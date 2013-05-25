@@ -17,9 +17,9 @@ class GameController extends AbstractActionController
     	$highscore = new Game();
     	$highscore = $highscore->getHighscore();
     	
-    	if($his->getRequest->isXmlHttpRequest()){
+    	if($this->getRequest()->isXmlHttpRequest()){
     		$result = new JsonModel(array(
-    				'highscore' => $hishscore,
+    				'highscore' => $highscore,
     				'success'=>true,
     		));
     		 
