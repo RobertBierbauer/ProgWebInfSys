@@ -24,7 +24,7 @@ class GameController extends AbstractActionController
     				'success'=>true,
     		));
     		 
-    		return $highscore;
+    		return $result;
     	}else{
     		return new ViewModel(array(
     				'highscore' => $highscore,
