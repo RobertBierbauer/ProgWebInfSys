@@ -10,15 +10,12 @@ $this->headTitle($title);
         	<div class = 'form-horizontal well'>
         		<?php 
         			if($player1Message !== ""){
-        				echo "<fieldset>";
-						echo "<legend>$player1Name left you a message: </legend>";
 						echo "<div class='control-group'>";
-						echo "<label class='control-label'>$player1Message</label>";
+						echo "<label class='control-label'>$player1Name left you a message: </label>";
+						echo "<div class='controls'>";
+						echo "<p>$player1Message</p>";
 						echo "</div>";
-						echo "</fieldset>";
-					}
-					else{
-						echo "message:".$player1Message."!";
+						echo "</div>";
 					}
         		?>
         		        	

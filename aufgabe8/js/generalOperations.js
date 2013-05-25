@@ -5,15 +5,16 @@
 function getHighscoreList(url){
 	setInterval(function(){ 
 		$.get(url, function(data) {
-			console.log(data.highscore.length);
-			console.log(data);
-			var table = "";
-			var max = 10;
-			if(data.length < 10){
-				max = data.length;
-			}
-			for(var i = 0; i<max; i++){
-				table += "<tr><td>"+data[i]+"</td><td>"+data[i]+"</td></tr>";
+			data = data.highscore;
+			var table = "";			
+			var key, count = 0;
+			for(key in data) {
+				if(count < 10){					
+					if(data.hasOwnProperty(key)) {
+						table += "<tr><td>"+key+"</td><td>"+data[key]+"</td></tr>";
+					}
+					count++;
+				}
 			}
 			$("#tableBody").html(table);
 		});   
