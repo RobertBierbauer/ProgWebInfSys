@@ -1,0 +1,71 @@
+<?php
+$title = 'Join the game';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<form name="joinGame"  method="post">
+	<div class="widget-content">
+    	<div class="widget-box">
+        	<div class = 'form-horizontal well'>
+        		<?php 
+        			if($player1Message !== ""){
+						echo "<div class='control-group'>";
+						echo "<label class='control-label'>$player1Name hat dir eine Nachricht hinterlassen: </label>";
+						echo "<div class='controls'>";
+						echo "<p>$player1Message</p>";
+						echo "</div>";
+						echo "</div>";
+					}
+        		?>
+        		        
+        		<div class="control-group">
+                	<label class="control-label">Ihre Name: </label>
+                    <div class="controls">
+                    	<input type="text" name="player2Name" id="player2Name" value="<?php echo $player2Name;?>"/>
+                    	<div id="player2NameError"></div>
+					</div>
+				</div>
+        		        	
+				<div class="control-group">
+                	<label class="control-label">W&auml;hle deine Waffe: </label>
+                    <div class="controls">
+                    	<input type="hidden" name="id" id="id" value="<?php echo $id;?>"/>
+						<input type="hidden" name="player2Choice" id="player2Choice" value="0" />
+						<div id="player2ChoiceError"></div>
+				
+						<a href="#" onclick="setNewWeapon('player2Choice', '1')" >
+							<img id="rockImg" src="<?php echo $this->basePath("img/Rock.jpg"); ?>" alt="Rock" title="Stein" height="150" width="150"/>
+						</a>
+						<a href="#" onclick="setNewWeapon('player2Choice', '2')" >
+							<img id="scissorsImg" src="<?php echo $this->basePath("img/Scissors.jpg"); ?>" alt="Scissors" title="Schere" height="150" width="150"/>
+						</a>
+						<a href="#" onclick="setNewWeapon('player2Choice', '3')" >
+							<img id="paperImg" src="<?php echo $this->basePath("img/Paper.jpg"); ?>" alt="Paper" title="Papier" height="150" width="150"/>
+						</a>
+						<a href="#" onclick="setNewWeapon('player2Choice', '4')" >
+							<img id="lizardImg" src="<?php echo $this->basePath("img/Lizard.jpg"); ?>" alt="Lizard" title="Echse" height="150" width="150"/>
+						</a>	
+						<a href="#" onclick="setNewWeapon('player2Choice', '5')" >
+							<img id="spockImg" src="<?php echo $this->basePath("img/Spock.jpg"); ?>" alt="Spock" title="Spock" height="150" width="150"/>
+						</a>
+					</div>
+				</div>
+				
+				<div class="control-group">
+                	<label class="control-label" for="player2Message">Sie k&ouml;nnen eine Nachricht f&uuml;r Ihren Gegner hinterlassen: </label>
+                    <div class="controls">
+						<textarea name="player2Message" id="player2Message" value=""></textarea>
+					</div>
+				</div>
+				
+				<div class="control-group">
+                    <div class="controls">
+						<button onClick="return checkJoinForm('<?php echo $this->url('game', array('action' => 'joingame'))?>');" class="btn-primary">Spiel beitreten!</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</form>

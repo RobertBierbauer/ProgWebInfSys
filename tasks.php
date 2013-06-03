@@ -102,6 +102,21 @@
 		</ul>
 		<p>Fehlende Features: Keine! </p>
 		<a href="aufgabe8/game">Rock Paper Scissors Lizard Spock Single Page App + MongoDB</a>
+		
+		<h3>Aufgabe 9</h3>
+		<ul>
+			<li>Single Page App mit nur einer index.html</li>
+			<li>Client-Routen über Anchor #</li>
+			<li>User-Tests (min. 5 Benutzer_innen, Feedback protokollieren)</li>
+			<li>Usabilityverbesserungen, im besonderen:</li>
+			<ul>
+				<li>Feedback bei AJAX (Loading, Sending, etc...)</li>
+				<li>Beschreibung zu Spiel Ablauf (Emails + Web)</li>
+				<li>Einfache Sprache
+			</ul>
+		</ul>
+		<p>Fehlende Features: Keine! </p>
+		<a href="aufgabe9/game">Rock Paper Scissors Lizard Spock Single Page App + MongoDB userfriendly</a>
 		<br><br><br>
 	</div>
 </body>

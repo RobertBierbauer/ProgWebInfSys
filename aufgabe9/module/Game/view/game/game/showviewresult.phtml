@@ -1,0 +1,43 @@
+<?php
+
+$title = 'View result';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php 
+if($error != ""){
+	echo $error;
+	echo "<a href=".$this->url('game').">Go home, you're drunk!</a>";
+}
+else{
+
+	echo "<p>Die ID des erstellten Spieles ist: ".$game->id."</p>";
+	echo "<p>Das Spiel wurde erstellt von: ".$game->player1Name." mit der E-Mail: ".$game->player1Email."!</p>";
+	echo "<p>Er hat ".$game->player2Name." mit der E-Mail ".$game->player2Email." herausgefordert!</p>";
+	echo "<p>".$game->player1Name." w&auml;hlte ".$choices[$game->player1Choice]."</p>";
+	echo "<p>".$game->player2Name." w&auml;hlte: ".$choices[$game->player2Choice]."</p>";
+	echo "<p>".$game->player1Name." hinterlie&szlig; die Nachricht: ".$game->player1Message."</p>";
+	echo "<p>".$game->player2Name." hinterlie&szlig; die Nachricht: ".$game->player2Message."</p>";
+	echo "<p>Ergebnis:</p>";
+	if($game->winner == 0){
+		echo "Unentschieden!";
+	}
+	else if($game->winner == 1){
+		echo $game->player1Name." hat gewonnen!";
+	}
+	else if($game->winner == 2){
+		echo $game->player2Name." hat gewonnen!";
+	}
+	if(isset($_COOKIE["player1Name"])){
+		$player = $_COOKIE["player1Name"];
+	}else{
+		$player = "";
+	}
+	$player2 = $game->player1Name;
+	$player = trim($player);
+	if($player !== $player2){
+		echo "<br><button class='btn-primary' onclick=loadCreateGame('".$this->url('game', array('action'=>'creategame', 'id' => $game->id))."')>Revanche!</button>";
+	}
+}
+
+?>
