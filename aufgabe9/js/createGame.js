@@ -1,5 +1,5 @@
 function loadCreateGame(id, player){
-	if(id !== '' && player !== ''){
+	if(id !== undefined && player !== undefined){
 		window.history.pushState("object or string", "Spiel erstellen", "#create#"+id+"#"+player);
 	}else{
 		window.history.pushState("object or string", "Spiel erstellen", "#create");
