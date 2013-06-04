@@ -1,5 +1,5 @@
 /**
- * Requests evry 5 seconds the actual highscorelist from the server and prints it
+ * Requests every 5 seconds the actual highscorelist from the server and prints it
  * @param url the url of the controller
  */
 function getHighscoreList(url){
@@ -19,8 +19,8 @@ function getHighscoreList(url){
 			$("#tableBody").html(table);
 		});   
 	}, 5000);
-	
 }
+
 
 function setNewWeapon(hiddenFieldName, value){
 	var field = document.getElementById('' + hiddenFieldName);

@@ -1,8 +1,3 @@
-$(document).ready(function() {
-	window.history.pushState("object or string", "Title", "/aufgabe9/game");
-});
-
-
 function loadCreateGame(url){
 	console.log("load content from" + url);
 	$.get(url, function(data) {
@@ -18,9 +13,9 @@ function checkCreateForm(url){
 	var player2Email = document.getElementById("player2Email");
 	var player1Choice = document.getElementById("player1Choice");
 	var player1Message = document.getElementById("player1Message");
-		
+
 	var incomplete = false;
-	
+
 	if(player1Name.value === ""){
 		document.getElementById("player1NameError").innerHTML = "Bitte geben Sie Ihren Namen ein!";
 		incomplete = true;
@@ -36,7 +31,7 @@ function checkCreateForm(url){
 			incomplete = true;
 		}
 	}
-	
+
 	if(player2Name.value === ""){
 		document.getElementById("player2NameError").innerHTML = "Bitte geben Sie den Namen Ihres Gegners ein!";
 		incomplete = true;
@@ -53,7 +48,7 @@ function checkCreateForm(url){
 			incomplete = true;
 		}
 	}
-	
+
 	if(player1Choice.value === "0"){
 		document.getElementById("player1ChoiceError").innerHTML = "Bitte w&auml;hlen Sie Ihre Waffe!";
 		incomplete = true;
@@ -61,7 +56,7 @@ function checkCreateForm(url){
 	else{
 		document.getElementById("player1ChoiceError").innerHTML = "";
 	}
-	
+
 	if(!incomplete){
 		setCookie("player1Name", player1Name.value, 5);
 		setCookie("player1Email", player1Email.value, 5);
@@ -76,16 +71,16 @@ function checkCreateForm(url){
 };
 
 function setUpCreateGame(){
-	
+
 	var player1Name = document.getElementById("player1Name");
 	var player1Email = document.getElementById("player1Email");
 	var player2Name = document.getElementById("player2Name");
 	var player2Email = document.getElementById("player2Email");
 	var player1Choice = document.getElementById("player1Choice");
-	
+
 	player1Name.value = getCookie("player1Name");
 	player1Email.value = getCookie("player1Email");
-	
+
 	player1Name.onchange = function(){
 		if(player1Name.value === ""){
 			document.getElementById("player1NameError").innerHTML = "Bitte geben Sie Ihren Namen ein!";
@@ -94,7 +89,7 @@ function setUpCreateGame(){
 			document.getElementById("player1NameError").innerHTML = "";
 		}
 	};
-	
+
 	player1Email.onchange = function(){
 		if(player1Email.value === ""){
 			document.getElementById("player1EmailError").innerHTML = "Bitte geben Sie Ihre E-Mail ein!";
@@ -106,7 +101,7 @@ function setUpCreateGame(){
 			document.getElementById("player1EmailError").innerHTML = "";
 		}
 	};
-	
+
 	player2Name.onchange = function(){
 		if(player2Name.value === ""){
 			document.getElementById("player2NameError").innerHTML = "Bitte geben Sie den Namen Ihres Gegners ein!";
@@ -115,7 +110,7 @@ function setUpCreateGame(){
 			document.getElementById("player2NameError").innerHTML = "";
 		}
 	};
-	
+
 	player2Email.onchange = function(){
 		if(player2Email.value === ""){
 			document.getElementById("player2EmailError").innerHTML = "Bitte geben Sie die E-Mail Ihres Gegners ein!";
@@ -127,4 +122,74 @@ function setUpCreateGame(){
 			document.getElementById("player2EmailError").innerHTML = "";
 		}
 	};
+
+	$("#rockImg").hover(
+		function(){
+			$("#weaponDescription").append($('<ul>'));
+			$("#weaponDescription ul:first-child").append($('<li>').append("Stein zerquetscht Echse"));
+			$("#weaponDescription ul:first-child").append($('<li>').append("Stein schleift Schere"));
+			$("#weaponDescription").append($('<ul>'));
+			$("#weaponDescription ul:last-child").append($('<li>').append("Papier bedeckt Stein"));
+			$("#weaponDescription ul:last-child").append($('<li>').append("Spock verdampft Stein"));
+		},
+		function(){
+			$("#weaponDescription").empty();
+		}
+	);
+
+	$("#scissorsImg").hover(
+		function(){
+			$("#weaponDescription").append($('<ul>'));
+			$("#weaponDescription ul:first-child").append($('<li>').append("Schere schneidet Papier"));
+			$("#weaponDescription ul:first-child").append($('<li>').append("Schere k&ouml;pft Echse"));
+			$("#weaponDescription").append($('<ul>'));
+			$("#weaponDescription ul:last-child").append($('<li>').append("Spock zertr&uuml;mmert Schere"));
+			$("#weaponDescription ul:last-child").append($('<li>').append("Stein schleift Schere"));
+		},
+		function(){
+			$("#weaponDescription").empty();
+		}
+	);
+
+	$("#paperImg").hover(
+		function(){
+			$("#weaponDescription").append($('<ul>'));
+			$("#weaponDescription ul:first-child").append($('<li>').append("Papier bedeckt Stein"));
+			$("#weaponDescription ul:first-child").append($('<li>').append("Papier widerlegt Spock"));
+			$("#weaponDescription").append($('<ul>'));
+			$("#weaponDescription ul:last-child").append($('<li>').append("Schere schneidet Papier"));
+			$("#weaponDescription ul:last-child").append($('<li>').append("Echse frisst Papier"));
+		},
+		function(){
+			$("#weaponDescription").empty();
+		}
+	);
+
+	$("#lizardImg").hover(
+		function(){
+			$("#weaponDescription").append($('<ul>'));
+			$("#weaponDescription ul:first-child").append($('<li>').append("Echse vergiftet Spock"));
+			$("#weaponDescription ul:first-child").append($('<li>').append("Echse frisst Papier"));
+			$("#weaponDescription").append($('<ul>'));
+			$("#weaponDescription ul:last-child").append($('<li>').append("Stein zerquetscht Echse"));
+			$("#weaponDescription ul:last-child").append($('<li>').append("Schere k&ouml;pft Echse"));
+		},
+		function(){
+			$("#weaponDescription").empty();
+		}
+	);
+
+	$("#spockImg").hover(
+		function(){
+			$("#weaponDescription").append($('<ul>'));
+			$("#weaponDescription ul:first-child").append($('<li>').append("Spock zertr&uuml;mmert Schere"));
+			$("#weaponDescription ul:first-child").append($('<li>').append("Spock verdampft Stein"));
+			$("#weaponDescription").append($('<ul>'));
+			$("#weaponDescription ul:last-child").append($('<li>').append("Echse vergiftet Spock"));
+			$("#weaponDescription ul:last-child").append($('<li>').append("Papier widerlegt Spock"));
+		},
+		function(){
+			$("#weaponDescription").empty();
+		}
+	);
 }
