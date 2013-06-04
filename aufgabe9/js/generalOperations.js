@@ -3,58 +3,59 @@
  */
 $(document).ready(function(){
 	anchor();
-	$(window).on("hashchange", function(){
-		anchor();
-	});
+});
+$(window).on('hashchange', function() {
+	console.log("check");
 });
 
 function anchor(){
-	console.log("test");
 	var hashs = new Array();
 	var anchor = window.location.hash;
 	hashs = anchor.split("#");
 	console.log(hashs);
 	
-	if(hashs[1] === ''){
+	if(hashs.length === 1){
 		$("#index").show();
 		$("#create").hide();
 		$("#createdGame").hide();
 		$("#joinGame").hide();
 		$("#result").hide();
 	}
-	if(hashs[1] === "create"){
-		$("#create").show();
-		$("#index").hide();
-		$("#createdGame").hide();
-		$("#joinGame").hide();
-		$("#result").hide();
-	}
-	if(hashs[1] === "createdGame"){
-		$("#create").hide();
-		$("#index").hide();
-		$("#createdGame").show();
-		$("#joinGame").hide();
-		$("#result").hide();
-	}
-	if(hashs[1] === "joinGame"){
-		$.get("game/joingame/"+hashs[2], function(data){
-			//console.log(data);
-			$("#message").text(data.game.player1Message);
-			$("#joinPlayer2Name").val(data.game.player2Name);
-			$("#joinId").val(data.game.id);
-		});
-		$("#create").hide();
-		$("#index").hide();
-		$("#createdGame").hide();
-		$("#result").hide();
-		window.history.pushState("object or string", "Spiel beitreten", "/aufgabe9/game#joinGame");
-	}
-	if(hashs[1] === "viewresult"){
-		$("#create").hide();
-		$("#index").hide();
-		$("#createdGame").hide();
-		$("#joinGame").hide();
-		$("#result").show();
+	else{
+		if(hashs[1] === "create"){
+			$("#create").show();
+			$("#index").hide();
+			$("#createdGame").hide();
+			$("#joinGame").hide();
+			$("#result").hide();
+		}
+		if(hashs[1] === "createdGame"){
+			$("#create").hide();
+			$("#index").hide();
+			$("#createdGame").show();
+			$("#joinGame").hide();
+			$("#result").hide();
+		}
+		if(hashs[1] === "joinGame"){
+			$.get("game/joingame/"+hashs[2], function(data){
+				//console.log(data);
+				$("#message").text(data.game.player1Message);
+				$("#joinPlayer2Name").val(data.game.player2Name);
+				$("#joinId").val(data.game.id);
+			});
+			$("#create").hide();
+			$("#index").hide();
+			$("#createdGame").hide();
+			$("#result").hide();
+			window.history.pushState("object or string", "Spiel beitreten", "/aufgabe9/game#joinGame");
+		}
+		if(hashs[1] === "viewresult"){
+			$("#create").hide();
+			$("#index").hide();
+			$("#createdGame").hide();
+			$("#joinGame").hide();
+			$("#result").show();
+		}
 	}
 }
 

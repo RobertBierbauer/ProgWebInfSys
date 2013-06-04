@@ -1,5 +1,6 @@
 function loadCreateGame(){
 	window.history.pushState("object or string", "Spiel erstellen", "#create");
+	anchor();
 }
 
 
