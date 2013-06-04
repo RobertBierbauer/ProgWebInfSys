@@ -4,9 +4,6 @@
 $(document).ready(function(){
 	anchor();
 });
-$(window).on('hashchange', function() {
-	console.log("check");
-});
 
 function anchor(){
 	var hashs = new Array();
@@ -23,6 +20,24 @@ function anchor(){
 	}
 	else{
 		if(hashs[1] === "create"){
+			$.get("game/creategame/"+hashs[2], function(data){
+				console.log(data.replaygame);
+				if(data.replaygame.id !== null){
+					console.log("dsfasd");
+					if(hashs[3] === "player1"){
+						$("#player1Name").val(data.replaygame.player1Name);
+						$("#player1Email").val(data.replaygame.player1Email);
+						$("#player2Name").val(data.replaygame.player2Name);
+						$("#player2Email").val(data.replaygame.player2Email);
+					}else{
+						$("#player2Name").val(data.replaygame.player1Name);
+						$("#player2Email").val(data.replaygame.player1Email);
+						$("#player1Name").val(data.replaygame.player2Name);
+						$("#player1Email").val(data.replaygame.player2Email);						
+					}
+					window.history.pushState("object or string", "Spiel beitreten", "/aufgabe9/game#create");
+				}
+			});
 			$("#create").show();
 			$("#index").hide();
 			$("#createdGame").hide();
@@ -37,19 +52,53 @@ function anchor(){
 			$("#result").hide();
 		}
 		if(hashs[1] === "joinGame"){
+			var test = this;
 			$.get("game/joingame/"+hashs[2], function(data){
 				//console.log(data);
-				$("#message").text(data.game.player1Message);
-				$("#joinPlayer2Name").val(data.game.player2Name);
-				$("#joinId").val(data.game.id);
+				if(data.result){
+					window.history.pushState("object or string", "Spiel beitreten", "/aufgabe9/game#viewresult#"+hashs[2]+"#player2");
+					test.anchor();
+				}else{
+					$("#message").text(data.game.player1Message);
+					$("#joinPlayer2Name").val(data.game.player2Name);
+					$("#joinId").val(data.game.id);
+					$("#create").hide();
+					$("#index").hide();
+					$("#createdGame").hide();
+					$("#result").hide();
+					window.history.pushState("object or string", "Spiel beitreten", "/aufgabe9/game#joinGame");
+				}
+				
 			});
-			$("#create").hide();
-			$("#index").hide();
-			$("#createdGame").hide();
-			$("#result").hide();
-			window.history.pushState("object or string", "Spiel beitreten", "/aufgabe9/game#joinGame");
+			
 		}
 		if(hashs[1] === "viewresult"){
+			console.log(hashs);
+			$.get("game/showviewresult/"+hashs[2], function(data){
+				if(data.success){
+					var winner = "";
+					if(data.game.winner === 0){
+						winner = "Unentschieden";
+					}else if(data.game.winner === 1){
+						winner = data.game.player1Name+" hat gewonnen!";
+						
+					}else{
+						winner = data.game.player2Name+" hat gewonnen!";
+					}
+					var text = "Das Spiel wurde erstellt von: "+data.game.player1Name +" mit der E-Mail: "+data.game.player1Email+"!<br>"+
+					"Er hat "+data.game.player2Name+" mit der E-Mail "+data.game.player2Email+" herausgefordert!<br>"+
+					data.game.player1Name+"'s Waffe: "+data.choices[data.game.player1Choice]+"<br>"+
+					data.game.player2Name+"'s Waffe: "+data.choices[data.game.player2Choice]+"<br>"+
+					"Nachricht von "+data.game.player1Name+": "+data.game.player1Message+"<br>"+
+					"Nachricht von "+data.game.player2Name+": "+data.game.player2Message+
+					"<p>Ergebnis:</p>"+winner;
+					$("#resultInfo").text(text);
+					$("#revancheButton").attr('onclick', 'loadCreateGame("'+data.game.id+'","'+hashs[3]+'")');
+				}else{
+					$("#resultError").text("Das spiel existiert nicht!");
+				}
+				$("#result").show();
+			});
 			$("#create").hide();
 			$("#index").hide();
 			$("#createdGame").hide();

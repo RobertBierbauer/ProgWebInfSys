@@ -1,5 +1,10 @@
-function loadCreateGame(){
-	window.history.pushState("object or string", "Spiel erstellen", "#create");
+function loadCreateGame(id, player){
+	if(id !== '' && player !== ''){
+		window.history.pushState("object or string", "Spiel erstellen", "#create#"+id+"#"+player);
+	}else{
+		window.history.pushState("object or string", "Spiel erstellen", "#create");
+	}
+	
 	anchor();
 }
 
@@ -63,6 +68,7 @@ function checkCreateForm(url){
 			var text = "Eine E-Mail wurde an " + data.game.player2Email+ " gesendet.\nSie werden informiert, wenn " + data.game.player2Name + " die Waffe gewählt hat.";
 			$("#confirm").text(text);
 			window.history.pushState("object or string", "Spiel erstellen", "#createdGame");
+			anchor();
 		});
 		return false;
 	}else{
@@ -78,8 +84,19 @@ function setUpCreateGame(){
 	var player2Email = document.getElementById("player2Email");
 	var player1Choice = document.getElementById("player1Choice");
 
-	player1Name.value = getCookie("player1Name");
-	player1Email.value = getCookie("player1Email");
+	var hashs = new Array();
+	var anchor = window.location.hash;
+	hashs = anchor.split("#");
+	
+
+	if(hashs[3] === 'player2'){
+		player2Name.value = getCookie("player1Name");
+		player2Email.value = getCookie("player1Email");
+	}else{
+		player1Name.value = getCookie("player1Name");
+		player1Email.value = getCookie("player1Email");
+	}
+	
 
 	player1Name.onchange = function(){
 		if(player1Name.value === ""){

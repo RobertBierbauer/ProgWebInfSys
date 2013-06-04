@@ -21,36 +21,20 @@ function checkJoinForm(url){
 		document.getElementById("player2ChoiceError").innerHTML = "";
 	}
 	
-	var id = $("#id").val();
+	var id = $("#joinId").val();
 	
 	if(incomplete){
 		return false;
 	}else{		
-		$.post(url, {id: id, player2Name: player2Name.value, player2Choice: player2Choice.value, player2Message: player2Message.value}
-		, function(data) {
+		$.post(url, {id: id, player2Name: player2Name.value, player2Choice: player2Choice.value, player2Message: player2Message.value}, function(data) {
 			console.log(data);
-			if(data.success){
-				var winner = "";
-				if(data.game.winner === 0){
-					winner = "Unentschieden";
-				}else if(data.game.winner === 1){
-					winner = data.game.player1Name+" hat gewonnen!";
-					
-				}else{
-					winner = data.game.player2Name+" hat gewonnen!";
-				}
-				var text = "Das Spiel wurde erstellt von: "+data.game.player1Name +" mit der E-Mail: "+data.game.player1Email+"!<br>"+
-				"Er hat "+data.game.player2Name+" mit der E-Mail "+data.game.player2Email+" herausgefordert!<br>"+
-				data.game.player1Name+"'s Waffe: "+data.game.player1Choice+"<br>"+
-				data.game.player1Name+"'s Waffe: "+data.game.player1Choice+"<br>"+
-				"Nachricht von "+data.game.player1Name+": "+data.game.player1Message+"<br>"+
-				"Nachricht von ".data.game.player2Name+": "+data.game.player2Message+
-				"<p>Ergebnis:</p>"+winner;
-				$("resultInfo").text(text);
-			}else{
-				$("resultError").text("Das spiel existiert nicht!");
-			}
-			window.history.pushState("object or string", "Ergebnis", "ProgWebInfSys/aufgabe9/game/#viewresult");
+			
+			
+			window.history.pushState("object or string", "Ergebnis", "game/#viewresult#"+data.game.id+"#player2");
+			anchor();
+		}).error(function(data){
+			console.log("Fehler");
+			console.log(data);
 		});
 		return false;
 	}

@@ -83,7 +83,7 @@ $(document).ready(function(){
 					<div class="control-group ">
 	                	<label class="control-label" for="player1Name">Geben Sie Ihren Namen ein: </label>
 	                    <div class="controls">
-							<input type="text" name="player1Name" id="player1Name" value="<?php if($replaygame != null){echo $replaygame->player2Name;}?>" />
+							<input type="text" name="player1Name" id="player1Name" value="" />
 							<div id="player1NameError"></div>
 						</div>
 					</div>
@@ -91,7 +91,7 @@ $(document).ready(function(){
 					<div class="control-group">
 	                	<label class="control-label" for="player1Email">Geben Sie Ihre E-Mail ein: </label>
 	                    <div class="controls">
-							<input type="text" name="player1Email" id="player1Email" value="<?php if($replaygame){echo $replaygame->player2Email;}?>" />
+							<input type="text" name="player1Email" id="player1Email" value="" />
 							<div id="player1EmailError"></div>
 						</div>
 					</div>
@@ -99,7 +99,7 @@ $(document).ready(function(){
 					<div class="control-group">
 	                	<label class="control-label" for="player2Name">Geben Sie den Namen des Gegners ein: </label>
 	                    <div class="controls">
-							<input type="text" name="player2Name" id="player2Name" value="<?php if($replaygame){echo $replaygame->player1Name;}?>" />
+							<input type="text" name="player2Name" id="player2Name" value="" />
 							<div id="player2NameError"></div>
 						</div>
 					</div>
@@ -107,7 +107,7 @@ $(document).ready(function(){
 					<div class="control-group">
 	                	<label class="control-label" for="player2Email">Geben Sie die E-Mail des Gegners ein: </label>
 	                    <div class="controls">
-							<input type="text" name="player2Email" id="player2Email" value="<?php if($replaygame){echo $replaygame->player1Email;}?>" />
+							<input type="text" name="player2Email" id="player2Email" value="" />
 							<div id="player2EmailError"></div>
 						</div>
 					</div>
@@ -236,7 +236,8 @@ $(document).ready(function(){
 	
 	<p id="resultError"></p>
 	<p id="resultInfo"></p>
-
+	
+	<button id="revancheButton" class="btn-primary">Revanche</button>
 </div>
 
 

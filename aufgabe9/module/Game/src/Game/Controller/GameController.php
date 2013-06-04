@@ -48,37 +48,17 @@ class GameController extends AbstractActionController
     		$game->save();
     		$id = $game->id;
     		
-    		$html = 'Hallo '.$game->player2Name."!\n".$game->player1Name." hat Dich zu einem Spiel herausgefordert. Trete dem Spiel bei:\n\n <a href='http://138.232.66.87/aufgabe9/game/joingame/".$id."#joinGame'>Spiel beitreten</a>";
-    		$bodyPart = new \Zend\Mime\Message();
-    		$bodyMessage = new \Zend\Mime\Part($html); 	
-    		$bodyMessage->type = 'text/html';
-    		$bodyPart->setParts(array($bodyMessage));		
-    		
-    		$mail = new Message();
-    		$mail->setBody($bodyPart);
-    		$mail->setFrom('robert.bierbauer@student.uibk.ac.at', ''.$game->player1Name);
-    		$mail->addTo(''.$game->player2Email, ''.$game->player2Name);
-    		$mail->setSubject(''.$game->player1Name.' hat dich herausgefordert!');
-    		$mail->setEncoding('UTF-8');
-    		
-    		$transport = new SmtpTransport();
-			$options   = new SmtpOptions(array(
-			    'name'              => 'smtp.uibk.ac.at',
-			    'host'              => 'smtp.uibk.ac.at',
-			));
-			$transport->setOptions($options);
-   			$transport->send($mail);
+    		$this->sendEmail($id, $game, 0);
 
     		return $this->redirect()->toRoute('game', array('action'=>'showcreatedgame', 'id'=>$id));
 
     	}
     	
-    	$viewModel = new ViewModel(array(
-    			'replaygame' => $replaygame,
-    	));
-    	//disable the layout on an ajax request
-    	$viewModel->setTerminal($request->isXmlHttpRequest());
-    	return $viewModel;
+    	$result = new JsonModel(array(
+    				'replaygame' => $replaygame,
+    				'success'=>true,
+    		));
+    	return $result;
     	
     }
     
@@ -97,12 +77,11 @@ class GameController extends AbstractActionController
 
     public function joingameAction()
     {
+    	
     	$request = $this->getRequest();
     	if($request->isPost()){
     		$data = $request->getPost();
-    		var_dump($data);
     		$id = $data['id'];
-    		var_dump($data);
     		$player2Name = $data['player2Name'];
     		$player2Choice = $data['player2Choice'];
     		$player2Message = $data['player2Message'];
@@ -119,33 +98,27 @@ class GameController extends AbstractActionController
 		    	$game->setPlayer2Message($player2Message);
 		    	$game->determineWinner();
     			$game->save();   
-			    $result = new JsonModel(array(
-    				'game' => $game,
-    				'success'=>true,
-	    		));
-	    		return $result;
+    			$this->sendEmail($id, $game, 1);
+    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
 	    	}else{
 	    		if($game->player2Choice === '0'){
-	    			$result = new JsonModel(array(
+	    			$result2 = new JsonModel(array(
 	    				'game' => $game,
 	    				'success'=>true,
 		    		));
-		    		return $result;
+		    		return $result2;
 	    		}else{	    			
-	    			$result = new JsonModel(array(
-    				'game' => $game,
-    				'success'=>true,
-		    		));
-		    		return $result;
+	    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
 	    		}	    		
 	    	}
     	}
     	else{
-    		$result = new JsonModel(array(
+    		$result4 = new JsonModel(array(
     				'success'=>false,
     		));
-    		return $result;
+    		return $result4;
     	}
+    	
     }
     
     
@@ -154,7 +127,7 @@ class GameController extends AbstractActionController
     	$game = new Game();
     	$game->findById($id);
     	$error = "";
-    	$choices = array("1" => "Rock", "2" => "Scissors", "3" => "Paper", "4" => "Lizard", "5" => "Spock");
+    	$choices = array("1" => "Stein", "2" => "Schere", "3" => "Papier", "4" => "Echse", "5" => "Spock");
 
     	//determine error
     	if(!$game){
@@ -165,11 +138,54 @@ class GameController extends AbstractActionController
     	}
     	
     	$request = $this->getRequest();
-    	$viewModel = new ViewModel(array(
-    			'game'=> $game,
-    			'error' => $error,
-    			'choices' => $choices));
-    	$viewModel->setTerminal($request->isXmlHttpRequest());
-    	return $viewModel;
+    	$result = new JsonModel(array(
+    		'result' => true,
+	    	'game' => $game,
+    		'choices' => $choices,
+	    	'success'=>true,
+		));
+		return $result;
+    }
+    
+    /**
+     * This function sends an email
+     * @param unknown_type $id the id of the game
+     * @param unknown_type $game - the mae with all information
+     * @param unknown_type $option 0 if a player is invited, 1 if the game was completed
+     */
+    public function sendEmail($id, $game, $option){
+    	 
+    	if($option === 0){
+    		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe9/game#joinGame#".$id."'>Join the game</a>";
+    	}else{
+    		$html = 'Hello '.$game->player1Name."!\n".$game->player2Name." has finished the game. You can check the result by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe9/game#viewresult#".$id."#player1'>Check the result</a>";
+    	}
+    	 
+    	$bodyPart = new \Zend\Mime\Message();
+    	$bodyMessage = new \Zend\Mime\Part($html);
+    	$bodyMessage->type = 'text/html';
+    	$bodyPart->setParts(array($bodyMessage));
+    	 
+    	$mail = new Message();
+    	$mail->setBody($bodyPart);
+    	$mail->setFrom('robert.bierbauer@student.uibk.ac.at', ''.$game->player1Name);
+    	if($option === 0){
+    		$mail->addTo(''.$game->player2Email, ''.$game->player2Name);
+    		$mail->setSubject(''.$game->player1Name.' challenged you!');
+    	}else{
+    		$mail->addTo(''.$game->player1Email, ''.$game->player1Name);
+    		$mail->setSubject(''.$game->player2Name.' has completed the game!');
+    	}
+    	 
+    	 
+    	$mail->setEncoding('UTF-8');
+    	 
+    	$transport = new SmtpTransport();
+    	$options   = new SmtpOptions(array(
+    			'name'              => 'smtp.uibk.ac.at',
+    			'host'              => 'smtp.uibk.ac.at',
+    	));
+    	$transport->setOptions($options);
+    	$transport->send($mail);
     }
 }
