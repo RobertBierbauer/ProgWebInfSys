@@ -74,7 +74,7 @@ function anchor(){
 		}
 		if(hashs[1] === "viewresult"){
 			console.log(hashs);
-			$.get("showviewresult/"+hashs[2], function(data){
+			$.get("game/showviewresult/"+hashs[2], function(data){
 				if(data.success){
 					var winner = "";
 					if(data.game.winner === 0){
