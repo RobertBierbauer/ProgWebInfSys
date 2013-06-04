@@ -156,9 +156,9 @@ class GameController extends AbstractActionController
     public function sendEmail($id, $game, $option){
     	 
     	if($option === 0){
-    		$html = 'Hello '.$game->player2Name."!\n".$game->player1Name." challenged you on a game. You can join the game by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe9/game#joinGame#".$id."'>Join the game</a>";
+    		$html = 'Hallo '.$game->player2Name."!\n".$game->player1Name." hat dich zu einem Spiel herausgefordert. Sie können dem Spiel hier dem Spiel beitreten:\n\n <a href='http://138.232.66.87/aufgabe9/game#joinGame#".$id."'>Spiel beitreten</a>";
     	}else{
-    		$html = 'Hello '.$game->player1Name."!\n".$game->player2Name." has finished the game. You can check the result by clicking on the link:\n\n <a href='http://138.232.66.87/aufgabe9/game#viewresult#".$id."#player1'>Check the result</a>";
+    		$html = 'Hallo '.$game->player1Name."!\n".$game->player2Name." hat seine Wahl getroffen. Sie können das Ergebnis des Spiel hier ansehen:\n\n <a href='http://138.232.66.87/aufgabe9/game#viewresult#".$id."#player1'>Ergebnis ansehen</a>";
     	}
     	 
     	$bodyPart = new \Zend\Mime\Message();
@@ -171,10 +171,10 @@ class GameController extends AbstractActionController
     	$mail->setFrom('robert.bierbauer@student.uibk.ac.at', ''.$game->player1Name);
     	if($option === 0){
     		$mail->addTo(''.$game->player2Email, ''.$game->player2Name);
-    		$mail->setSubject(''.$game->player1Name.' challenged you!');
+    		$mail->setSubject(''.$game->player1Name.' hat dich herausgefordert!');
     	}else{
     		$mail->addTo(''.$game->player1Email, ''.$game->player1Name);
-    		$mail->setSubject(''.$game->player2Name.' has completed the game!');
+    		$mail->setSubject(''.$game->player2Name.' hat seine Wahl getroffen!');
     	}
     	 
     	 

@@ -116,7 +116,8 @@
 			</ul>
 		</ul>
 		<p>Fehlende Features: Keine! </p>
-		<a href="aufgabe9/game">Rock Paper Scissors Lizard Spock Single Page App + MongoDB userfriendly</a>
+		<a href="aufgabe9/game">Rock Paper Scissors Lizard Spock Single Page App + MongoDB userfriendly</a><br>
+		<a href="/Feedback.html">User Feedback zu Aufgabe 9</a>
 		<br><br><br>
 	</div>
 </body>

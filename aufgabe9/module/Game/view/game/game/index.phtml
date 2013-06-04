@@ -160,7 +160,7 @@ $(document).ready(function(){
 <div id="createdGame">
 	<h1>Spiel wurde erstellt</h1>
 	
-	<p id="confirm"></p>
+	<div id="confirm"></div>
 
 </div>
 
@@ -170,8 +170,19 @@ $(document).ready(function(){
 		<div class="widget-content">
 	    	<div class="widget-box">
 	        	<div class = 'form-horizontal well'>
+	        		<div class='control-group'>
+	    	    		<fieldset>
+							<h1>Willkommen!</h1>
+							<h3>Anleitung:</h3>
+							<p>Der Name dieses Spieles lautet Stein-Schere-Papier-Echse-Spock.</p>
+							<p>Dein Gegner hat bereits seine Wahl getroffen. Nun liegt es an dir, dein Wahl zu treffen.</p>
+							<p>Weiter unten kann zwischen 5 verschiedenen Waffen gew&auml;hlt werden.</p>
+							<p>Viel Erfolg!</p>
+		        		</fieldset>
+					</div>
 					<div class='control-group'>
-						<label class='control-label'>Dein Gegner hat dir eine Nachricht hinterlassen</label>
+						<h3>Triff deine Wahl:</h3>
+						<label class='control-label'>Nachricht deines Gegners:</label>
 						<div class='controls'>
 							<p id="message"></p>
 						</div>

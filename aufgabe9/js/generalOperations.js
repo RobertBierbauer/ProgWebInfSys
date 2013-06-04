@@ -8,6 +8,7 @@ $(document).ready(function(){
 function anchor(){
 	var hashs = new Array();
 	var anchor = window.location.hash;
+	anchor = anchor.replace(/%23/g, "#");
 	hashs = anchor.split("#");
 	console.log(hashs);
 	
@@ -23,13 +24,12 @@ function anchor(){
 			$.get("game/creategame/"+hashs[2], function(data){
 				console.log(data.replaygame);
 				if(data.replaygame.id !== null){
-					console.log("dsfasd");
 					if(hashs[3] === "player1"){
 						$("#player1Name").val(data.replaygame.player1Name);
 						$("#player1Email").val(data.replaygame.player1Email);
 						$("#player2Name").val(data.replaygame.player2Name);
 						$("#player2Email").val(data.replaygame.player2Email);
-					}else{
+					}else if(hashs[3] === "player2"){
 						$("#player2Name").val(data.replaygame.player1Name);
 						$("#player2Email").val(data.replaygame.player1Email);
 						$("#player1Name").val(data.replaygame.player2Name);
@@ -59,7 +59,12 @@ function anchor(){
 					window.history.pushState("object or string", "Spiel beitreten", "/aufgabe9/game#viewresult#"+hashs[2]+"#player2");
 					test.anchor();
 				}else{
-					$("#message").text(data.game.player1Message);
+					if(data.game.player1Message !== ""){						
+						$("#message").text(data.game.player1Message);
+					}
+					else{
+						$("#message").text(data.game.player1Name + " hat dir keine Nachricht hinterlassen!");
+					}
 					$("#joinPlayer2Name").val(data.game.player2Name);
 					$("#joinId").val(data.game.id);
 					$("#create").hide();
@@ -80,22 +85,32 @@ function anchor(){
 					if(data.game.winner === 0){
 						winner = "Unentschieden";
 					}else if(data.game.winner === 1){
-						winner = data.game.player1Name+" hat gewonnen!";
+						winner = "<p>" + data.game.player1Name+" hat gewonnen!</p>";
 						
 					}else{
-						winner = data.game.player2Name+" hat gewonnen!";
+						winner = "<p>" + data.game.player2Name+" hat gewonnen!</p>";
 					}
-					var text = "Das Spiel wurde erstellt von: "+data.game.player1Name +" mit der E-Mail: "+data.game.player1Email+"!<br>"+
-					"Er hat "+data.game.player2Name+" mit der E-Mail "+data.game.player2Email+" herausgefordert!<br>"+
-					data.game.player1Name+"'s Waffe: "+data.choices[data.game.player1Choice]+"<br>"+
-					data.game.player2Name+"'s Waffe: "+data.choices[data.game.player2Choice]+"<br>"+
-					"Nachricht von "+data.game.player1Name+": "+data.game.player1Message+"<br>"+
-					"Nachricht von "+data.game.player2Name+": "+data.game.player2Message+
-					"<p>Ergebnis:</p>"+winner;
-					$("#resultInfo").text(text);
+					var text = "<p>Das Spiel wurde erstellt von: "+data.game.player1Name +" mit der E-Mail: "+data.game.player1Email+"!</p>"+
+					"<p>Er hat "+data.game.player2Name+" mit der E-Mail "+data.game.player2Email+" herausgefordert!</p>"+
+					"<p>" + data.game.player1Name+"'s Waffe: "+data.choices[data.game.player1Choice]+"</p>"+
+					"<p>" + data.game.player2Name+"'s Waffe: "+data.choices[data.game.player2Choice]+"</p>";
+					if(data.game.player1Message !== ""){						
+						text += "<p>Nachricht von "+data.game.player1Name+": "+data.game.player1Message+"</p>";
+					}
+					else{
+						text += "<p>" + data.game.player1Name + " hat keine Nachricht hinterlassen</p>";
+					}
+					if(data.game.player2Message !== ""){						
+						text += "<p>Nachricht von "+data.game.player2Name+": "+data.game.player2Message+"</p>";
+					}
+					else{
+						text += "<p>" + data.game.player2Name + " hat keine Nachricht hinterlassen</p>";
+					}
+					text += "<p>Ergebnis: </p>"+winner;
+					$("#resultInfo").html(text);
 					$("#revancheButton").attr('onclick', 'loadCreateGame("'+data.game.id+'","'+hashs[3]+'")');
 				}else{
-					$("#resultError").text("Das spiel existiert nicht!");
+					$("#resultError").text("Das Spiel existiert nicht!");
 				}
 				$("#result").show();
 			});

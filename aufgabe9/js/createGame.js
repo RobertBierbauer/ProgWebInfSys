@@ -65,8 +65,8 @@ function checkCreateForm(url){
 		setCookie("player1Email", player1Email.value, 5);
 		$.post(url, {player1Name: player1Name.value, player1Email: player1Email.value, player2Name: player2Name.value, player2Email: player2Email.value, player1Choice: player1Choice.value, player1Message: player1Message.value}
 		, function(data) {
-			var text = "Eine E-Mail wurde an " + data.game.player2Email+ " gesendet.\nSie werden informiert, wenn " + data.game.player2Name + " die Waffe gewählt hat.";
-			$("#confirm").text(text);
+			var text = "Eine E-Mail wurde an " + data.game.player2Email+ " gesendet. Sie werden informiert, wenn " + data.game.player2Name + " seine Waffe gew%E4hlt hat.";
+			$("#confirm").html(unescape(text));
 			window.history.pushState("object or string", "Spiel erstellen", "#createdGame");
 			anchor();
 		});
@@ -89,10 +89,7 @@ function setUpCreateGame(){
 	hashs = anchor.split("#");
 	
 
-	if(hashs[3] === 'player2'){
-		player2Name.value = getCookie("player1Name");
-		player2Email.value = getCookie("player1Email");
-	}else{
+	if(player1Name.value === ''){
 		player1Name.value = getCookie("player1Name");
 		player1Email.value = getCookie("player1Email");
 	}
