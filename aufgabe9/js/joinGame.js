@@ -30,7 +30,7 @@ function checkJoinForm(url){
 			console.log(data);
 			
 			
-			window.history.pushState("object or string", "Ergebnis", "game/#viewresult#"+data.game.id+"#player2");
+			window.history.pushState("object or string", "Ergebnis", "game#viewresult#"+data.game.id+"#player2");
 			anchor();
 		}).error(function(data){
 			console.log("Fehler");
