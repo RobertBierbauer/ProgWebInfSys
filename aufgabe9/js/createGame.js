@@ -1,8 +1,5 @@
-function loadCreateGame(url){
-	console.log("load content from" + url);
-	$.get(url, function(data) {
-		$('#pageContent').html(data);
-	});
+function loadCreateGame(){
+	window.history.pushState("object or string", "Spiel erstellen", "#create");
 }
 
 
@@ -62,7 +59,9 @@ function checkCreateForm(url){
 		setCookie("player1Email", player1Email.value, 5);
 		$.post(url, {player1Name: player1Name.value, player1Email: player1Email.value, player2Name: player2Name.value, player2Email: player2Email.value, player1Choice: player1Choice.value, player1Message: player1Message.value}
 		, function(data) {
-			$('#pageContent').html(data);
+			var text = "Eine E-Mail wurde an " + data.game.player2Email+ " gesendet.\nSie werden informiert, wenn " + data.game.player2Name + " die Waffe gewählt hat.";
+			$("#confirm").text(text);
+			window.history.pushState("object or string", "Spiel erstellen", "#createdGame");
 		});
 		return false;
 	}else{

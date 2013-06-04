@@ -48,7 +48,7 @@ class GameController extends AbstractActionController
     		$game->save();
     		$id = $game->id;
     		
-    		$html = 'Hallo '.$game->player2Name."!\n".$game->player1Name." hat Dich zu einem Spiel herausgefordert. Trete dem Spiel bei:\n\n <a href='http://138.232.66.87/aufgabe9/game/joingame/".$id."'>Spiel beitreten</a>";
+    		$html = 'Hallo '.$game->player2Name."!\n".$game->player1Name." hat Dich zu einem Spiel herausgefordert. Trete dem Spiel bei:\n\n <a href='http://138.232.66.87/aufgabe9/game/joingame/".$id."#joinGame'>Spiel beitreten</a>";
     		$bodyPart = new \Zend\Mime\Message();
     		$bodyMessage = new \Zend\Mime\Part($html); 	
     		$bodyMessage->type = 'text/html';
@@ -87,12 +87,11 @@ class GameController extends AbstractActionController
     	$game = new Game();
     	$game->findById($id);
     	$request = $this->getRequest();
-    	$viewModel =  new ViewModel(array(
-    			'id' => $id,
-    			'game' => $game,
+    	$result = new JsonModel(array(
+    				'game' => $game,
+    				'success'=>true,
     		));
-    	$viewModel->setTerminal($request->isXmlHttpRequest());
-    	return $viewModel;
+    	return $result;
     }
     
 
@@ -120,17 +119,32 @@ class GameController extends AbstractActionController
 		    	$game->setPlayer2Message($player2Message);
 		    	$game->determineWinner();
     			$game->save();   
-			    return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
+			    $result = new JsonModel(array(
+    				'game' => $game,
+    				'success'=>true,
+	    		));
+	    		return $result;
 	    	}else{
 	    		if($game->player2Choice === '0'){
-	    			return array('id' => $id, 'player1Name' => $game->player1Name, 'player1Message' => $game->player1Message, 'player2Name' => $game->player2Name);
+	    			$result = new JsonModel(array(
+	    				'game' => $game,
+	    				'success'=>true,
+		    		));
+		    		return $result;
 	    		}else{	    			
-	    			return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
+	    			$result = new JsonModel(array(
+    				'game' => $game,
+    				'success'=>true,
+		    		));
+		    		return $result;
 	    		}	    		
 	    	}
     	}
     	else{
-    		return $this->redirect()->toRoute('game', array('action'=>'showviewresult', 'id'=>$id));
+    		$result = new JsonModel(array(
+    				'success'=>false,
+    		));
+    		return $result;
     	}
     }
     

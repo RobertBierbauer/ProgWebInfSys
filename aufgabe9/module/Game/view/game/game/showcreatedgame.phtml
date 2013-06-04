@@ -3,12 +3,4 @@
 $title = 'Das Spiel wurde erstellt!';
 $this->headTitle($title);
 ?>
-<script type="text/javascript">
-	$(document).ready(function() {
-		window.history.pushState("object or string", "Title", "/aufgabe9/game#createdGame");
-	});
-</script>
-<h1><?php echo $this->escapeHtml($title); ?></h1>
 
-<p>Eine E-Mail wurde an <?php echo $game->player2Email?> gesendet.</p>
-<p>Sie werden informiert, wenn <?php echo $game->player2Name?> die Waffe gew&auml;hlt hat.</p>
