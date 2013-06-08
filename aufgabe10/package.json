@@ -1,0 +1,10 @@
+{
+    "name": "ChatRoomSchmidhammerBierbauer",
+    "version": "0.0.1",
+    "description": "High-End Chat Room",
+    "dependencies": {
+        "socket.io": "",
+        "express": "3.0.x"
+    },
+    "author": "Gruppe 1"
+}
