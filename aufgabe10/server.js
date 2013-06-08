@@ -27,7 +27,6 @@ io.sockets.on('connection', function (socket) {
 			users[socketId].superuser = false;
 		}
 		io.sockets.emit('updateUsers', users);
-		console.log(users);
 	});
 	
     socket.on('send', function (data) {
@@ -42,15 +41,15 @@ io.sockets.on('connection', function (socket) {
     	} else if(userMessage.indexOf("/super:") === 0){
     		setNewSuperuser(socket, userMessage.substring(userMessage.indexOf(":") + 1));
     	} else if(userMessage.indexOf("/kick:") === 0){
-    		//user kicken
+    		kickUser(socket, userMessage.substring(userMessage.indexOf(":") + 1));
     	} else if(userMessage.indexOf("/topic:") === 0){
     		setNewTopic(socket, userMessage.substring(userMessage.indexOf(":") + 1));
     	} else if(userMessage.indexOf("/quit") === 0){
-    		//verbindung trennen
+    		quitConnection(socket);
     	} else{
     		//normale Nachricht
     		var message = {};
-    		message['user'] = socketId;
+    		message['user'] = users[socketId].username;
     		message['message'] = userMessage;
     		message['time'] = timestamp;
     		io.sockets.emit('message', message);
@@ -122,16 +121,17 @@ function kickUser(socket, name){
 		socket.emit('error', 'User does not exist!');
 	}
 	else{
-		user = getUser(users, name);
-		if(user.superuser){
-			socket.emit('error', 'User is already a superuser!');
-		}
-		else{
-			user.superuser = true;
-			superusers++;			
-			io.sockets.emit('updateUsers', users);
-		}
+		var socketId = getSocketIdByName(users, name);
+		var allSockets = io.sockets.sockets;
+		console.log(allSockets);
+		allSockets[socketId].emit('error', 'You got kicked!');
+		allSockets[socketId].disconnect('Unauthorized');
 	}
+}
+
+function quitConnection(socket){
+	socket.emit('error', 'Connection closed!');
+	socket.disconnect('Unauthorized');
 }
 
 //check if username is already taken
@@ -151,6 +151,15 @@ function getUser(users, name){
         }
     }
     return false;
+}
+
+function getSocketIdByName(users, name){
+	for (var user in users) {
+        if (users[user].username === name) {
+            return user;
+        }
+    }
+	return false
 }
 
 //generate a username

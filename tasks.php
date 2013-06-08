@@ -118,6 +118,14 @@
 		<p>Fehlende Features: Keine! </p>
 		<a href="aufgabe9/game">Rock Paper Scissors Lizard Spock Single Page App + MongoDB userfriendly</a><br>
 		<a href="/Feedback.html">User Feedback zu Aufgabe 9</a>
+		
+		<h3>Aufgabe 10</h3>
+		<ul>
+			<li>Installation Node.js am Server</li>
+			<li>Entwicklung Web-Chat-Systems mit Node.js und Socket.IO</li>
+		</ul>
+		<p>Fehlende Features: Keine! </p>
+		<a href="http:\\138.232.66.87:9000">Chat room</a>
 		<br><br><br>
 	</div>
 </body>

@@ -14,6 +14,7 @@ window.onload = function() {
     //gets a username from the server on login
     socket.on('setUsername', function(data){
     	username = data;
+    	$("#username").html("You are logged in as: " + username);
     });
     //gets the current topic
     socket.on('setTopic', function(data){
@@ -23,11 +24,8 @@ window.onload = function() {
     
     socket.on('message', function (data) {
         var chatWindow = $("#chatWindow");
-        if(data.message) {
-            console.log(data);
-        } else {
-            console.log("There is a problem:", data);
-        }
+       	var messageString = data.user + " (" + data.time + "): " + data.message + "\n";
+        chatWindow.val(chatWindow.val() + messageString);
     });
     
     socket.on('error', function (data) {
