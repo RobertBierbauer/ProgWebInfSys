@@ -6,6 +6,15 @@ var topic = "Gruppe 1";
 var superusers = 0;
 var users = {};
 
+var help = {};
+help["/name:NAME"] = "changes your username to NAME";
+help["/super:NAME"] = "gives NAME superuser privileges";
+help["/kick:NAME"] = "kicks NAME out of the chat room";
+help["/topic:NAME"] = "changes the topic of the chat to NAME";
+help["/quit"] = "quits the connection to the server";
+help["usage"] = "for /super:NAME, /kick:NAME and /topic:NAME you need to be a superuser";
+console.log(help);
+
 app.get("/", function(req, res){
 	res.sendfile(__dirname + '/index.html');
 });
@@ -33,9 +42,8 @@ io.sockets.on('connection', function (socket) {
     	var socketId = socket.id;
     	var userMessage = data.message;
     	var timestamp = data.time;
-    	console.log(userMessage.indexOf("/name:"));
     	if(userMessage.indexOf("/help") === 0) {
-    		//help
+    		showHelp(socket);
     	} else if(userMessage.indexOf("/name:") === 0) {
     		setNewUsername(socket, userMessage.substring(userMessage.indexOf(":") + 1));
     	} else if(userMessage.indexOf("/super:") === 0){
@@ -72,6 +80,10 @@ io.sockets.on('connection', function (socket) {
     	io.sockets.emit('updateUsers', users);
     });
 });
+
+function showHelp(socket){
+	socket.emit('help', help);
+}
 
 function setNewUsername(socket, name){
 	if(contains(users, name)){

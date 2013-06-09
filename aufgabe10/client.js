@@ -16,6 +16,7 @@ window.onload = function() {
     	username = data;
     	$("#username").html("You are logged in as: " + username);
     });
+    
     //gets the current topic
     socket.on('setTopic', function(data){
     	topic = data;
@@ -26,6 +27,15 @@ window.onload = function() {
         var chatWindow = $("#chatWindow");
        	var messageString = data.user + " (" + data.time + "): " + data.message + "\n";
         chatWindow.val(chatWindow.val() + messageString);
+    });
+    
+    socket.on('help', function(data){
+    	var helpString = "";
+    	console.log(data);
+    	for(var command in data){
+    		helpString += command + " - " + data[command] + "\n";
+    	}
+    	alert(helpString);
     });
     
     socket.on('error', function (data) {
@@ -47,15 +57,33 @@ window.onload = function() {
     	}
     });
     
-    var sendBtn = $("#sendBtn").click(function(){    	 
+    var sendBtn = $("#sendBtn").click(function(data){
+    	send(socket);
+    });
+    if(navigator.userAgent.indexOf("Firefox")!=-1){
+    	$("#input")[0].oninput =  function(e){
+    		if(e.keyCode === 13){
+				send(socket);
+			}
+		};
+	}
+	else{
+		$("#input").keyup(function(e){
+			if(e.keyCode === 13){
+				send(socket);
+			}
+		});
+	}
+
+    function send(socket){
     	var input = $("#input").val();
     	var currentTime = new Date();
-        var hours = currentTime.getHours();
-        var minutes = currentTime.getMinutes();
-        var timestamp = hours + ":" + minutes;
+    	var hours = currentTime.getHours();
+    	var minutes = currentTime.getMinutes();
+    	var timestamp = hours + ":" + minutes;
     	socket.emit('send', { message: input, time: timestamp});
     	$("#input").val("");
-    });
+    }
 };
 
 
