@@ -35,11 +35,11 @@ window.onload = function() {
     	for(var command in data){
     		helpString += command + " - " + data[command] + "\n";
     	}
-    	alert(helpString);
+    	bootbox.alert(helpString);
     });
     
     socket.on('error', function (data) {
-        alert(data);
+        bootbox.alert(data);
     });
     
     socket.on('updateUsers', function(data){

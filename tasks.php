@@ -106,7 +106,7 @@
 		<h3>Aufgabe 9</h3>
 		<ul>
 			<li>Single Page App mit nur einer index.html</li>
-			<li>Client-Routen über Anchor #</li>
+			<li>Client-Routen ï¿½ber Anchor #</li>
 			<li>User-Tests (min. 5 Benutzer_innen, Feedback protokollieren)</li>
 			<li>Usabilityverbesserungen, im besonderen:</li>
 			<ul>
@@ -125,7 +125,7 @@
 			<li>Entwicklung Web-Chat-Systems mit Node.js und Socket.IO</li>
 		</ul>
 		<p>Fehlende Features: Keine! </p>
-		<a href="http:\\138.232.66.87:9000">Chat room</a>
+		<a href="http://138.232.66.87:9000/">Chat room</a>
 		<br><br><br>
 	</div>
 </body>
