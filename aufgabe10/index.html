@@ -2,24 +2,29 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
 	<script src="/client.js" type="text/javascript"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootbox.js"></script>
 	<title>Chat room</title>
 </head>
 <body id="home">
 
-	<div class="row offset1">
-		<h1 id="topic"></h1>
-		<p id="username"></p>
-		<div class="span4">
-			<textarea id="chatWindow" rows="20" cols="50" disabled></textarea>
-			<input id="input"></input>
-			<button class="btn-primary" id="sendBtn">Send</button>
-		</div>
-		<div class="span3 offset1">
-			<textarea id="users" rows="20" disabled></textarea>
+	<div class="row-fluid">
+		<div class="offset1">
+			<h1 id="topic"></h1>
+			<p id="username"></p>
+			<div class="span5">
+				<h4>Chat window</h4>
+				<textarea id="chatWindow"  class="row-fluid" rows="20" disabled style="resize:none"></textarea>
+				<textarea class="span10" id="input" style="resize:none"></textarea>
+				<button class="btn btn-primary" id="sendBtn">Send</button>
+			</div>
+			<div class="span3 offset1">
+				<h4>Users online</h4>
+				<textarea id="users" rows="20" disabled style="resize:none"></textarea>
+			</div>
 		</div>
 	</div>
 </body>
