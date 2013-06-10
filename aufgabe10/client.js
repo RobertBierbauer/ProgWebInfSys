@@ -35,7 +35,7 @@ window.onload = function() {
     	for(var command in data){
     		helpString += command + " - " + data[command] + "\n";
     	}
-    	bootbox.alert(helpString + "\nTEst" + "\ntest2");
+    	bootbox.alert(helpString);
     });
     
     socket.on('error', function (data) {
