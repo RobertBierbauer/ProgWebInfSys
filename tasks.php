@@ -125,7 +125,7 @@
 			<li>Entwicklung Web-Chat-Systems mit Node.js und Socket.IO</li>
 		</ul>
 		<p>Fehlende Features: Keine! </p>
-		<a href="138.232.66.87:9000">Chat room</a>
+		<a href=":9000">Chat room</a>
 		<br><br><br>
 	</div>
 </body>
