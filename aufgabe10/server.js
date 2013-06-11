@@ -137,13 +137,13 @@ function kickUser(socket, name){
 		var socketId = getSocketIdByName(users, name);
 		var allSockets = io.sockets.sockets;
 		console.log(allSockets);
-		allSockets[socketId].emit('error', 'You got kicked!');
+		allSockets[socketId].emit('kicked', 'You got kicked!');
 		allSockets[socketId].disconnect('Unauthorized');
 	}
 }
 
 function quitConnection(socket){
-	socket.emit('error', 'Connection closed!');
+	socket.emit('kicked', 'Connection closed!');
 	socket.disconnect('Unauthorized');
 }
 

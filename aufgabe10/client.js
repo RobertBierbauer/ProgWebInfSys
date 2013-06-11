@@ -42,6 +42,13 @@ window.onload = function() {
         bootbox.alert(data);
     });
     
+    socket.on('kicked', function (data) {
+    	bootbox.alert(data);
+    	$("#input").disable();
+        $("#sendBtn").disable();
+        $("#users").empty();
+    });
+    
     socket.on('updateUsers', function(data){
     	var usersField = $("#users");
     	usersField.val("");
