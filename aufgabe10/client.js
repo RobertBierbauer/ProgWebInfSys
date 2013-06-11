@@ -45,9 +45,9 @@ window.onload = function() {
     socket.on('kicked', function (data) {
     	console.log("kicked");
     	bootbox.alert(data);
-    	$("#input").disable();
-        $("#sendBtn").disable();
-        $("#users").empty();
+    	$("#input").attr('disabled', 'disabled');
+        $("#sendBtn").attr('disabled', 'disabled');
+        $("#users").val('');
     });
     
     socket.on('updateUsers', function(data){
