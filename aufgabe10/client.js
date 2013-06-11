@@ -43,6 +43,7 @@ window.onload = function() {
     });
     
     socket.on('kicked', function (data) {
+    	console.log("kicked");
     	bootbox.alert(data);
     	$("#input").disable();
         $("#sendBtn").disable();
