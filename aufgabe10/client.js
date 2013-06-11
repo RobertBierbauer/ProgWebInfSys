@@ -83,7 +83,7 @@ window.onload = function() {
 	}
 
     function send(socket){
-    	var input = $("#input").val();
+    	var input = $.trim($("#input").val());
     	var currentTime = new Date();
     	var hours = currentTime.getHours();
     	var minutes = currentTime.getMinutes();
